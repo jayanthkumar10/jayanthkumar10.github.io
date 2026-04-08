@@ -81,19 +81,19 @@
     <!-- Desktop Menu -->
     <div class="hidden md:flex gap-10 text-sm font-medium text-gray-400">
       <a href="#about" class="hover:text-white relative group transition-colors">
-        about
+        About
         <span class="absolute left-0 -bottom-1.5 w-0 h-[2px] bg-[#b79fff] transition-all duration-300 group-hover:w-full"></span>
       </a>
       <a href="#projects" class="hover:text-white relative group transition-colors">
-        projects
+        Projects
         <span class="absolute left-0 -bottom-1.5 w-0 h-[2px] bg-[#b79fff] transition-all duration-300 group-hover:w-full"></span>
       </a>
       <a href="#experience" class="hover:text-white relative group transition-colors">
-        experience
+        Experience
         <span class="absolute left-0 -bottom-1.5 w-0 h-[2px] bg-[#b79fff] transition-all duration-300 group-hover:w-full"></span>
       </a>
       <a href="#contact" class="hover:text-white relative group transition-colors">
-        contact
+        Contact
         <span class="absolute left-0 -bottom-1.5 w-0 h-[2px] bg-[#b79fff] transition-all duration-300 group-hover:w-full"></span>
       </a>
     </div>
@@ -243,12 +243,19 @@
               Production-grade conversational AI on WhatsApp cutting manual scheduling effort by 70%+.
             </p>
           </div>
-          <div class="mt-8 rounded-2xl overflow-hidden relative transform-gpu">
-            <div class="absolute inset-0 bg-[#b79fff]/20 mix-blend-overlay group-hover:opacity-0 transition-opacity z-10"></div>
-            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71" class="w-full h-48 object-cover transform-gpu group-hover:scale-110 transition-transform duration-700 ease-out will-change-transform" alt="WhatsApp Appointment Bot" />
+          <div class="mt-8">
+            <div class="rounded-2xl overflow-hidden relative transform-gpu mb-6">
+              <div class="absolute inset-0 bg-[#b79fff]/20 mix-blend-overlay group-hover:opacity-0 transition-opacity z-10 pointer-events-none"></div>
+              <img src="./images/whatsapp_bot.png" class="w-full h-48 object-cover transform-gpu group-hover:scale-110 transition-transform duration-700 ease-out will-change-transform" alt="WhatsApp Appointment Bot" />
+            </div>
+            <a href="project-whatsapp-bot.html" class="inline-flex items-center gap-2 text-sm font-bold text-white group-hover:text-[#b79fff] transition-colors">
+              View
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            </a>
           </div>
         </div>
       </div>
+
 
       <!-- Project 03 -->
       <div class="relative group rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-4 reveal delay-200 will-change-transform">
@@ -258,16 +265,22 @@
               <h3 class="text-4xl md:text-5xl font-bold text-white/10 group-hover:text-[#b79fff]/40 transition duration-500">
                 03
               </h3>
-              <span class="px-4 py-1.5 rounded-full bg-[#b79fff]/10 text-[#b79fff] text-xs font-semibold border border-[#b79fff]/20">AI / RAG</span>
+              <span class="px-4 py-1.5 rounded-full bg-[#b79fff]/10 text-[#b79fff] text-xs font-semibold border border-[#b79fff]/20">Machine Learning</span>
             </div>
-            <h4 class="text-xl md:text-2xl font-bold mb-4 leading-snug group-hover:text-[#b79fff] transition-colors">RAG Resume Engine</h4>
+            <h4 class="text-xl md:text-2xl font-bold mb-4 leading-snug group-hover:text-[#b79fff] transition-colors">Heart Disease Prediction</h4>
             <p class="text-gray-400 text-sm leading-relaxed">
-              Dynamic resume personalization using FAISS & OpenAI embeddings for context-aware tailoring.
+              Supervised ML algorithms applied to clinical datasets for early-stage disease prediction (Published Patent).
             </p>
           </div>
-          <div class="mt-8 rounded-2xl overflow-hidden relative transform-gpu">
-            <div class="absolute inset-0 bg-[#b79fff]/20 mix-blend-overlay group-hover:opacity-0 transition-opacity z-10"></div>
-            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b" class="w-full h-48 object-cover transform-gpu group-hover:scale-110 transition-transform duration-700 ease-out will-change-transform" alt="RAG Resume Engine" />
+          <div class="mt-8">
+            <div class="rounded-2xl overflow-hidden relative transform-gpu mb-6">
+              <div class="absolute inset-0 bg-[#b79fff]/20 mix-blend-overlay group-hover:opacity-0 transition-opacity z-10 pointer-events-none"></div>
+              <img src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?q=80&w=800" class="w-full h-48 object-cover transform-gpu group-hover:scale-110 transition-transform duration-700 ease-out will-change-transform" alt="Heart Disease Prediction ML" />
+            </div>
+            <a href="project-heart-disease.html" class="inline-flex items-center gap-2 text-sm font-bold text-white group-hover:text-[#b79fff] transition-colors">
+              View
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            </a>
           </div>
         </div>
       </div>
@@ -434,8 +447,12 @@
               <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">LangChain</span>
               <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">LangGraph</span>
               <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">RAG</span>
-              <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">OpenAI / Gemini</span>
-              <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">FAISS</span>
+              <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">OpenAI / Gemini API</span>
+              <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">Vector Database (FAISS)</span> 
+              <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">Prompt Engineering</span>
+              <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">Autonomous AI Agents</span>
+              <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">Conversational AI</span>
+              <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">LLM</span>
             </div>
           </div>
         </div>
@@ -466,6 +483,11 @@
               <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">REST APIs</span>
               <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">Docker</span>
               <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">Azure</span>
+              <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">CI/CD</span>
+              <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">MLflow</span>
+              <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">API Integration</span>
+              <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">Workflow Automation</span>
+              <span class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#1a1a1a] border border-white/10 text-xs md:text-sm font-medium text-gray-200 shadow-inner">Webhooks</span>
             </div>
           </div>
         </div>
