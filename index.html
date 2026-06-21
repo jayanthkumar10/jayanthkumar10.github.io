@@ -323,6 +323,20 @@
 
       </div>
     </div>
+
+    <!-- Carousel Navigation Controls -->
+    <div class="flex justify-center items-center gap-4 mt-8 reveal">
+      <button id="carousel-prev-btn" class="w-10 h-10 rounded-full bg-[#151515] border border-white/5 flex items-center justify-center hover:border-[#b79fff]/50 hover:bg-[#b79fff]/10 transition-all duration-300 group shadow-lg cursor-pointer" aria-label="Previous Project">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 group-hover:text-[#b79fff] group-hover:-translate-x-0.5 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button id="carousel-next-btn" class="w-10 h-10 rounded-full bg-[#151515] border border-white/5 flex items-center justify-center hover:border-[#b79fff]/50 hover:bg-[#b79fff]/10 transition-all duration-300 group shadow-lg cursor-pointer" aria-label="Next Project">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 group-hover:text-[#b79fff] group-hover:translate-x-0.5 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
   </section>
 
   <!-- EXPERIENCE & EDUCATION (Elevated Island) -->
@@ -799,6 +813,17 @@
       }
     }
 
+    function prevSlide() {
+      if (currentIndex <= 0) {
+        currentIndex = originalCards.length;
+        updateCarousel(false);
+        // Force DOM reflow to apply instantaneous translate
+        track.offsetHeight;
+      }
+      currentIndex--;
+      updateCarousel(true);
+    }
+
     function startSlideshow() {
       if (!autoplayInterval) {
         autoplayInterval = setInterval(nextSlide, displayTime + transitionTime);
@@ -817,6 +842,22 @@
     container.addEventListener('mouseleave', startSlideshow);
     container.addEventListener('touchstart', stopSlideshow, { passive: true });
     container.addEventListener('touchend', startSlideshow, { passive: true });
+
+    // Click event listeners for manual Prev/Next buttons
+    const prevBtn = document.getElementById('carousel-prev-btn');
+    const nextBtn = document.getElementById('carousel-next-btn');
+
+    prevBtn.addEventListener('click', () => {
+      stopSlideshow();
+      prevSlide();
+      startSlideshow();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      stopSlideshow();
+      nextSlide();
+      startSlideshow();
+    });
 
     // Handle resize events
     window.addEventListener('resize', () => {
