@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulseOps AI - Case Study</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Premium High-End Animations */
+    @keyframes slideUpFade {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.1; }
+      50% { opacity: 0.2; }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .animate-pulse-glow { animation: pulseGlow 8s ease-in-out infinite; will-change: opacity; }
+    .hero-text-1 { opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards; will-change: opacity, transform; }
+    .hero-text-2 { opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; will-change: opacity, transform; }
+    .hero-text-3 { opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; will-change: opacity, transform; }
+    
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0e0e0e; }
+    ::-webkit-scrollbar-thumb { background: #262626; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #b79fff; }
+
+    /* Mouse Spotlight Effect */
+    .spotlight {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(183, 159, 255, 0.08) 0%, transparent 40%);
+      z-index: 9999;
+    }
+
+    /* Reading Progress Bar */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #b79fff, #ab8eff);
+      z-index: 10000;
+      width: 0%;
+      box-shadow: 0 0 10px rgba(183, 159, 255, 0.5);
+    }
+  </style>
+</head>
+<body class="bg-[#0e0e0e] text-white min-h-screen font-sans overflow-x-hidden selection:bg-[#b79fff]/30 selection:text-white">
+
+  <!-- Interactive Mouse Spotlight -->
+  <div class="spotlight"></div>
+  
+  <!-- Reading Progress Bar -->
+  <div id="progress-bar"></div>
+
+  <!-- GLOBAL GLOW -->
+  <div class="fixed inset-0 -z-10 pointer-events-none transform-gpu">
+    <div class="absolute w-[800px] h-[800px] bg-[#b79fff]/10 blur-[150px] top-[-200px] left-[-200px] animate-pulse-glow"></div>
+  </div>
+
+  <!-- MINIMAL NAVBAR -->
+  <nav class="flex justify-between items-center px-6 md:px-10 py-6 absolute w-full z-50">
+    <a href="index.html" class="flex items-center gap-2 text-gray-400 hover:text-[#b79fff] transition-colors font-medium group text-sm tracking-wide">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:-translate-x-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+      Back to Portfolio
+    </a>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="pt-24 pb-12 md:pt-32 md:pb-16 px-6 md:px-10 max-w-5xl mx-auto text-center relative z-10">
+    <span class="px-4 py-1.5 rounded-full bg-[#b79fff]/10 text-[#b79fff] text-xs font-bold tracking-widest uppercase border border-[#b79fff]/20 hero-text-1 inline-block mb-6 shadow-[0_0_20px_rgba(183,159,255,0.2)]">AI Operations</span>
+    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6 hero-text-2 drop-shadow-lg">
+      PulseOps AI
+    </h1>
+    <p class="text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed hero-text-3 font-light">
+      An autonomous multi-agent email intake pipeline with a native TF-IDF & Cosine Similarity vector store for automated IT incident triage, engineer allocation, and knowledge base resolution.
+    </p>
+  </section>
+
+  <!-- HERO IMAGE -->
+  <section class="px-6 md:px-10 pb-20 max-w-6xl mx-auto reveal">
+    <div class="relative rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_30px_100px_rgba(183,159,255,0.15)] bg-[#131313] aspect-video flex items-center justify-center group hover:border-white/20 transition-colors duration-500">
+      
+      <!-- Subtle internal glow for the image container -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] to-transparent z-10 opacity-60"></div>
+      
+      <!-- Image -->
+      <img src="./images/pulseops_ai.png" alt="PulseOps AI Dashboard" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-[1.02] transition-all duration-700 ease-out" />
+    </div>
+  </section>
+
+  <!-- QUICK STATS BAR -->
+  <section class="border-y border-white/5 bg-[#131313]/50 backdrop-blur-md py-10 mb-20 relative z-10">
+    <div class="max-w-6xl mx-auto px-6 md:px-10 grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/5 text-center reveal">
+      <div class="hover:-translate-y-1 transition-transform">
+        <h4 class="text-xs text-gray-500 uppercase tracking-widest mb-2 font-semibold">Role</h4>
+        <p class="text-lg font-bold text-white">AI Systems Engineer</p>
+      </div>
+      <div class="hover:-translate-y-1 transition-transform">
+        <h4 class="text-xs text-gray-500 uppercase tracking-widest mb-2 font-semibold">Timeline</h4>
+        <p class="text-lg font-bold text-white">3 Weeks</p>
+      </div>
+      <div class="hover:-translate-y-1 transition-transform">
+        <h4 class="text-xs text-gray-500 uppercase tracking-widest mb-2 font-semibold">Core Tech</h4>
+        <p class="text-lg font-bold text-[#b79fff]">FastAPI, Vanilla JS, Custom RAG</p>
+      </div>
+      <div class="hover:-translate-y-1 transition-transform">
+        <h4 class="text-xs text-gray-500 uppercase tracking-widest mb-2 font-semibold">Impact</h4>
+        <p class="text-lg font-bold text-[#16a34a]">Instant Triage & Routing</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITORIAL CASE STUDY CONTENT -->
+  <article class="max-w-6xl mx-auto px-6 md:px-10 space-y-24 md:space-y-32 pb-32 relative z-10">
+    
+    <!-- 01: Problem & Context -->
+    <div class="grid md:grid-cols-12 gap-8 lg:gap-20 reveal">
+      <div class="md:col-span-4">
+        <h2 class="text-transparent bg-clip-text bg-gradient-to-b from-[#b79fff] to-transparent text-7xl font-black opacity-40 mb-2">01</h2>
+        <h3 class="text-3xl font-bold text-white tracking-tight">Context & Problem</h3>
+      </div>
+      <div class="md:col-span-8 space-y-6 text-gray-400 text-lg leading-relaxed font-light">
+        <p>
+          IT operations teams are often overwhelmed by incoming system alerts, causing delays in manual triage and engineer assignment. This frequently leads to SLA violations and increases the Mean Time to Resolution (MTTR).
+        </p>
+        <p>
+          Furthermore, when incidents occur, engineers waste valuable time searching through documentation and past records to find the correct remediation steps.
+        </p>
+        <div class="bg-gradient-to-br from-[#1a1025] to-[#111] border border-[#b79fff]/20 p-8 rounded-3xl mt-8 shadow-xl">
+          <h4 class="text-white font-bold mb-3 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#b79fff]" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+            The Objective
+          </h4>
+          <p class="text-sm text-gray-300 leading-relaxed">Build a lightweight, production-grade autonomous operations assistant that acts as a closed-loop system—parsing email alerts, evaluating risk markers, matching incidents with historical resolutions via a custom vector database, and assigning engineers immediately based on workload.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02: Constraints -->
+    <div class="grid md:grid-cols-12 gap-8 lg:gap-20 reveal">
+      <div class="md:col-span-4">
+        <h2 class="text-transparent bg-clip-text bg-gradient-to-b from-[#b79fff] to-transparent text-7xl font-black opacity-40 mb-2">02</h2>
+        <h3 class="text-3xl font-bold text-white tracking-tight">Engineering Constraints</h3>
+      </div>
+      <div class="md:col-span-8 space-y-6 text-gray-400 text-lg leading-relaxed font-light">
+        <ul class="space-y-6">
+          <li class="flex gap-5 group">
+            <div class="w-12 h-12 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#b79fff]/50 group-hover:shadow-[0_0_15px_rgba(183,159,255,0.3)] transition-all">
+              <svg class="w-5 h-5 text-[#b79fff]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+            </div>
+            <div>
+              <strong class="text-white block mb-1 tracking-wide">Zero External Cloud DB Dependencies</strong>
+              <span class="text-sm">To enable local operation without external network dependencies, the vector store had to be designed from scratch in Python using pure TF-IDF indexing and Cosine Similarity mathematics.</span>
+            </div>
+          </li>
+          <li class="flex gap-5 group">
+            <div class="w-12 h-12 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#b79fff]/50 group-hover:shadow-[0_0_15px_rgba(183,159,255,0.3)] transition-all">
+              <svg class="w-5 h-5 text-[#b79fff]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </div>
+            <div>
+              <strong class="text-white block mb-1 tracking-wide">Dynamic Vocabulary Rebuilding</strong>
+              <span class="text-sm">When resolutions are submitted, the index must update dynamically. Rebuilding the document matrix and recalculating IDF weights on-the-fly while keeping the FastAPI server responsive and concurrent.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 03: Approach & Architecture -->
+    <div class="grid md:grid-cols-12 gap-8 lg:gap-20 reveal">
+      <div class="md:col-span-4">
+        <h2 class="text-transparent bg-clip-text bg-gradient-to-b from-[#b79fff] to-transparent text-7xl font-black opacity-40 mb-2">03</h2>
+        <h3 class="text-3xl font-bold text-white tracking-tight">Architecture</h3>
+      </div>
+      <div class="md:col-span-8 space-y-6 text-gray-400 text-lg leading-relaxed font-light">
+        <p>
+          I engineered a multi-agent orchestration pipeline that executes sequentially to parse, classify, and allocate incident responses.
+        </p>
+        
+        <div class="grid sm:grid-cols-2 gap-6 my-10">
+          <div class="bg-[#151515] border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-[#b79fff]/30 hover:shadow-2xl transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-[#b79fff]/10 flex items-center justify-center mb-5 border border-[#b79fff]/20">
+              <span class="text-2xl">🤖</span>
+            </div>
+            <h4 class="text-white font-bold mb-2">Multi-Agent Intake</h4>
+            <p class="text-sm leading-relaxed">Alert intake is handled by specialized agents: EmailReceiverAgent (parsing), TriageAgent (SLA bounding & priority scoring), and AllocationAgent (matching operator workloads & capability scores).</p>
+          </div>
+          <div class="bg-[#151515] border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-[#b79fff]/30 hover:shadow-2xl transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-[#b79fff]/10 flex items-center justify-center mb-5 border border-[#b79fff]/20">
+              <span class="text-2xl">⚙️</span>
+            </div>
+            <h4 class="text-white font-bold mb-2">Native Vector DB</h4>
+            <p class="text-sm leading-relaxed">Built SimpleVectorDB using pure Python mathematics. Computes document and query term frequencies, pre-computes IDF weights, and performs cosine similarity dot products for instant historical matching.</p>
+          </div>
+        </div>
+
+        <p>
+          The frontend is designed with a premium CRED dark mode aesthetic, leveraging custom SVG charts and live telemetry console logs. The Python FastAPI backend coordinates state changes and agents, providing a real-time event simulation flow.
+        </p>
+      </div>
+    </div>
+
+    <!-- 04: Results & Impact -->
+    <div class="grid md:grid-cols-12 gap-8 lg:gap-20 reveal">
+      <div class="md:col-span-4">
+        <h2 class="text-transparent bg-clip-text bg-gradient-to-b from-[#b79fff] to-transparent text-7xl font-black opacity-40 mb-2">04</h2>
+        <h3 class="text-3xl font-bold text-white tracking-tight">Impact & Value</h3>
+      </div>
+      <div class="md:col-span-8">
+        <div class="grid gap-6">
+          <div class="bg-gradient-to-br from-[#1a1025] to-[#111111] border border-[#b79fff]/30 p-8 rounded-3xl flex items-center gap-8 shadow-2xl hover:scale-[1.02] transition-transform">
+            <div class="w-20 h-20 rounded-full bg-[#b79fff]/10 border border-[#b79fff]/20 flex items-center justify-center shrink-0 shadow-[0_0_30px_rgba(183,159,255,0.2)]">
+              <span class="text-[#b79fff] font-bold text-3xl">100%</span>
+            </div>
+            <div>
+              <h4 class="text-xl font-bold text-white mb-2 tracking-wide">Automated Routing</h4>
+              <p class="text-gray-400 text-sm leading-relaxed">Completely eliminated manual triage delay, instantly assigning incidents to the most qualified engineer.</p>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-[#111111] to-[#111111] border border-white/10 p-8 rounded-3xl flex items-center gap-8 shadow-2xl hover:scale-[1.02] transition-transform">
+            <div class="w-20 h-20 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0 shadow-[0_0_30px_rgba(34,197,94,0.1)]">
+              <span class="text-green-500 font-bold text-3xl">Self</span>
+            </div>
+            <div>
+              <h4 class="text-xl font-bold text-white mb-2 tracking-wide">Improving RAG Index</h4>
+              <p class="text-gray-400 text-sm leading-relaxed">Engineers' submitted resolutions immediately update the vector search space, ensuring subsequent matching is updated and corrected in real time.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </article>
+
+  <!-- CTA / NEXT PROJECT -->
+  <section class="border-t border-white/5 bg-[#131313] py-24 text-center relative z-10">
+    <div class="max-w-3xl mx-auto px-6 reveal">
+      <h3 class="text-4xl font-extrabold text-white mb-8 tracking-tight">Ready to see more of my work?</h3>
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+        
+        <!-- View All Projects Button -->
+        <a href="index.html#projects" class="px-10 py-4 rounded-full border border-white/20 text-white font-bold hover:bg-white hover:text-black transition-all duration-300 w-full sm:w-auto text-center">
+          View All Projects
+        </a>
+
+        <!-- Animated Gradient "Get in Touch" Button -->
+        <a href="index.html#contact" class="relative inline-flex h-14 overflow-hidden rounded-full p-[2px] hover:scale-105 transition-transform duration-300 w-full sm:w-auto shadow-[0_0_40px_rgba(183,159,255,0.3)]">
+          <span class="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#0e0e0e_0%,#b79fff_50%,#0e0e0e_100%)]"></span>
+          <span class="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-[#111] px-10 py-1 text-sm font-bold text-white backdrop-blur-3xl transition-colors hover:bg-transparent">
+            Get in Touch
+          </span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script>
+    // 1. Reading Progress Bar Logic
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('progress-bar').style.width = scrolled + '%';
+    });
+
+    // 2. Mouse Spotlight Logic
+    document.addEventListener('mousemove', (e) => {
+      document.documentElement.style.setProperty('--x', e.clientX + 'px');
+      document.documentElement.style.setProperty('--y', e.clientY + 'px');
+    });
+
+    // 3. Scroll Reveal Animations
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
