@@ -198,121 +198,130 @@
       <p class="text-gray-400 mt-4 md:mt-6 max-w-2xl mx-auto text-base md:text-lg">A showcase of intelligent systems, automated workflows, and LLM-powered applications I've built.</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-10 max-w-5xl mx-auto">
-      
-      <!-- Project 01 -->
-      <div class="relative group rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-4 reveal will-change-transform">
-        <div class="bg-[#151515] border border-white/5 p-8 rounded-[2.5rem] h-full flex flex-col justify-between relative z-10 shadow-xl group-hover:border-[#b79fff]/30 transition-colors duration-500 transform-gpu">
-          <div>
-            <div class="flex justify-between items-start mb-8">
-              <h3 class="text-4xl md:text-5xl font-bold text-white/10 group-hover:text-[#b79fff]/40 transition duration-500">
-                01
-              </h3>
-              <span class="px-4 py-1.5 rounded-full bg-[#b79fff]/10 text-[#b79fff] text-xs font-semibold border border-[#b79fff]/20">AI Agent</span>
+    <div id="project-carousel-container" class="overflow-hidden w-full max-w-7xl mx-auto px-4 relative reveal">
+      <div id="project-track" class="flex transition-transform duration-500 ease-out py-6">
+        
+        <!-- Project 01 -->
+        <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+          <div class="relative group rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-4 h-full will-change-transform">
+            <div class="bg-[#151515] border border-white/5 p-8 rounded-[2.5rem] h-full flex flex-col justify-between relative z-10 shadow-xl group-hover:border-[#b79fff]/30 transition-colors duration-500 transform-gpu">
+              <div>
+                <div class="flex justify-between items-start mb-8">
+                  <h3 class="text-4xl md:text-5xl font-bold text-white/10 group-hover:text-[#b79fff]/40 transition duration-500">
+                    01
+                  </h3>
+                  <span class="px-4 py-1.5 rounded-full bg-[#b79fff]/10 text-[#b79fff] text-xs font-semibold border border-[#b79fff]/20">AI Agent</span>
+                </div>
+                <h4 class="text-xl md:text-2xl font-bold mb-4 leading-snug group-hover:text-[#b79fff] transition-colors">AI Job Companion</h4>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Multi-agent pipeline (LangGraph) that scrapes jobs, evaluates fit, and manages end-to-end tracking.
+                </p>
+              </div>
+              <div class="mt-8">
+                <div class="rounded-2xl overflow-hidden relative transform-gpu mb-6">
+                  <div class="absolute inset-0 bg-[#b79fff]/20 mix-blend-overlay group-hover:opacity-0 transition-opacity z-10 pointer-events-none"></div>
+                  <img src="./images/ai_job_companion.png" class="w-full h-48 object-cover transform-gpu group-hover:scale-110 transition-transform duration-700 ease-out will-change-transform" alt="AI Job Companion" />
+                </div>
+                <a href="project-ai-job-companion.html" class="inline-flex items-center gap-2 text-sm font-bold text-white group-hover:text-[#b79fff] transition-colors">
+                  view 
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                </a>
+              </div>
             </div>
-            <h4 class="text-xl md:text-2xl font-bold mb-4 leading-snug group-hover:text-[#b79fff] transition-colors">AI Job Companion</h4>
-            <p class="text-gray-400 text-sm leading-relaxed">
-              Multi-agent pipeline (LangGraph) that scrapes jobs, evaluates fit, and manages end-to-end tracking.
-            </p>
-          </div>
-          <div class="mt-8">
-            <div class="rounded-2xl overflow-hidden relative transform-gpu mb-6">
-              <div class="absolute inset-0 bg-[#b79fff]/20 mix-blend-overlay group-hover:opacity-0 transition-opacity z-10 pointer-events-none"></div>
-              <img src="./images/ai_job_companion.png" class="w-full h-48 object-cover transform-gpu group-hover:scale-110 transition-transform duration-700 ease-out will-change-transform" alt="AI Job Companion" />
-            </div>
-            <a href="project-ai-job-companion.html" class="inline-flex items-center gap-2 text-sm font-bold text-white group-hover:text-[#b79fff] transition-colors">
-              view 
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 02 -->
-      <div class="relative group rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-4 reveal delay-100 will-change-transform">
-        <div class="bg-[#151515] border border-white/5 p-8 rounded-[2.5rem] h-full flex flex-col justify-between relative z-10 shadow-xl group-hover:border-[#b79fff]/30 transition-colors duration-500 transform-gpu">
-          <div>
-            <div class="flex justify-between items-start mb-8">
-              <h3 class="text-4xl md:text-5xl font-bold text-white/10 group-hover:text-[#b79fff]/40 transition duration-500">
-                02
-              </h3>
-              <span class="px-4 py-1.5 rounded-full bg-[#b79fff]/10 text-[#b79fff] text-xs font-semibold border border-[#b79fff]/20">Automation</span>
-            </div>
-            <h4 class="text-xl md:text-2xl font-bold mb-4 leading-snug group-hover:text-[#b79fff] transition-colors">WhatsApp Appointment Bot</h4>
-            <p class="text-gray-400 text-sm leading-relaxed">
-              Production-grade conversational AI on WhatsApp cutting manual scheduling effort by 70%+.
-            </p>
-          </div>
-          <div class="mt-8">
-            <div class="rounded-2xl overflow-hidden relative transform-gpu mb-6">
-              <div class="absolute inset-0 bg-[#b79fff]/20 mix-blend-overlay group-hover:opacity-0 transition-opacity z-10 pointer-events-none"></div>
-              <img src="./images/whatsapp_bot.png" class="w-full h-48 object-cover transform-gpu group-hover:scale-110 transition-transform duration-700 ease-out will-change-transform" alt="WhatsApp Appointment Bot" />
-            </div>
-            <a href="project-whatsapp-bot.html" class="inline-flex items-center gap-2 text-sm font-bold text-white group-hover:text-[#b79fff] transition-colors">
-              View
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </a>
           </div>
         </div>
-      </div>
 
-
-      <!-- Project 03 -->
-      <div class="relative group rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-4 reveal delay-200 will-change-transform">
-        <div class="bg-[#151515] border border-white/5 p-8 rounded-[2.5rem] h-full flex flex-col justify-between relative z-10 shadow-xl group-hover:border-[#b79fff]/30 transition-colors duration-500 transform-gpu">
-          <div>
-            <div class="flex justify-between items-start mb-8">
-              <h3 class="text-4xl md:text-5xl font-bold text-white/10 group-hover:text-[#b79fff]/40 transition duration-500">
-                03
-              </h3>
-              <span class="px-4 py-1.5 rounded-full bg-[#b79fff]/10 text-[#b79fff] text-xs font-semibold border border-[#b79fff]/20">Machine Learning</span>
+        <!-- Project 02 -->
+        <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+          <div class="relative group rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-4 h-full will-change-transform">
+            <div class="bg-[#151515] border border-white/5 p-8 rounded-[2.5rem] h-full flex flex-col justify-between relative z-10 shadow-xl group-hover:border-[#b79fff]/30 transition-colors duration-500 transform-gpu">
+              <div>
+                <div class="flex justify-between items-start mb-8">
+                  <h3 class="text-4xl md:text-5xl font-bold text-white/10 group-hover:text-[#b79fff]/40 transition duration-500">
+                    02
+                  </h3>
+                  <span class="px-4 py-1.5 rounded-full bg-[#b79fff]/10 text-[#b79fff] text-xs font-semibold border border-[#b79fff]/20">Automation</span>
+                </div>
+                <h4 class="text-xl md:text-2xl font-bold mb-4 leading-snug group-hover:text-[#b79fff] transition-colors">WhatsApp Appointment Bot</h4>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Production-grade conversational AI on WhatsApp cutting manual scheduling effort by 70%+.
+                </p>
+              </div>
+              <div class="mt-8">
+                <div class="rounded-2xl overflow-hidden relative transform-gpu mb-6">
+                  <div class="absolute inset-0 bg-[#b79fff]/20 mix-blend-overlay group-hover:opacity-0 transition-opacity z-10 pointer-events-none"></div>
+                  <img src="./images/whatsapp_bot.png" class="w-full h-48 object-cover transform-gpu group-hover:scale-110 transition-transform duration-700 ease-out will-change-transform" alt="WhatsApp Appointment Bot" />
+                </div>
+                <a href="project-whatsapp-bot.html" class="inline-flex items-center gap-2 text-sm font-bold text-white group-hover:text-[#b79fff] transition-colors">
+                  View
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                </a>
+              </div>
             </div>
-            <h4 class="text-xl md:text-2xl font-bold mb-4 leading-snug group-hover:text-[#b79fff] transition-colors">Heart Disease Prediction</h4>
-            <p class="text-gray-400 text-sm leading-relaxed">
-              Supervised ML algorithms applied to clinical datasets for early-stage disease prediction (Published Patent).
-            </p>
-          </div>
-          <div class="mt-8">
-            <div class="rounded-2xl overflow-hidden relative transform-gpu mb-6">
-              <div class="absolute inset-0 bg-[#b79fff]/20 mix-blend-overlay group-hover:opacity-0 transition-opacity z-10 pointer-events-none"></div>
-              <img src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?q=80&w=800" class="w-full h-48 object-cover transform-gpu group-hover:scale-110 transition-transform duration-700 ease-out will-change-transform" alt="Heart Disease Prediction ML" />
-            </div>
-            <a href="project-heart-disease.html" class="inline-flex items-center gap-2 text-sm font-bold text-white group-hover:text-[#b79fff] transition-colors">
-              View
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 04 -->
-      <div class="relative group rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-4 reveal delay-300 will-change-transform">
-        <div class="bg-[#151515] border border-white/5 p-8 rounded-[2.5rem] h-full flex flex-col justify-between relative z-10 shadow-xl group-hover:border-[#b79fff]/30 transition-colors duration-500 transform-gpu">
-          <div>
-            <div class="flex justify-between items-start mb-8">
-              <h3 class="text-4xl md:text-5xl font-bold text-white/10 group-hover:text-[#b79fff]/40 transition duration-500">
-                04
-              </h3>
-              <span class="px-4 py-1.5 rounded-full bg-[#b79fff]/10 text-[#b79fff] text-xs font-semibold border border-[#b79fff]/20">AI Operations</span>
-            </div>
-            <h4 class="text-xl md:text-2xl font-bold mb-4 leading-snug group-hover:text-[#b79fff] transition-colors">PulseOps AI</h4>
-            <p class="text-gray-400 text-sm leading-relaxed">
-              Autonomous multi-agent email intake pipeline with a native TF-IDF & Cosine Similarity vector store for IT incident triage.
-            </p>
-          </div>
-          <div class="mt-8">
-            <div class="rounded-2xl overflow-hidden relative transform-gpu mb-6">
-              <div class="absolute inset-0 bg-[#b79fff]/20 mix-blend-overlay group-hover:opacity-0 transition-opacity z-10 pointer-events-none"></div>
-              <img src="./images/pulseops_ai.png" class="w-full h-48 object-cover transform-gpu group-hover:scale-110 transition-transform duration-700 ease-out will-change-transform" alt="PulseOps AI" />
-            </div>
-            <a href="project-pulseops-ai.html" class="inline-flex items-center gap-2 text-sm font-bold text-white group-hover:text-[#b79fff] transition-colors">
-              View
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </a>
           </div>
         </div>
-      </div>
 
+        <!-- Project 03 -->
+        <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+          <div class="relative group rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-4 h-full will-change-transform">
+            <div class="bg-[#151515] border border-white/5 p-8 rounded-[2.5rem] h-full flex flex-col justify-between relative z-10 shadow-xl group-hover:border-[#b79fff]/30 transition-colors duration-500 transform-gpu">
+              <div>
+                <div class="flex justify-between items-start mb-8">
+                  <h3 class="text-4xl md:text-5xl font-bold text-white/10 group-hover:text-[#b79fff]/40 transition duration-500">
+                    03
+                  </h3>
+                  <span class="px-4 py-1.5 rounded-full bg-[#b79fff]/10 text-[#b79fff] text-xs font-semibold border border-[#b79fff]/20">Machine Learning</span>
+                </div>
+                <h4 class="text-xl md:text-2xl font-bold mb-4 leading-snug group-hover:text-[#b79fff] transition-colors">Heart Disease Prediction</h4>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Supervised ML algorithms applied to clinical datasets for early-stage disease prediction (Published Patent).
+                </p>
+              </div>
+              <div class="mt-8">
+                <div class="rounded-2xl overflow-hidden relative transform-gpu mb-6">
+                  <div class="absolute inset-0 bg-[#b79fff]/20 mix-blend-overlay group-hover:opacity-0 transition-opacity z-10 pointer-events-none"></div>
+                  <img src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?q=80&w=800" class="w-full h-48 object-cover transform-gpu group-hover:scale-110 transition-transform duration-700 ease-out will-change-transform" alt="Heart Disease Prediction ML" />
+                </div>
+                <a href="project-heart-disease.html" class="inline-flex items-center gap-2 text-sm font-bold text-white group-hover:text-[#b79fff] transition-colors">
+                  View
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 04 -->
+        <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+          <div class="relative group rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:-translate-y-4 h-full will-change-transform">
+            <div class="bg-[#151515] border border-white/5 p-8 rounded-[2.5rem] h-full flex flex-col justify-between relative z-10 shadow-xl group-hover:border-[#b79fff]/30 transition-colors duration-500 transform-gpu">
+              <div>
+                <div class="flex justify-between items-start mb-8">
+                  <h3 class="text-4xl md:text-5xl font-bold text-white/10 group-hover:text-[#b79fff]/40 transition duration-500">
+                    04
+                  </h3>
+                  <span class="px-4 py-1.5 rounded-full bg-[#b79fff]/10 text-[#b79fff] text-xs font-semibold border border-[#b79fff]/20">AI Operations</span>
+                </div>
+                <h4 class="text-xl md:text-2xl font-bold mb-4 leading-snug group-hover:text-[#b79fff] transition-colors">PulseOps AI</h4>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Autonomous multi-agent email intake pipeline with a native TF-IDF & Cosine Similarity vector store for IT incident triage.
+                </p>
+              </div>
+              <div class="mt-8">
+                <div class="rounded-2xl overflow-hidden relative transform-gpu mb-6">
+                  <div class="absolute inset-0 bg-[#b79fff]/20 mix-blend-overlay group-hover:opacity-0 transition-opacity z-10 pointer-events-none"></div>
+                  <img src="./images/pulseops_ai.png" class="w-full h-48 object-cover transform-gpu group-hover:scale-110 transition-transform duration-700 ease-out will-change-transform" alt="PulseOps AI" />
+                </div>
+                <a href="project-pulseops-ai.html" class="inline-flex items-center gap-2 text-sm font-bold text-white group-hover:text-[#b79fff] transition-colors">
+                  View
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
@@ -740,6 +749,83 @@
       }
       document.body.removeChild(textArea);
     }
+
+    // --- 7. PROJECTS CAROUSEL SLIDESHOW LOGIC ---
+    const track = document.getElementById('project-track');
+    const container = document.getElementById('project-carousel-container');
+    const originalCards = Array.from(track.children);
+    
+    // To make it infinite, clone the original set of cards and append them
+    originalCards.forEach(card => {
+      const clone = card.cloneNode(true);
+      track.appendChild(clone);
+    });
+
+    let currentIndex = 0;
+    let autoplayInterval = null;
+    const transitionTime = 500; // 0.5s sliding transition
+    const displayTime = 1000;    // 1.0s pause between slides (1.5s total loop)
+
+    function getVisibleCount() {
+      if (window.innerWidth >= 1024) return 3; // lg: 3 side-by-side
+      if (window.innerWidth >= 768) return 2;  // md: 2 side-by-side
+      return 1; // mobile: 1 slide
+    }
+
+    function updateCarousel(useTransition = true) {
+      const visibleCount = getVisibleCount();
+      const cardWidth = track.clientWidth / visibleCount;
+      
+      if (useTransition) {
+        track.style.transition = `transform ${transitionTime}ms cubic-bezier(0.25, 1, 0.5, 1)`;
+      } else {
+        track.style.transition = 'none';
+      }
+      
+      track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+    }
+
+    function nextSlide() {
+      const visibleCount = getVisibleCount();
+      currentIndex++;
+      updateCarousel(true);
+
+      // Snap back to 0 seamlessly once we reach the cloned set
+      if (currentIndex >= originalCards.length) {
+        setTimeout(() => {
+          currentIndex = 0;
+          updateCarousel(false);
+        }, transitionTime);
+      }
+    }
+
+    function startSlideshow() {
+      if (!autoplayInterval) {
+        autoplayInterval = setInterval(nextSlide, displayTime + transitionTime);
+      }
+    }
+
+    function stopSlideshow() {
+      if (autoplayInterval) {
+        clearInterval(autoplayInterval);
+        autoplayInterval = null;
+      }
+    }
+
+    // Hover & Touch listeners to pause/resume slideshow
+    container.addEventListener('mouseenter', stopSlideshow);
+    container.addEventListener('mouseleave', startSlideshow);
+    container.addEventListener('touchstart', stopSlideshow, { passive: true });
+    container.addEventListener('touchend', startSlideshow, { passive: true });
+
+    // Handle resize events
+    window.addEventListener('resize', () => {
+      updateCarousel(false);
+    });
+
+    // Initialize carousel on load
+    updateCarousel(false);
+    startSlideshow();
   </script>
 </body>
 </html>
