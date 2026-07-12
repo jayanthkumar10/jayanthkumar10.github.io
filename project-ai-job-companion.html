@@ -1,329 +1,208 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth bg-[#0A0A0A] text-zinc-400">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Job Companion - Case Study</title>
+  <title>Pathlight.ai Case Study | Jayanth Kumar</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Premium High-End Animations */
-    @keyframes slideUpFade {
-      0% { opacity: 0; transform: translateY(40px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 0.1; }
-      50% { opacity: 0.2; }
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .animate-pulse-glow { animation: pulseGlow 8s ease-in-out infinite; will-change: opacity; }
-    .hero-text-1 { opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards; will-change: opacity, transform; }
-    .hero-text-2 { opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; will-change: opacity, transform; }
-    .hero-text-3 { opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; will-change: opacity, transform; }
-    
-    .reveal {
-      opacity: 0; transform: translateY(40px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: opacity, transform;
-    }
-    .reveal.active { opacity: 1; transform: translateY(0); }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #0e0e0e; }
-    ::-webkit-scrollbar-thumb { background: #262626; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #b79fff; }
-
-    /* Mouse Spotlight Effect */
-    .spotlight {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      pointer-events: none;
-      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(183, 159, 255, 0.08) 0%, transparent 40%);
-      z-index: 9999;
-    }
-
-    /* Reading Progress Bar */
-    #progress-bar {
-      position: fixed;
-      top: 0; left: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #b79fff, #ab8eff);
-      z-index: 10000;
-      width: 0%;
-      box-shadow: 0 0 10px rgba(183, 159, 255, 0.5);
-    }
-  </style>
-</head>
-<body class="bg-[#0e0e0e] text-white min-h-screen font-sans overflow-x-hidden selection:bg-[#b79fff]/30 selection:text-white">
-
-  <!-- Interactive Mouse Spotlight -->
-  <div class="spotlight"></div>
-  
-  <!-- Reading Progress Bar -->
-  <div id="progress-bar"></div>
-
-  <!-- GLOBAL GLOW -->
-  <div class="fixed inset-0 -z-10 pointer-events-none transform-gpu">
-    <div class="absolute w-[800px] h-[800px] bg-[#b79fff]/10 blur-[150px] top-[-200px] left-[-200px] animate-pulse-glow"></div>
-  </div>
-
-  <!-- MINIMAL NAVBAR -->
-  <nav class="flex justify-between items-center px-6 md:px-10 py-6 absolute w-full z-50">
-    <a href="index.html" class="flex items-center gap-2 text-gray-400 hover:text-[#b79fff] transition-colors font-medium group text-sm tracking-wide">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:-translate-x-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-      Back to Portfolio
-    </a>
-  </nav>
-
-  <!-- HERO SECTION -->
-  <section class="pt-24 pb-12 md:pt-32 md:pb-16 px-6 md:px-10 max-w-5xl mx-auto text-center relative z-10">
-    <span class="px-4 py-1.5 rounded-full bg-[#b79fff]/10 text-[#b79fff] text-xs font-bold tracking-widest uppercase border border-[#b79fff]/20 hero-text-1 inline-block mb-6 shadow-[0_0_20px_rgba(183,159,255,0.2)]">AI Agent System</span>
-    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6 hero-text-2 drop-shadow-lg">
-      AI Job Companion
-    </h1>
-    <p class="text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed hero-text-3 font-light">
-      An autonomous multi-agent pipeline designed to orchestrate job scraping, context-aware resume tailoring, and interview tracking with cognitive precision.
-    </p>
-  </section>
-
-  <!-- HERO IMAGE / VIDEO DEMO -->
-  <section class="px-6 md:px-10 pb-20 max-w-6xl mx-auto reveal">
-    <div class="relative rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_30px_100px_rgba(183,159,255,0.15)] bg-[#131313] aspect-video flex items-center justify-center group cursor-pointer hover:border-white/20 transition-colors duration-500">
-      
-      <!-- Subtle internal glow for the image container -->
-      <div class="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] to-transparent z-10 opacity-60"></div>
-      
-      <!-- Image / Video -->
-      <img src="./images/ai_job_companion.png" alt="App Dashboard" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-all duration-700 ease-out" />
-      <video id="demoVideo" class="absolute inset-0 w-full h-full object-cover hidden z-20" controls controlsList="nodownload">
-        <source src="./video/demo.mp4" type="video/mp4">
-      </video>
-
-      <!-- Glowing Play Button -->
-      <button id="playBtn" class="w-20 h-20 md:w-24 md:h-24 bg-black/40 backdrop-blur-xl border border-white/20 rounded-full flex items-center justify-center z-30 group-hover:bg-[#b79fff] group-hover:scale-110 group-hover:shadow-[0_0_60px_rgba(183,159,255,0.8)] transition-all duration-500">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 ml-2 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-      </button>
-    </div>
-  </section>
-
-  <!-- QUICK STATS BAR -->
-  <section class="border-y border-white/5 bg-[#131313]/50 backdrop-blur-md py-10 mb-20 relative z-10">
-    <div class="max-w-6xl mx-auto px-6 md:px-10 grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/5 text-center reveal">
-      <div class="hover:-translate-y-1 transition-transform">
-        <h4 class="text-xs text-gray-500 uppercase tracking-widest mb-2 font-semibold">Role</h4>
-        <p class="text-lg font-bold text-white">Full-Stack AI Eng.</p>
-      </div>
-      <div class="hover:-translate-y-1 transition-transform">
-        <h4 class="text-xs text-gray-500 uppercase tracking-widest mb-2 font-semibold">Timeline</h4>
-        <p class="text-lg font-bold text-white">4 Weeks</p>
-      </div>
-      <div class="hover:-translate-y-1 transition-transform">
-        <h4 class="text-xs text-gray-500 uppercase tracking-widest mb-2 font-semibold">Core Tech</h4>
-        <p class="text-lg font-bold text-[#b79fff]">LangGraph, n8n, FastAPI</p>
-      </div>
-      <div class="hover:-translate-y-1 transition-transform">
-        <h4 class="text-xs text-gray-500 uppercase tracking-widest mb-2 font-semibold">Impact</h4>
-        <p class="text-lg font-bold text-[#16a34a]">-80% Manual Effort</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- EDITORIAL CASE STUDY CONTENT (Fixed Desktop Width) -->
-  <article class="max-w-6xl mx-auto px-6 md:px-10 space-y-24 md:space-y-32 pb-32 relative z-10">
-    
-    <!-- 01: Problem & Context -->
-    <div class="grid md:grid-cols-12 gap-8 lg:gap-20 reveal">
-      <div class="md:col-span-4">
-        <h2 class="text-transparent bg-clip-text bg-gradient-to-b from-[#b79fff] to-transparent text-7xl font-black opacity-40 mb-2">01</h2>
-        <h3 class="text-3xl font-bold text-white tracking-tight">Context & Problem</h3>
-      </div>
-      <div class="md:col-span-8 space-y-6 text-gray-400 text-lg leading-relaxed font-light">
-        <p>
-          The modern job application process is severely broken. Tailoring resumes to bypass rigid Applicant Tracking Systems (ATS) requires manual, tedious keyword optimization for every single application.
-        </p>
-        <p>
-          Simultaneously, tracking application statuses, monitoring incoming recruiter emails, and scheduling interviews creates a chaotic administrative overhead that distracts candidates from actual interview preparation.
-        </p>
-        <div class="bg-gradient-to-br from-[#1a1025] to-[#111] border border-[#b79fff]/20 p-8 rounded-3xl mt-8 shadow-xl">
-          <h4 class="text-white font-bold mb-3 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#b79fff]" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
-            The Objective
-          </h4>
-          <p class="text-sm text-gray-300 leading-relaxed">Build a closed-loop, autonomous system that acts as a cognitive assistant—scraping requirements, evaluating candidate fit, rewriting resumes precisely, and tracking correspondence without manual intervention.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 02: Constraints -->
-    <div class="grid md:grid-cols-12 gap-8 lg:gap-20 reveal">
-      <div class="md:col-span-4">
-        <h2 class="text-transparent bg-clip-text bg-gradient-to-b from-[#b79fff] to-transparent text-7xl font-black opacity-40 mb-2">02</h2>
-        <h3 class="text-3xl font-bold text-white tracking-tight">Engineering Constraints</h3>
-      </div>
-      <div class="md:col-span-8 space-y-6 text-gray-400 text-lg leading-relaxed font-light">
-        <ul class="space-y-6">
-          <li class="flex gap-5 group">
-            <div class="w-12 h-12 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#b79fff]/50 group-hover:shadow-[0_0_15px_rgba(183,159,255,0.3)] transition-all">
-              <svg class="w-5 h-5 text-[#b79fff]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-            </div>
-            <div>
-              <strong class="text-white block mb-1 tracking-wide">Hallucination Risk</strong>
-              <span class="text-sm">When an LLM rewrites a resume, it must remain 100% faithful to the user's actual history. It cannot invent skills to match a job description.</span>
-            </div>
-          </li>
-          <li class="flex gap-5 group">
-            <div class="w-12 h-12 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#b79fff]/50 group-hover:shadow-[0_0_15px_rgba(183,159,255,0.3)] transition-all">
-              <svg class="w-5 h-5 text-[#b79fff]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-            </div>
-            <div>
-              <strong class="text-white block mb-1 tracking-wide">Workflow Orchestration</strong>
-              <span class="text-sm">Scraping websites, hitting LLM endpoints, and writing to Google Sheets required robust async handling and error fallbacks to prevent pipeline crashes.</span>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 03: Approach & Architecture -->
-    <div class="grid md:grid-cols-12 gap-8 lg:gap-20 reveal">
-      <div class="md:col-span-4">
-        <h2 class="text-transparent bg-clip-text bg-gradient-to-b from-[#b79fff] to-transparent text-7xl font-black opacity-40 mb-2">03</h2>
-        <h3 class="text-3xl font-bold text-white tracking-tight">Architecture</h3>
-      </div>
-      <div class="md:col-span-8 space-y-6 text-gray-400 text-lg leading-relaxed font-light">
-        <p>
-          I adopted a multi-agent orchestration approach using <strong class="text-white font-medium">LangGraph</strong> to cleanly separate concerns. Rather than one massive prompt, the system relies on specialized nodes.
-        </p>
-        
-        <div class="grid sm:grid-cols-2 gap-6 my-10">
-          <div class="bg-[#151515] border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-[#b79fff]/30 hover:shadow-2xl transition-all duration-300">
-            <div class="w-12 h-12 rounded-xl bg-[#b79fff]/10 flex items-center justify-center mb-5 border border-[#b79fff]/20">
-              <span class="text-2xl">🤖</span>
-            </div>
-            <h4 class="text-white font-bold mb-2">Agent Nexus</h4>
-            <p class="text-sm leading-relaxed">A stateful LangGraph orchestrator that uses a ReAct framework to autonomously query Gmail and Google Sheets for real-time job application tracking and interview management.</p>
-          </div>
-          <div class="bg-[#151515] border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-[#b79fff]/30 hover:shadow-2xl transition-all duration-300">
-            <div class="w-12 h-12 rounded-xl bg-[#b79fff]/10 flex items-center justify-center mb-5 border border-[#b79fff]/20">
-              <span class="text-2xl">⚙️</span>
-            </div>
-            <h4 class="text-white font-bold mb-2">Agent Nexus</h4>
-            <p class="text-sm leading-relaxed">A high-throughput workflow that automates LinkedIn scraping, filters roles via a Gemini relevance checker, and executes a multi-agent chain to generate tailored, ATS-optimized PDF resumes.</p>
-          </div>
-        </div>
-
-        <p>
-          The frontend was built with <strong class="text-white font-medium">HTML/Tailwind</strong> to deliver a sleek, glassmorphism UI. A <strong class="text-white font-medium">Python FastAPI</strong> backend bridges the UI to the LangGraph execution engine, allowing real-time chat interactions with the data via Google APIs (Sheets & Gmail).
-        </p>
-      </div>
-    </div>
-
-    <!-- 04: Results & Impact -->
-    <div class="grid md:grid-cols-12 gap-8 lg:gap-20 reveal">
-      <div class="md:col-span-4">
-        <h2 class="text-transparent bg-clip-text bg-gradient-to-b from-[#b79fff] to-transparent text-7xl font-black opacity-40 mb-2">04</h2>
-        <h3 class="text-3xl font-bold text-white tracking-tight">Impact & Value</h3>
-      </div>
-      <div class="md:col-span-8">
-        <div class="grid gap-6">
-          <div class="bg-gradient-to-br from-[#1a1025] to-[#111111] border border-[#b79fff]/30 p-8 rounded-3xl flex items-center gap-8 shadow-2xl hover:scale-[1.02] transition-transform">
-            <div class="w-20 h-20 rounded-full bg-[#b79fff]/10 border border-[#b79fff]/20 flex items-center justify-center shrink-0 shadow-[0_0_30px_rgba(183,159,255,0.2)]">
-              <span class="text-[#b79fff] font-bold text-3xl">80%</span>
-            </div>
-            <div>
-              <h4 class="text-xl font-bold text-white mb-2 tracking-wide">Time Saved</h4>
-              <p class="text-gray-400 text-sm leading-relaxed">Reduced manual application preparation time from ~45 minutes to under 2 minutes per job.</p>
-            </div>
-          </div>
-
-          <div class="bg-gradient-to-br from-[#111111] to-[#111111] border border-white/10 p-8 rounded-3xl flex items-center gap-8 shadow-2xl hover:scale-[1.02] transition-transform">
-            <div class="w-20 h-20 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0 shadow-[0_0_30px_rgba(34,197,94,0.1)]">
-              <span class="text-green-500 font-bold text-3xl">35%</span>
-            </div>
-            <div>
-              <h4 class="text-xl font-bold text-white mb-2 tracking-wide">ATS Optimization</h4>
-              <p class="text-gray-400 text-sm leading-relaxed">Increase in estimated ATS match scores due to context-aware semantic tailoring.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </article>
-
-  <!-- CTA / NEXT PROJECT -->
-  <section class="border-t border-white/5 bg-[#131313] py-24 text-center relative z-10">
-    <div class="max-w-3xl mx-auto px-6 reveal">
-      <h3 class="text-4xl font-extrabold text-white mb-8 tracking-tight">Ready to see more of my work?</h3>
-      <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
-        
-        <!-- View All Projects Button -->
-        <a href="index.html#projects" class="px-10 py-4 rounded-full border border-white/20 text-white font-bold hover:bg-white hover:text-black transition-all duration-300 w-full sm:w-auto text-center">
-          View All Projects
-        </a>
-
-        <!-- Animated Gradient "Get in Touch" Button -->
-        <a href="index.html#contact" class="relative inline-flex h-14 overflow-hidden rounded-full p-[2px] hover:scale-105 transition-transform duration-300 w-full sm:w-auto shadow-[0_0_40px_rgba(183,159,255,0.3)]">
-          <span class="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#0e0e0e_0%,#b79fff_50%,#0e0e0e_100%)]"></span>
-          <span class="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-[#111] px-10 py-1 text-sm font-bold text-white backdrop-blur-3xl transition-colors hover:bg-transparent">
-            Get in Touch
-          </span>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Scripts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'dark', themeVariables: { fontFamily: 'JetBrains Mono', primaryColor: '#0A0A0A', primaryTextColor: '#f4f4f5', primaryBorderColor: '#27272a', lineColor: '#38BDF8', secondaryColor: '#111' } });
+  </script>
   <script>
-    // 1. Reading Progress Bar Logic
-    window.addEventListener('scroll', () => {
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      document.getElementById('progress-bar').style.width = scrolled + '%';
-    });
-
-    // 2. Mouse Spotlight Logic
-    document.addEventListener('mousemove', (e) => {
-      document.documentElement.style.setProperty('--x', e.clientX + 'px');
-      document.documentElement.style.setProperty('--y', e.clientY + 'px');
-    });
-
-    // 3. Scroll Reveal Animations
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target);
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+          colors: { emerald: { 400: '#34D399' }, sky: { 400: '#38BDF8' } }
         }
-      });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    // 4. Video Player Logic
-    const playBtn = document.getElementById('playBtn');
-    const demoVideo = document.getElementById('demoVideo');
-    const fallbackImg = demoVideo.previousElementSibling;
-
-    if(playBtn && demoVideo && fallbackImg) {
-      playBtn.addEventListener('click', () => {
-        fallbackImg.style.opacity = '0';
-        playBtn.style.opacity = '0';
-        setTimeout(() => {
-          playBtn.style.display = 'none';
-          demoVideo.classList.remove('hidden');
-          demoVideo.play();
-        }, 500); // Wait for fade out
-      });
+      }
     }
   </script>
+  <style>
+    ::selection { background-color: #27272a; color: #f4f4f5; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0A0A0A; }
+    ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+    .animate-fade-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="antialiased min-h-screen font-sans selection:bg-zinc-800 selection:text-zinc-100">
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 w-full z-50 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-zinc-900 transition-all">
+    <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html#projects" class="flex items-center gap-2 text-zinc-500 hover:text-zinc-100 transition-colors text-sm font-mono group">
+        <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        cd ..
+      </a>
+      <div class="flex gap-4">
+        <a href="#" class="text-sky-400 hover:text-sky-300 font-mono text-xs flex items-center gap-2 transition-colors">
+          [↗ GitHub]
+        </a>
+        <a href="#" class="text-sky-400 hover:text-sky-300 font-mono text-xs flex items-center gap-2 transition-colors">
+          [↗ Live Demo]
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENT -->
+  <main class="pt-32 pb-24 px-6 max-w-3xl mx-auto opacity-0 animate-fade-up">
+    
+    <!-- SECTION 0: THE HOOK -->
+    <div class="mb-24">
+      <div class="flex gap-3 mb-8 flex-wrap">
+        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">FastAPI</span>
+        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">Redis / Celery</span>
+        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">Google Gemini</span>
+        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">PostgreSQL</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-6 tracking-tight">Pathlight.ai</h1>
+      <h2 class="text-2xl font-medium text-zinc-300 mb-6">Bypassing ATS filters via Asynchronous LLM Generation.</h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-6 py-6 border-y border-zinc-900">
+        <div>
+          <div class="text-emerald-400 font-mono text-sm mb-1">Latency</div>
+          <div class="text-2xl font-bold text-zinc-100">< 120ms</div>
+        </div>
+        <div>
+          <div class="text-emerald-400 font-mono text-sm mb-1">API Blocking</div>
+          <div class="text-2xl font-bold text-zinc-100">Zero</div>
+        </div>
+        <div>
+          <div class="text-emerald-400 font-mono text-sm mb-1">Scale</div>
+          <div class="text-2xl font-bold text-zinc-100">Production</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-32">
+      
+      <!-- SECTION 1: CONTEXT -->
+      <section>
+        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
+          <span class="text-sky-400 font-mono text-sm">// 01</span> The Business Context
+        </h3>
+        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg">
+          <p>Modern job applications suffer from massive Applicant Tracking System (ATS) rejection rates due to poor keyword matching. Manually tailoring a resume for every single job description is highly unscalable for the user, resulting in generic applications and low conversion rates.</p>
+          <p>The goal of Pathlight.ai was to build an autonomous pipeline that scrapes a live job URL, parses the user's base resume, and uses an LLM to generate a pixel-perfect, ATS-compliant PDF tailored precisely to the job requirements.</p>
+        </div>
+      </section>
+
+      <!-- SECTION 2: THE NAIVE APPROACH & FAILURES -->
+      <section>
+        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
+          <span class="text-sky-400 font-mono text-sm">// 02</span> The V1 Bottleneck (Failure State)
+        </h3>
+        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg">
+          <p>The naive v1 architecture utilized a synchronous FastAPI endpoint. The client would POST the job URL, and the server would `await` the Apify scraper, `await` the Google Gemini LLM generation, and `await` the WeasyPrint PDF rendering.</p>
+          <p><strong>This failed immediately in production tests.</strong></p>
+          <p>LLM generation for a full resume takes 15-20 seconds. Standard frontend hosting providers (like Vercel) terminate HTTP requests after 10 seconds. The synchronous architecture resulted in 504 Gateway Timeouts, dropped connections, and a completely broken user experience.</p>
+        </div>
+      </section>
+
+      <!-- SECTION 3: ARCHITECTURE & DECISION MAKING -->
+      <section>
+        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
+          <span class="text-sky-400 font-mono text-sm">// 03</span> The Asynchronous Decoupling
+        </h3>
+        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg mb-8">
+          <p>To achieve zero blocking APIs, I had to architect a hard decoupling between the ingestion layer and the processing layer. I introduced a <strong>Redis</strong> message broker and <strong>Celery</strong> background workers.</p>
+          <p>Now, FastAPI simply validates the payload, pushes a task ID to Redis, and immediately returns a 202 Accepted response in under 120ms. The client then polls for completion while the heavy AI generation runs securely in the background.</p>
+        </div>
+
+        <div class="bg-[#111] border border-zinc-800 rounded-lg p-6 mb-8">
+          <div class="text-sky-400 font-mono text-sm mb-6">// Refactored System Architecture</div>
+          <div class="mermaid flex justify-center">
+            graph TD
+              A[Client Application] -->|POST Job URL| B(FastAPI Router)
+              B -->|Returns 202 task_id| A
+              B -->|Save Pending State| C[(PostgreSQL)]
+              B -->|Push Message| D{Redis Broker}
+              D -->|Consume| E[Celery Worker Pool]
+              E -->|Scrape| F[Apify Actor]
+              E -->|Stream| G[Google Gemini API]
+              G -->|Render| I[WeasyPrint PDF]
+              I -->|Update Completed State| C
+              A -.->|Polls GET /status| B
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: TRADE-OFFS & DEEP DIVE -->
+      <section>
+        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
+          <span class="text-sky-400 font-mono text-sm">// 04</span> Observability & Trade-offs
+        </h3>
+        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg mb-8">
+          <p>Decoupling solved the timeout issue, but introduced a new constraint: <strong>Blind Spots</strong>. If the LLM hallucinates or fails in a background worker, the client simply hangs indefinitely.</p>
+          <p>To solve this, I integrated <strong>Langfuse via OpenTelemetry</strong> directly into the Celery pipeline. This provided real-time observability into token costs, latency, and prompt injection attempts, allowing the worker to safely fail and update the database state, which the client could then read and render gracefully.</p>
+        </div>
+
+        <div class="bg-zinc-950 border border-zinc-800 rounded-lg p-6 font-mono text-sm overflow-x-auto shadow-xl">
+<pre class="text-zinc-300"><code><span class="text-zinc-500"># Celery Worker Logic with Telemetry</span>
+<span class="text-sky-400">@celery.task</span>(bind=<span class="text-emerald-400">True</span>, max_retries=3)
+<span class="text-sky-400">def</span> <span class="text-emerald-400">generate_resume_task</span>(self, user_id, job_url):
+    <span class="text-sky-400">try</span>:
+        <span class="text-zinc-500"># 1. Initialize Langfuse Trace</span>
+        trace = langfuse.trace(name=<span class="text-zinc-300">"resume_generation"</span>, user_id=user_id)
+        
+        <span class="text-zinc-500"># 2. Extract & Generate</span>
+        job_data = apify_client.scrape(job_url)
+        llm_output = gemini_client.generate(prompt=build_prompt(job_data))
+        
+        <span class="text-zinc-500"># 3. Finalize State</span>
+        db.update_status(task_id=self.request.id, status=<span class="text-zinc-300">"COMPLETED"</span>)
+        
+    <span class="text-sky-400">except</span> <span class="text-emerald-400">Exception</span> <span class="text-sky-400">as</span> e:
+        trace.update(level=<span class="text-zinc-300">"ERROR"</span>, status_message=str(e))
+        db.update_status(task_id=self.request.id, status=<span class="text-zinc-300">"FAILED"</span>)
+        <span class="text-sky-400">raise</span> self.retry(exc=e, countdown=60)</code></pre>
+        </div>
+      </section>
+
+      <!-- SECTION 5: OUTPUT -->
+      <section>
+        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
+          <span class="text-sky-400 font-mono text-sm">// 05</span> Final Output
+        </h3>
+        <div class="border border-zinc-800 rounded-lg overflow-hidden relative group bg-[#111] aspect-[16/9] flex items-center justify-center">
+          <!-- TODO: USER MUST REPLACE THIS PLACEHOLDER WITH REAL IMAGE -->
+          <div class="absolute inset-0 bg-zinc-900/50 flex flex-col items-center justify-center text-zinc-500 font-mono text-sm">
+            <svg class="w-8 h-8 mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L28 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            [INSERT SCREENSHOT OF GENERATED PDF RESUME HERE]
+          </div>
+          <img src="./images/placeholder-resume.png" alt="Generated Resume Screenshot Placeholder" class="object-cover w-full h-full opacity-10 group-hover:opacity-30 transition-opacity" />
+        </div>
+      </section>
+
+    </div>
+
+    <!-- FOOTER UX FIX -->
+    <footer class="border-t border-zinc-900 mt-32 pt-12 pb-24">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <a href="index.html" class="px-6 py-3 border border-zinc-800 text-zinc-300 rounded font-medium hover:bg-zinc-900 hover:text-zinc-100 transition-colors font-mono text-sm flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+          cd ~/portfolio
+        </a>
+        <div class="flex items-center gap-4">
+          <span class="text-zinc-500 font-mono text-sm">Next Case Study:</span>
+          <a href="project-pulseops-ai.html" class="text-zinc-100 hover:text-sky-400 font-medium transition-colors">PulseOps AI →</a>
+        </div>
+      </div>
+      <div class="mt-16 text-center">
+        <button onclick="navigator.clipboard.writeText('pillajettijayanth@gmail.com'); alert('Email copied!');" class="group inline-flex items-center gap-3 px-8 py-4 bg-zinc-100 text-zinc-900 font-semibold rounded hover:bg-white transition-all transform active:scale-95 shadow-xl">
+          <span>pillajettijayanth@gmail.com</span>
+          <svg class="w-5 h-5 text-zinc-500 group-hover:text-zinc-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+        </button>
+      </div>
+    </footer>
+  </main>
 </body>
 </html>

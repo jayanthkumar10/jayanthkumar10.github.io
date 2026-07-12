@@ -1,338 +1,210 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth bg-[#0A0A0A] text-zinc-400">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WhatsApp Appointment Bot - Case Study</title>
+  <title>WhatsApp Bot Case Study | Jayanth Kumar</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Premium High-End Animations */
-    @keyframes slideUpFade {
-      0% { opacity: 0; transform: translateY(40px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 0.1; }
-      50% { opacity: 0.2; }
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .animate-pulse-glow { animation: pulseGlow 8s ease-in-out infinite; will-change: opacity; }
-    .hero-text-1 { opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards; will-change: opacity, transform; }
-    .hero-text-2 { opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; will-change: opacity, transform; }
-    .hero-text-3 { opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; will-change: opacity, transform; }
-    
-    .reveal {
-      opacity: 0; transform: translateY(40px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: opacity, transform;
-    }
-    .reveal.active { opacity: 1; transform: translateY(0); }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #0e0e0e; }
-    ::-webkit-scrollbar-thumb { background: #262626; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #b79fff; }
-
-    /* Mouse Spotlight Effect */
-    .spotlight {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      pointer-events: none;
-      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(183, 159, 255, 0.08) 0%, transparent 40%);
-      z-index: 9999;
-    }
-
-    /* Reading Progress Bar */
-    #progress-bar {
-      position: fixed;
-      top: 0; left: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #b79fff, #ab8eff);
-      z-index: 10000;
-      width: 0%;
-      box-shadow: 0 0 10px rgba(183, 159, 255, 0.5);
-    }
-  </style>
-</head>
-<body class="bg-[#0e0e0e] text-white min-h-screen font-sans overflow-x-hidden selection:bg-[#b79fff]/30 selection:text-white">
-
-  <!-- Interactive Mouse Spotlight -->
-  <div class="spotlight"></div>
-  
-  <!-- Reading Progress Bar -->
-  <div id="progress-bar"></div>
-
-  <!-- GLOBAL GLOW -->
-  <div class="fixed inset-0 -z-10 pointer-events-none transform-gpu">
-    <div class="absolute w-[800px] h-[800px] bg-[#b79fff]/10 blur-[150px] top-[-200px] left-[-200px] animate-pulse-glow"></div>
-  </div>
-
-  <!-- MINIMAL NAVBAR -->
-  <nav class="flex justify-between items-center px-6 md:px-10 py-6 absolute w-full z-50">
-    <a href="index.html" class="flex items-center gap-2 text-gray-400 hover:text-[#b79fff] transition-colors font-medium group text-sm tracking-wide">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:-translate-x-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-      Back to Portfolio
-    </a>
-    <a href="https://github.com/jayanthkumar10" target="_blank" class="flex items-center gap-2 text-white bg-white/10 hover:bg-white/20 border border-white/10 px-4 py-2 rounded-full transition-colors text-sm font-medium">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-      View Code
-    </a>
-  </nav>
-
-  <!-- HERO SECTION -->
-  <section class="pt-24 pb-12 md:pt-32 md:pb-16 px-6 md:px-10 max-w-5xl mx-auto text-center relative z-10">
-    <span class="px-4 py-1.5 rounded-full bg-[#b79fff]/10 text-[#b79fff] text-xs font-bold tracking-widest uppercase border border-[#b79fff]/20 hero-text-1 inline-block mb-6 shadow-[0_0_20px_rgba(183,159,255,0.2)]">Conversational AI / Automation</span>
-    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6 hero-text-2 drop-shadow-lg">
-      WhatsApp Appointment Bot
-    </h1>
-    <p class="text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed hero-text-3 font-light">
-      A production-grade conversational AI agent that fully automates patient appointment scheduling via the Meta WhatsApp Business API.
-    </p>
-  </section>
-
-  <!-- HERO IMAGE / VIDEO DEMO -->
-  <section class="px-6 md:px-10 pb-20 max-w-6xl mx-auto reveal">
-    <div class="relative rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_30px_100px_rgba(183,159,255,0.15)] bg-[#131313] aspect-video flex items-center justify-center group cursor-pointer hover:border-white/20 transition-colors duration-500">
-      
-      <!-- Subtle internal glow for the image container -->
-      <div class="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] to-transparent z-10 opacity-60"></div>
-      
-      <!-- Image / Video -->
-      <img src="./images/whatsapp_bot.png" alt="WhatsApp Automation Dashboard" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-all duration-700 ease-out" />
-      <video id="demoVideo" class="absolute inset-0 w-full h-full object-cover hidden z-20" controls controlsList="nodownload">
-        <!-- Placeholder for future local video -->
-        <source src="./video/whatsapp_demo.mp4" type="video/mp4">
-      </video>
-
-      <!-- Glowing Play Button -->
-      <button id="playBtn" class="w-20 h-20 md:w-24 md:h-24 bg-black/40 backdrop-blur-xl border border-white/20 rounded-full flex items-center justify-center z-30 group-hover:bg-[#b79fff] group-hover:scale-110 group-hover:shadow-[0_0_60px_rgba(183,159,255,0.8)] transition-all duration-500">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 ml-2 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-      </button>
-    </div>
-  </section>
-
-  <!-- QUICK STATS BAR -->
-  <section class="border-y border-white/5 bg-[#131313]/50 backdrop-blur-md py-10 mb-20 relative z-10">
-    <div class="max-w-6xl mx-auto px-6 md:px-10 grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/5 text-center reveal">
-      <div class="hover:-translate-y-1 transition-transform">
-        <h4 class="text-xs text-gray-500 uppercase tracking-widest mb-2 font-semibold">Role</h4>
-        <p class="text-lg font-bold text-white">AI Automation Eng.</p>
-      </div>
-      <div class="hover:-translate-y-1 transition-transform">
-        <h4 class="text-xs text-gray-500 uppercase tracking-widest mb-2 font-semibold">Methodology</h4>
-        <p class="text-lg font-bold text-white">LLM Orchestration</p>
-      </div>
-      <div class="hover:-translate-y-1 transition-transform">
-        <h4 class="text-xs text-gray-500 uppercase tracking-widest mb-2 font-semibold">Core Tech</h4>
-        <p class="text-lg font-bold text-[#b79fff]">n8n, Meta API</p>
-      </div>
-      <div class="hover:-translate-y-1 transition-transform">
-        <h4 class="text-xs text-gray-500 uppercase tracking-widest mb-2 font-semibold">Impact</h4>
-        <p class="text-lg font-bold text-[#16a34a]">-70% Manual Effort</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- EDITORIAL CASE STUDY CONTENT -->
-  <article class="max-w-6xl mx-auto px-6 md:px-10 space-y-24 md:space-y-32 pb-32 relative z-10">
-    
-    <!-- 01: Problem & Context -->
-    <div class="grid md:grid-cols-12 gap-8 lg:gap-20 reveal">
-      <div class="md:col-span-4">
-        <h2 class="text-transparent bg-clip-text bg-gradient-to-b from-[#b79fff] to-transparent text-7xl font-black opacity-40 mb-2">01</h2>
-        <h3 class="text-3xl font-bold text-white tracking-tight">Context & Problem</h3>
-      </div>
-      <div class="md:col-span-8 space-y-6 text-gray-400 text-lg leading-relaxed font-light">
-        <p>
-          Healthcare clinics face massive administrative bottlenecks managing patient appointments. Manual handling of bookings via phone calls or rudimentary text systems often results in missed appointments, accidental double-bookings, and frustrated patients.
-        </p>
-        <p>
-          Traditional "chatbot" solutions rely on rigid decision trees (press 1 for X, press 2 for Y), which provide poor user experiences and struggle with complex requests like rescheduling or checking specific availabilities.
-        </p>
-        <div class="bg-gradient-to-br from-[#1a1025] to-[#111] border border-[#b79fff]/20 p-8 rounded-3xl mt-8 shadow-xl">
-          <h4 class="text-white font-bold mb-3 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#b79fff]" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
-            The Objective
-          </h4>
-          <p class="text-sm text-gray-300 leading-relaxed">Engineer an intelligent, natural-language WhatsApp bot capable of handling end-to-end appointment workflows (booking, canceling, rescheduling) seamlessly, integrating directly with a live database.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 02: Constraints -->
-    <div class="grid md:grid-cols-12 gap-8 lg:gap-20 reveal">
-      <div class="md:col-span-4">
-        <h2 class="text-transparent bg-clip-text bg-gradient-to-b from-[#b79fff] to-transparent text-7xl font-black opacity-40 mb-2">02</h2>
-        <h3 class="text-3xl font-bold text-white tracking-tight">Engineering Constraints</h3>
-      </div>
-      <div class="md:col-span-8 space-y-6 text-gray-400 text-lg leading-relaxed font-light">
-        <ul class="space-y-6">
-          <li class="flex gap-5 group">
-            <div class="w-12 h-12 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#b79fff]/50 group-hover:shadow-[0_0_15px_rgba(183,159,255,0.3)] transition-all">
-              <svg class="w-5 h-5 text-[#b79fff]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            </div>
-            <div>
-              <strong class="text-white block mb-1 tracking-wide">Multi-Turn State Management</strong>
-              <span class="text-sm">Unlike one-off queries, booking an appointment requires remembering context across multiple messages (e.g., handling slot conflicts, asking for patient details, then confirming).</span>
-            </div>
-          </li>
-          <li class="flex gap-5 group">
-            <div class="w-12 h-12 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#b79fff]/50 group-hover:shadow-[0_0_15px_rgba(183,159,255,0.3)] transition-all">
-              <svg class="w-5 h-5 text-[#b79fff]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-            </div>
-            <div>
-              <strong class="text-white block mb-1 tracking-wide">Strict Latency Requirements</strong>
-              <span class="text-sm">To feel native to WhatsApp, the system needed an average response latency of under 2 seconds, requiring highly optimized LLM prompts and efficient async webhook processing.</span>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 03: Approach & Execution -->
-    <div class="grid md:grid-cols-12 gap-8 lg:gap-20 reveal">
-      <div class="md:col-span-4">
-        <h2 class="text-transparent bg-clip-text bg-gradient-to-b from-[#b79fff] to-transparent text-7xl font-black opacity-40 mb-2">03</h2>
-        <h3 class="text-3xl font-bold text-white tracking-tight">Approach & Execution</h3>
-      </div>
-      <div class="md:col-span-8 space-y-6 text-gray-400 text-lg leading-relaxed font-light">
-        <p>
-          I utilized <strong>n8n</strong> to orchestrate the complex webhook logic between the <strong>Meta WhatsApp Business API</strong>, the LLM intelligence layer, and the database.
-        </p>
-        
-        <div class="grid sm:grid-cols-2 gap-6 my-10">
-          <div class="bg-[#151515] border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-[#b79fff]/30 hover:shadow-2xl transition-all duration-300">
-            <div class="w-12 h-12 rounded-xl bg-[#b79fff]/10 flex items-center justify-center mb-5 border border-[#b79fff]/20">
-              <span class="text-2xl">🧠</span>
-            </div>
-            <h4 class="text-white font-bold mb-2">LLM Dialogue Management</h4>
-            <p class="text-sm leading-relaxed">Implemented a system that parses natural language to extract precise intents (Book, Reschedule, Cancel) and entities (Dates, Times, Patient Names) flawlessly.</p>
-          </div>
-          <div class="bg-[#151515] border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-[#b79fff]/30 hover:shadow-2xl transition-all duration-300">
-            <div class="w-12 h-12 rounded-xl bg-[#b79fff]/10 flex items-center justify-center mb-5 border border-[#b79fff]/20">
-              <span class="text-2xl">📊</span>
-            </div>
-            <h4 class="text-white font-bold mb-2">Real-Time Database Sync</h4>
-            <p class="text-sm leading-relaxed">Integrated Google Sheets as a lightweight, real-time CRM to manage over 500 patient records and dynamically query available slots to prevent double bookings.</p>
-          </div>
-        </div>
-
-        <p>
-          To ensure reliability, I engineered automated error-handling fallbacks within the n8n workflows, guaranteeing that edge cases or LLM timeouts would gracefully guide the patient rather than dropping the conversation.
-        </p>
-      </div>
-    </div>
-
-    <!-- 04: Results & Impact -->
-    <div class="grid md:grid-cols-12 gap-8 lg:gap-20 reveal">
-      <div class="md:col-span-4">
-        <h2 class="text-transparent bg-clip-text bg-gradient-to-b from-[#b79fff] to-transparent text-7xl font-black opacity-40 mb-2">04</h2>
-        <h3 class="text-3xl font-bold text-white tracking-tight">Impact & Value</h3>
-      </div>
-      <div class="md:col-span-8">
-        <p class="text-gray-400 text-lg leading-relaxed font-light mb-8">
-          The deployment of this system transformed chaotic manual booking processes into a streamlined, 24/7 autonomous operation.
-        </p>
-
-        <div class="grid gap-6">
-          <div class="bg-gradient-to-br from-[#1a1025] to-[#111111] border border-[#b79fff]/30 p-8 rounded-3xl flex items-center gap-8 shadow-2xl hover:scale-[1.02] transition-transform">
-            <div class="w-20 h-20 rounded-full bg-[#b79fff]/10 border border-[#b79fff]/20 flex items-center justify-center shrink-0 shadow-[0_0_30px_rgba(183,159,255,0.2)]">
-              <span class="text-[#b79fff] font-bold text-3xl">70%</span>
-            </div>
-            <div>
-              <h4 class="text-xl font-bold text-white mb-2 tracking-wide">Manual Effort Reduction</h4>
-              <p class="text-gray-300 text-sm leading-relaxed">Drastically cut down the time administrative staff spent on the phone scheduling and modifying patient appointments.</p>
-            </div>
-          </div>
-
-          <div class="bg-gradient-to-br from-[#111111] to-[#111111] border border-white/10 p-8 rounded-3xl flex items-center gap-8 shadow-2xl hover:scale-[1.02] transition-transform">
-            <div class="w-20 h-20 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0 shadow-[0_0_30px_rgba(34,197,94,0.1)]">
-              <span class="text-green-500 font-bold text-3xl">99%</span>
-            </div>
-            <div>
-              <h4 class="text-xl font-bold text-white mb-2 tracking-wide">Workflow Completion</h4>
-              <p class="text-gray-400 text-sm leading-relaxed">Achieved near-perfect successful workflow completion rates thanks to strict async webhook management and edge-case fallbacks.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </article>
-
-  <!-- CTA / NEXT PROJECT -->
-  <section class="border-t border-white/5 bg-[#131313] py-24 text-center relative z-10">
-    <div class="max-w-3xl mx-auto px-6 reveal">
-      <h3 class="text-4xl font-extrabold text-white mb-8 tracking-tight">Ready to see more of my work?</h3>
-      <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
-        
-        <!-- View All Projects Button -->
-        <a href="index.html#projects" class="px-10 py-4 rounded-full border border-white/20 text-white font-bold hover:bg-white hover:text-black transition-all duration-300 w-full sm:w-auto text-center">
-          View All Projects
-        </a>
-
-        <!-- Animated Gradient "Get in Touch" Button -->
-        <a href="index.html#contact" class="relative inline-flex h-14 overflow-hidden rounded-full p-[2px] hover:scale-105 transition-transform duration-300 w-full sm:w-auto shadow-[0_0_40px_rgba(183,159,255,0.3)]">
-          <span class="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#0e0e0e_0%,#b79fff_50%,#0e0e0e_100%)]"></span>
-          <span class="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-[#111] px-10 py-1 text-sm font-bold text-white backdrop-blur-3xl transition-colors hover:bg-transparent">
-            Get in Touch
-          </span>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Scripts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'dark', themeVariables: { fontFamily: 'JetBrains Mono', primaryColor: '#0A0A0A', primaryTextColor: '#f4f4f5', primaryBorderColor: '#27272a', lineColor: '#38BDF8', secondaryColor: '#111' } });
+  </script>
   <script>
-    // 1. Reading Progress Bar Logic
-    window.addEventListener('scroll', () => {
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      document.getElementById('progress-bar').style.width = scrolled + '%';
-    });
-
-    // 2. Mouse Spotlight Logic
-    document.addEventListener('mousemove', (e) => {
-      document.documentElement.style.setProperty('--x', e.clientX + 'px');
-      document.documentElement.style.setProperty('--y', e.clientY + 'px');
-    });
-
-    // 3. Scroll Reveal Animations
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target);
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+          colors: { emerald: { 400: '#34D399' }, sky: { 400: '#38BDF8' } }
         }
-      });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    // 4. Video Player Logic
-    const playBtn = document.getElementById('playBtn');
-    const demoVideo = document.getElementById('demoVideo');
-    const fallbackImg = demoVideo.previousElementSibling;
-
-    if(playBtn && demoVideo && fallbackImg) {
-      playBtn.addEventListener('click', () => {
-        fallbackImg.style.opacity = '0';
-        playBtn.style.opacity = '0';
-        setTimeout(() => {
-          playBtn.style.display = 'none';
-          demoVideo.classList.remove('hidden');
-          demoVideo.play();
-        }, 500); // Wait for fade out
-      });
+      }
     }
   </script>
+  <style>
+    ::selection { background-color: #27272a; color: #f4f4f5; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0A0A0A; }
+    ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+    .animate-fade-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="antialiased min-h-screen font-sans selection:bg-zinc-800 selection:text-zinc-100">
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 w-full z-50 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-zinc-900 transition-all">
+    <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html#projects" class="flex items-center gap-2 text-zinc-500 hover:text-zinc-100 transition-colors text-sm font-mono group">
+        <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        cd ..
+      </a>
+      <div class="flex gap-4">
+        <a href="#" class="text-sky-400 hover:text-sky-300 font-mono text-xs flex items-center gap-2 transition-colors">
+          [↗ GitHub]
+        </a>
+        <a href="#" class="text-sky-400 hover:text-sky-300 font-mono text-xs flex items-center gap-2 transition-colors">
+          [↗ Live Demo]
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENT -->
+  <main class="pt-32 pb-24 px-6 max-w-3xl mx-auto opacity-0 animate-fade-up">
+    
+    <!-- SECTION 0: THE HOOK -->
+    <div class="mb-24">
+      <div class="flex gap-3 mb-8 flex-wrap">
+        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">Node.js</span>
+        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">n8n</span>
+        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">WhatsApp Cloud API</span>
+        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">Google Calendar API</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-6 tracking-tight">WhatsApp Orchestration</h1>
+      <h2 class="text-2xl font-medium text-zinc-300 mb-6">Decoupling conversational logic from deployment cycles via n8n.</h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-6 py-6 border-y border-zinc-900">
+        <div>
+          <div class="text-emerald-400 font-mono text-sm mb-1">Manual Effort</div>
+          <div class="text-2xl font-bold text-zinc-100">-70%</div>
+        </div>
+        <div>
+          <div class="text-emerald-400 font-mono text-sm mb-1">Time to Deploy</div>
+          <div class="text-2xl font-bold text-zinc-100">Seconds</div>
+        </div>
+        <div>
+          <div class="text-emerald-400 font-mono text-sm mb-1">Availability</div>
+          <div class="text-2xl font-bold text-zinc-100">24/7</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-32">
+      
+      <!-- SECTION 1: CONTEXT -->
+      <section>
+        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
+          <span class="text-sky-400 font-mono text-sm">// 01</span> The Business Context
+        </h3>
+        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg">
+          <p>Customer service and booking management via WhatsApp is incredibly high-friction. Administrators were spending hours daily copying text from WhatsApp chats into Google Calendar, leading to double-bookings, missed messages, and severe operational inefficiency.</p>
+          <p>The goal was to build an automated, conversational booking agent that directly interfaces with the WhatsApp Cloud API and Google Calendar to handle 100% of tier-1 scheduling queries autonomously.</p>
+        </div>
+      </section>
+
+      <!-- SECTION 2: THE NAIVE APPROACH & FAILURES -->
+      <section>
+        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
+          <span class="text-sky-400 font-mono text-sm">// 02</span> The V1 Bottleneck (The Monolith)
+        </h3>
+        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg">
+          <p>My initial architecture was a massive Node.js Express monolith. It received the WhatsApp webhook, ran hundreds of regex string matches to determine user intent, made external API calls to Google Calendar, formatted the response, and POSTed it back to WhatsApp.</p>
+          <p><strong>This became a maintenance nightmare.</strong></p>
+          <p>If the client wanted to add a single new intent (e.g., "Cancel a booking" instead of just "Make a booking"), I had to write new regex, write new API logic, run CI/CD, and deploy the entire monolith. The tightly coupled architecture severely bottlenecked development velocity.</p>
+        </div>
+      </section>
+
+      <!-- SECTION 3: ARCHITECTURE & DECISION MAKING -->
+      <section>
+        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
+          <span class="text-sky-400 font-mono text-sm">// 03</span> The n8n Decoupling
+        </h3>
+        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg mb-8">
+          <p>I realized that conversational logic is fundamentally a routing problem, not a code problem. I deprecated the monolith and introduced <strong>n8n</strong> as an orchestration layer.</p>
+          <p>By moving the webhook ingestion and intent routing into a visual node-based engine, the business logic was completely decoupled from the codebase. Node.js was relegated strictly to handling complex custom transformations (AWS Lambda style), while n8n handled the API orchestration.</p>
+        </div>
+
+        <div class="bg-[#111] border border-zinc-800 rounded-lg p-6 mb-8">
+          <div class="text-sky-400 font-mono text-sm mb-6">// Refactored Webhook Flow</div>
+          <div class="mermaid flex justify-center">
+            sequenceDiagram
+              participant U as User (WhatsApp)
+              participant W as WhatsApp Cloud API
+              participant N as n8n (Webhook Router)
+              participant C as Google Calendar API
+              
+              U->>W: "Book a slot for tomorrow"
+              W->>N: POST /webhook (JSON)
+              N->>N: Switch Node (Intent Match)
+              N->>C: GET /freeBusy
+              C-->>N: Returns [10:00 AM, 2:00 PM]
+              N->>W: POST /messages
+              W-->>U: "Available times: 10:00 AM, 2:00 PM"
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: TRADE-OFFS & DEEP DIVE -->
+      <section>
+        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
+          <span class="text-sky-400 font-mono text-sm">// 04</span> The Network Trade-off
+        </h3>
+        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg mb-8">
+          <p>The trade-off for this agility is latency. Introducing n8n adds a network hop between the webhook ingestion and the execution. In a high-frequency trading app, this 50ms penalty would be fatal.</p>
+          <p>However, in asynchronous human chat interfaces (like WhatsApp), a 50ms delay is imperceptible to the user. The trade-off was a massive success: the time required to deploy a new conversational intent dropped from <strong>hours to seconds</strong>, and non-technical stakeholders could visually understand the chat flow.</p>
+        </div>
+
+        <div class="bg-zinc-950 border border-zinc-800 rounded-lg p-6 font-mono text-sm overflow-x-auto shadow-xl">
+<pre class="text-zinc-300"><code><span class="text-zinc-500">/* Example: Validating WhatsApp Webhook Security */</span>
+<span class="text-sky-400">const</span> crypto = require(<span class="text-zinc-300">'crypto'</span>);
+
+<span class="text-sky-400">function</span> <span class="text-emerald-400">verifyWhatsAppSignature</span>(req, rawBody) {
+  <span class="text-sky-400">const</span> signature = req.headers[<span class="text-zinc-300">'x-hub-signature-256'</span>];
+  <span class="text-sky-400">if</span> (!signature) <span class="text-sky-400">return</span> <span class="text-emerald-400">false</span>;
+
+  <span class="text-sky-400">const</span> expectedSignature = <span class="text-zinc-300">'sha256='</span> + crypto
+    .createHmac(<span class="text-zinc-300">'sha256'</span>, process.env.APP_SECRET)
+    .update(rawBody)
+    .digest(<span class="text-zinc-300">'hex'</span>);
+
+  <span class="text-zinc-500">/* Constant-time comparison to prevent timing attacks */</span>
+  <span class="text-sky-400">return</span> crypto.timingSafeEqual(
+    Buffer.from(signature),
+    Buffer.from(expectedSignature)
+  );
+}</code></pre>
+        </div>
+      </section>
+
+      <!-- SECTION 5: OUTPUT -->
+      <section>
+        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
+          <span class="text-sky-400 font-mono text-sm">// 05</span> Final Output
+        </h3>
+        <div class="border border-zinc-800 rounded-lg overflow-hidden relative group bg-[#111] aspect-[16/9] flex items-center justify-center">
+          <!-- TODO: USER MUST REPLACE THIS PLACEHOLDER WITH REAL IMAGE -->
+          <div class="absolute inset-0 bg-zinc-900/50 flex flex-col items-center justify-center text-zinc-500 font-mono text-sm">
+            <svg class="w-8 h-8 mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L28 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            [INSERT SCREENSHOT OF WHATSAPP CHAT FLOW HERE]
+          </div>
+          <img src="./images/placeholder-whatsapp.png" alt="WhatsApp Chat Screenshot Placeholder" class="object-cover w-full h-full opacity-10 group-hover:opacity-30 transition-opacity" />
+        </div>
+      </section>
+
+    </div>
+
+    <!-- FOOTER UX FIX -->
+    <footer class="border-t border-zinc-900 mt-32 pt-12 pb-24">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <a href="index.html" class="px-6 py-3 border border-zinc-800 text-zinc-300 rounded font-medium hover:bg-zinc-900 hover:text-zinc-100 transition-colors font-mono text-sm flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+          cd ~/portfolio
+        </a>
+        <div class="flex items-center gap-4">
+          <span class="text-zinc-500 font-mono text-sm">Next Case Study:</span>
+          <a href="project-heart-disease.html" class="text-zinc-100 hover:text-sky-400 font-medium transition-colors">Heart Disease Prediction →</a>
+        </div>
+      </div>
+      <div class="mt-16 text-center">
+        <button onclick="navigator.clipboard.writeText('pillajettijayanth@gmail.com'); alert('Email copied!');" class="group inline-flex items-center gap-3 px-8 py-4 bg-zinc-100 text-zinc-900 font-semibold rounded hover:bg-white transition-all transform active:scale-95 shadow-xl">
+          <span>pillajettijayanth@gmail.com</span>
+          <svg class="w-5 h-5 text-zinc-500 group-hover:text-zinc-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+        </button>
+      </div>
+    </footer>
+  </main>
 </body>
 </html>
