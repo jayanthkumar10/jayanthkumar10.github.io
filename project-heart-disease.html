@@ -26,49 +26,75 @@
     h1, h2, h3, h4 { color: var(--text); font-weight: 500; letter-spacing: -0.03em; line-height: 1.2; }
     a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
     
-    .wrap { max-width: 800px; margin: 0 auto; padding: 0 32px; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
     
     /* NAV */
     nav {
       position: sticky; top: 0; z-index: 100;
       background: rgba(6, 6, 6, 0.7); backdrop-filter: blur(20px) saturate(150%);
-      border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 80px;
+      border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 60px;
     }
-    .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto; padding: 0 32px; }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 32px; }
     .back-link { font-size: 14px; font-weight: 400; color: var(--text2); display: flex; align-items: center; gap: 8px; transition: color 0.2s; }
     .back-link:hover { color: var(--text); }
     
-    /* HEADER */
-    .header { margin-bottom: 80px; }
-    .title { font-size: 48px; margin-bottom: 16px; font-weight: 500; }
+    /* HERO SPLIT */
+    .hero-split { display: grid; grid-template-columns: 1fr 1.3fr; gap: 64px; align-items: center; margin-bottom: 120px; }
+    
+    .header { margin-bottom: 0; }
+    .title { font-size: clamp(40px, 4vw, 56px); margin-bottom: 24px; font-weight: 500; }
     .desc { font-size: 18px; line-height: 1.6; color: var(--text2); margin-bottom: 32px; font-weight: 300; }
     .tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
     .tag { font-family: var(--mono); font-size: 11px; padding: 6px 12px; border: 1px solid var(--border); border-radius: 100px; color: var(--text2); background: rgba(255,255,255,0.02); }
     
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; font-size: 14px; font-weight: 500; border-radius: 8px; border: 1px solid var(--border-h); transition: all 0.2s ease; background: transparent; color: var(--text); }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; font-size: 14px; font-weight: 500; border-radius: 8px; border: 1px solid var(--border-h); transition: all 0.2s ease; background: transparent; color: var(--text); cursor: pointer; }
     .btn:hover { border-color: #555; background: rgba(255,255,255,0.02); }
+    .btn-primary { background: var(--text); color: var(--bg); border: none; }
+    .btn-primary:hover { background: #e0e0e0; border-color: transparent; }
+    
+    /* STATIC IMAGE HERO */
+    .hero-image-wrapper {
+      position: relative; width: 100%; aspect-ratio: 16/10; 
+      border-radius: 16px; overflow: hidden; border: 1px solid var(--border);
+      background: var(--surface); box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .hero-image-wrapper:hover { transform: translateY(-4px); border-color: var(--border-h); }
+    .hero-poster { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); transition: filter 0.3s ease; }
+    .hero-image-wrapper:hover .hero-poster { filter: grayscale(0%); }
 
     /* SECTIONS */
-    .section { margin-bottom: 100px; }
-    .sec-title { font-size: 28px; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid var(--border); font-weight: 500; }
-    .content p { line-height: 1.7; margin-bottom: 20px; font-size: 16px; font-weight: 300; }
+    .section { margin-bottom: 120px; }
+    .sec-title { font-size: 32px; margin-bottom: 40px; padding-bottom: 16px; border-bottom: 1px solid var(--border); font-weight: 500; }
+    .content p { line-height: 1.7; margin-bottom: 24px; font-size: 16px; font-weight: 300; }
     .content strong { color: var(--text); font-weight: 500; }
     
-    /* DECISIONS */
-    .decision { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-bottom: 24px; transition: border-color 0.2s ease; }
-    .decision:hover { border-color: var(--border-h); }
-    .d-title { font-size: 18px; color: var(--text); margin-bottom: 24px; font-weight: 500; }
-    .d-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-    .d-lbl { font-family: var(--mono); font-size: 11px; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 0.05em; }
-    .d-val { font-size: 15px; line-height: 1.6; font-weight: 300; color: var(--text2); }
-    .tradeoff { display: inline-block; margin-top: 24px; font-family: var(--mono); font-size: 12px; padding: 6px 12px; border-radius: 6px; background: rgba(56, 189, 248, 0.1); color: var(--accent); }
+    /* ARCHITECTURE PIPELINE */
+    .arch-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+    .arch-header .sec-title { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
     
-    /* CODE */
-    .code-block { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 40px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.2); }
-    .code-header { padding: 12px 16px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 12px; color: #666; display: flex; justify-content: space-between; background: rgba(255,255,255,0.02); }
-    .code-body { padding: 24px; overflow-x: auto; }
-    .code-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: var(--text2); }
-    .kw { color: #ff7b72; } .fn { color: #d2a8ff; } .st { color: #a5d6ff; } .cm { color: #666; } .num { color: #f2cc60; }
+    .arch-box { 
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px; 
+      overflow: hidden; box-shadow: inset 0 2px 10px rgba(0,0,0,0.2); 
+      position: relative;
+    }
+    .arch-box img { width: 100%; height: auto; display: block; }
+    
+    /* DECISIONS */
+    .decisions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 32px; }
+    .decision { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 40px; transition: border-color 0.2s ease; height: 100%; display: flex; flex-direction: column; }
+    .decision:hover { border-color: var(--border-h); }
+    .d-title { font-size: 20px; color: var(--text); margin-bottom: 24px; font-weight: 500; }
+    .d-lbl { font-family: var(--mono); font-size: 11px; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 0.05em; margin-top: 32px; }
+    .d-lbl.decision-lbl { color: var(--green); }
+    .d-val { font-size: 15px; line-height: 1.6; font-weight: 300; color: var(--text2); }
+    .tradeoff { display: inline-block; margin-top: auto; padding-top: 32px; font-family: var(--mono); font-size: 12px; color: #888; }
+    
+    @media(max-width: 1024px) {
+      .hero-split { grid-template-columns: 1fr; gap: 48px; }
+      .arch-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .decisions-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -82,103 +108,91 @@
 
 <div class="wrap">
   
-  <header class="header">
-    <h1 class="title">Cardiac Anomaly Detection</h1>
-    <p class="desc">Clinical ML research focused on optimizing for Recall (Sensitivity) over Accuracy to minimize fatal False Negatives. Resulted in a published patent application.</p>
-    <div class="tags">
-      <span class="tag" style="background: rgba(74, 222, 128, 0.05); border-color: rgba(74, 222, 128, 0.3); color: var(--green);">Patent Application Published</span>
-      <span class="tag">Python</span>
-      <span class="tag">XGBoost</span>
-      <span class="tag">SMOTE</span>
-      <span class="tag">Scikit-Learn</span>
+  <div class="hero-split">
+    <header class="header">
+      <h1 class="title">Clinical Cardiac Anomaly Detection</h1>
+      <p class="desc">A complete end-to-end supervised machine learning workflow focused on clinical anomaly prediction. Features exhaustive exploratory data analysis, algorithm comparative analysis, and 5-fold cross-validation.</p>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">Random Forest</span>
+        <span class="tag">Support Vector Machine</span>
+        <span class="tag">Scikit-Learn</span>
+      </div>
+      <div style="display: flex; gap: 16px;">
+        <a href="https://github.com/jayanthkumar10/Heart-disease-Prediction-using-Supervised-Machine-Learning-algorithms" target="_blank" class="btn btn-primary">View Source Code</a>
+      </div>
+    </header>
+
+    <!-- STATIC IMAGE HERO -->
+    <div class="hero-image-wrapper">
+      <img src="./images/hero-bg.jpg" alt="Heart Disease ML" class="hero-poster">
     </div>
-    <div style="display: flex; gap: 12px;">
-      <a href="https://github.com/jayanthkumar10/Heart-disease-Prediction-using-Supervised-Machine-Learning-algorithms" target="_blank" class="btn">View on GitHub ↗</a>
-    </div>
-  </header>
+  </div>
 
   <div class="section">
-    <h2 class="sec-title">The Research Context</h2>
+    <h2 class="sec-title">The Problem</h2>
     <div class="content">
-      <p>This was a research project conducted at SRM University. The goal was to explore whether standard supervised learning algorithms could improve early-stage cardiac disease detection using aggregated clinical data from multiple sources.</p>
-      <p>The primary engineering lesson learned here was not about model architecture, but about <strong>evaluation metrics</strong>.</p>
+      <p>Heart disease is one of the leading causes of death worldwide. Early prediction can help doctors identify high-risk patients and begin preventive treatment earlier. The objective of this project was to build a binary classification model that predicts whether a patient has heart disease by learning patterns from historical clinical data.</p>
     </div>
   </div>
 
+
   <div class="section">
-    <h2 class="sec-title">Engineering Decisions</h2>
+    <h2 class="sec-title" style="margin-bottom: 48px;">Engineering Decisions</h2>
     
-    <div class="decision">
-      <h3 class="d-title">Optimizing for Recall over Accuracy</h3>
-      <div class="d-grid">
+    <div class="decisions-grid">
+      <div class="decision">
+        <h3 class="d-title">LOCF Imputation over Mean Imputation</h3>
         <div>
-          <span class="d-lbl">The Trap</span>
-          <p class="d-val">My initial model optimized for <em>Accuracy</em>, achieving 93%. But the clinical dataset was heavily imbalanced (most patients were healthy). A naive model that simply predicted "healthy" for everyone would score very high accuracy.</p>
-        </div>
-        <div>
-          <span class="d-lbl">The Solution</span>
-          <p class="d-val">In clinical ML, a False Negative (telling a sick patient they are healthy) is categorically worse than a False Positive (requiring a healthy patient to take another test). I shifted the evaluation metric entirely to <em>Recall (Sensitivity)</em>.</p>
+          <span class="d-lbl">The Alternative</span>
+          <p class="d-val">Replace missing clinical data points with the mathematical mean or median of the entire dataset.</p>
+          
+          <span class="d-lbl decision-lbl">The Decision</span>
+          <p class="d-val">I utilized Forward Fill (LOCF). In sequential or patient-level clinical data, applying a global mean can aggressively skew individual patient profiles, masking the exact anomalies the model needs to detect.</p>
         </div>
       </div>
-      <span class="tradeoff">Result: Accuracy dropped by 6%, but Recall increased by 25%. A mathematically worse model, but a clinically correct one.</span>
-    </div>
 
-    <div class="decision">
-      <h3 class="d-title">SMOTE + Custom Thresholding</h3>
-      <div class="d-grid">
+      <div class="decision">
+        <h3 class="d-title">Algorithm Ensembling vs Single Models</h3>
         <div>
-          <span class="d-lbl">The Implementation</span>
-          <p class="d-val">I applied SMOTE (Synthetic Minority Over-sampling Technique) to balance the training data. More importantly, I dropped the decision threshold of the XGBoost classifier from the default 0.5 down to 0.35.</p>
+          <span class="d-lbl">The Alternative</span>
+          <p class="d-val">Pick a single standard algorithm like Logistic Regression and tune it extensively.</p>
+          
+          <span class="d-lbl decision-lbl">The Decision</span>
+          <p class="d-val">Instead of assuming one model is superior, I built a comparative evaluation pipeline. I trained and evaluated Logistic Regression, SVM, KNN, Naive Bayes, Decision Trees, and Random Forest simultaneously. Random Forest ultimately provided the best stability.</p>
         </div>
+      </div>
+
+      <div class="decision">
+        <h3 class="d-title">5-Fold Cross Validation</h3>
         <div>
-          <span class="d-lbl">The Reasoning</span>
-          <p class="d-val">Dropping the threshold means the model flags a patient as "at risk" even if it is only 35% confident. This intentionally generates more False Positives to ensure we catch nearly all True Positives.</p>
+          <span class="d-lbl">The Alternative</span>
+          <p class="d-val">Rely purely on a standard 80/20 train-test split for final accuracy reporting.</p>
+          
+          <span class="d-lbl decision-lbl">The Decision</span>
+          <p class="d-val">A single split can result in optimistic or pessimistic accuracy scores due to the luck of the draw. I implemented 5-Fold Cross Validation to ensure the model's performance estimates were dependable and practically generalized across all segments of unseen data.</p>
         </div>
+      </div>
+
+      <div class="decision">
+        <h3 class="d-title">Feature Selection via Importance</h3>
+        <div>
+          <span class="d-lbl">The Alternative</span>
+          <p class="d-val">Train the model on all available clinical features without filtering.</p>
+          
+          <span class="d-lbl decision-lbl">The Decision</span>
+          <p class="d-val">I utilized Random Forest feature importance to identify and drop low-variance, noisy columns. This reduced the dimensionality of the dataset, lowering the chance of overfitting and improving the inference speed of the final deployed model.</p>
+        </div>
+        <span class="tradeoff">Trade-off: Dropping features always carries a slight risk of losing nuanced correlations, but yields a significantly more robust model in production.</span>
       </div>
     </div>
   </div>
 
   <div class="section">
-    <h2 class="sec-title">Implementation Detail: Evaluation Gate</h2>
+    <h2 class="sec-title">The Outcome</h2>
     <div class="content">
-      <p>This code block demonstrates how the evaluation logic was explicitly constrained to reject models that had an unacceptable False Negative rate, regardless of their overall accuracy.</p>
+      <p>This project demonstrates a rigorous mastery of the complete machine learning pipeline—from foundational data cleaning to objective multi-algorithm comparison and evaluation using Precision, Recall, and F1 scores rather than relying on flawed, generic Accuracy metrics.</p>
     </div>
-    
-    <div class="code-block">
-      <div class="code-header">
-        <span>evaluation.py</span>
-        <span>Python</span>
-      </div>
-      <div class="code-body">
-<pre><code><span class="kw">def</span> <span class="fn">evaluate_for_clinical_domain</span>(y_true, y_pred_proba, threshold=<span class="num">0.35</span>):
-    <span class="cm"># Lower threshold: accept more false positives to catch more true positives</span>
-    y_pred = (y_pred_proba >= threshold).astype(<span class="dec">int</span>)
-    tn, fp, fn, tp = <span class="fn">confusion_matrix</span>(y_true, y_pred).ravel()
-
-    recall = <span class="fn">recall_score</span>(y_true, y_pred)
-    
-    <span class="cm"># In this domain, a high false-negative rate is unacceptable</span>
-    <span class="kw">if</span> fn > tp * <span class="num">0.05</span>:
-        <span class="kw">raise</span> ValueError(<span class="st">f"FN rate too high for clinical use: {fn}/{tp}"</span>)
-
-    <span class="kw">return</span> {
-        <span class="st">"recall"</span>: recall, 
-        <span class="st">"false_negatives"</span>: fn, 
-        <span class="st">"false_positives"</span>: fp
-    }</code></pre>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2 class="sec-title">Lessons Learned</h2>
-    <div class="content">
-      <p>Model evaluation must be grounded in the domain. Standard metrics (Accuracy, F1) are starting points, not conclusions. The same principle applies in modern AI systems—evaluating an LLM on a generic benchmark doesn't tell you if it's right for your specific use case. <strong>Domain-constrained evaluation is a discipline I carry into all my LLM work today.</strong></p>
-    </div>
-  </div>
-
-  <div class="section" style="margin-bottom: 120px; padding-top: 40px; border-top: 1px solid var(--border);">
-    <a href="https://github.com/jayanthkumar10/Heart-disease-Prediction-using-Supervised-Machine-Learning-algorithms" target="_blank" class="btn">View Source Code on GitHub ↗</a>
   </div>
 
 </div>
