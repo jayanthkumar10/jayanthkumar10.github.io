@@ -14,12 +14,12 @@
     mermaid.initialize({
       startOnLoad: true, theme: 'dark',
       themeVariables: {
-        fontFamily: 'JetBrains Mono, monospace', fontSize: '15px',
-        primaryColor: '#0e0e0e', primaryTextColor: '#f5f5f5',
-        primaryBorderColor: 'rgba(255,255,255,0.08)', lineColor: '#38bdf8',
-        background: '#060606', mainBkg: '#0e0e0e',
-        nodeBorder: 'rgba(255,255,255,0.15)', edgeLabelBackground: '#0e0e0e',
-        clusterBkg: '#0e0e0e', titleColor: '#f5f5f5',
+        fontFamily: 'JetBrains Mono, monospace', fontSize: '14px',
+        primaryColor: '#121020', primaryTextColor: '#f8fafc',
+        primaryBorderColor: 'rgba(255,255,255,0.05)', lineColor: '#38bdf8',
+        background: '#08070d', mainBkg: '#121020',
+        nodeBorder: 'rgba(255,255,255,0.1)', edgeLabelBackground: '#121020',
+        clusterBkg: '#121020', titleColor: '#f8fafc',
       }
     });
   </script>
@@ -27,112 +27,168 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #060606; --surface: #0e0e0e; --border: rgba(255,255,255,0.08); --border-h: rgba(255,255,255,0.15);
-      --text: #f5f5f5; --text2: #a3a3a3; --accent: #38bdf8; --green: #4ade80;
-      --sans: 'Inter', system-ui, sans-serif; --mono: 'JetBrains Mono', monospace;
+      --bg:          #06050a;
+      --bg-mesh:     radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.04) 0px, transparent 50%),
+                     radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.03) 0px, transparent 50%);
+      --surface:     rgba(15, 12, 25, 0.45);
+      --surface-hov: rgba(22, 18, 36, 0.65);
+      --border:      rgba(255, 255, 255, 0.03);
+      --border-h:    rgba(255, 255, 255, 0.08);
+      --text:        #f8fafc;
+      --text2:       #94a3b8;
+      --text3:       #576b85;
+      --accent:      #0ea5e9;
+      --green:       #10b981;
+      --sans:        'Inter', system-ui, sans-serif;
+      --mono:        'JetBrains Mono', monospace;
+      --glass-bg:    rgba(6, 5, 10, 0.75);
     }
     html { background: var(--bg); color: var(--text2); font-family: var(--sans); font-size: 16px; scroll-behavior: smooth; }
-    body { min-height: 100vh; overflow-x: hidden; }
-    ::selection { background: rgba(56, 189, 248, 0.15); color: var(--accent); }
-    ::-webkit-scrollbar { width: 6px; }
+    body { min-height: 100vh; overflow-x: hidden; background-image: var(--bg-mesh); background-attachment: fixed; }
+    ::selection { background: rgba(56, 189, 248, 0.1); color: var(--accent); }
+    ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 4px; border: 2px solid var(--bg); }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
 
-    h1, h2, h3, h4 { color: var(--text); font-weight: 500; letter-spacing: -0.03em; line-height: 1.2; }
-    a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
+    h1, h2, h3, h4 { color: var(--text); font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; }
+    a { color: inherit; text-decoration: none; transition: all 0.3s ease; }
     
-    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-    .text-wrap { max-width: 760px; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .text-wrap { max-width: 1000px; }
+
+    /* GRADIENTS */
+    .grad-text {
+      background: linear-gradient(135deg, var(--text) 30%, var(--text3) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .accent-grad-text {
+      background: linear-gradient(135deg, var(--text) 30%, var(--accent) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .tech-highlight { color: var(--accent); font-weight: 500; }
     
     /* NAV */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(6, 6, 6, 0.7); backdrop-filter: blur(20px) saturate(150%);
-      border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 60px;
+      background: var(--glass-bg); backdrop-filter: blur(20px) saturate(160%);
+      border-bottom: 1px solid var(--border); padding: 18px 0; margin-bottom: 60px;
     }
-    .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-    .back-link { font-size: 14px; font-weight: 400; color: var(--text2); display: flex; align-items: center; gap: 8px; transition: color 0.2s; }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .back-link { font-size: 14px; font-weight: 500; color: var(--text2); display: flex; align-items: center; gap: 8px; }
     .back-link:hover { color: var(--text); }
     
     /* HERO SPLIT */
-    .hero-split { display: grid; grid-template-columns: 1fr 1.3fr; gap: 64px; align-items: center; margin-bottom: 120px; }
+    .hero-split { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center; margin-bottom: 100px; }
     
-    .header { margin-bottom: 0; }
-    .title { font-size: clamp(40px, 4vw, 56px); margin-bottom: 24px; font-weight: 500; }
-    .desc { font-size: 18px; line-height: 1.6; color: var(--text2); margin-bottom: 32px; font-weight: 300; }
-    .tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
-    .tag { font-family: var(--mono); font-size: 11px; padding: 6px 12px; border: 1px solid var(--border); border-radius: 100px; color: var(--text2); background: rgba(255,255,255,0.02); }
+    .title { font-size: clamp(38px, 4.5vw, 52px); margin-bottom: 24px; font-weight: 600; line-height: 1.15; }
+    .desc { font-size: 17px; line-height: 1.65; color: var(--text2); margin-bottom: 32px; font-weight: 300; }
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
+    .tag { font-family: var(--mono); font-size: 11px; padding: 6px 14px; border: 1px solid var(--border-h); border-radius: 100px; color: var(--text2); background: rgba(255,255,255,0.02); }
     
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; font-size: 14px; font-weight: 500; border-radius: 8px; border: 1px solid var(--border-h); transition: all 0.2s ease; background: transparent; color: var(--text); cursor: pointer; }
-    .btn:hover { border-color: #555; background: rgba(255,255,255,0.02); }
-    .btn-primary { background: var(--text); color: var(--bg); border: none; }
-    .btn-primary:hover { background: #e0e0e0; border-color: transparent; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 12px 26px; font-size: 14px; font-weight: 500; border-radius: 12px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; border: 1px solid transparent;
+      letter-spacing: 0.01em; position: relative; overflow: hidden;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent) 0%, #0284c7 100%);
+      color: #040408; font-weight: 600;
+      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.2);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(56, 189, 248, 0.35);
+      color: #fff;
+    }
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.01); border: 1px solid var(--border-h); color: var(--text); backdrop-filter: blur(10px);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent); background: rgba(56, 189, 248, 0.05); transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
     
+    /* HIGHLIGHTS STRIP */
+    .highlights-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+      padding: 24px; border: 1px solid var(--border); border-radius: 16px;
+      background: rgba(18, 16, 28, 0.3); backdrop-filter: blur(5px); margin-bottom: 80px;
+    }
+    .hl-item { text-align: center; border-right: 1px solid var(--border); }
+    .hl-item:last-child { border-right: none; }
+    .hl-val { font-family: var(--mono); font-size: 28px; font-weight: 500; color: var(--accent); margin-bottom: 6px; }
+    .hl-lbl { font-size: 13px; color: var(--text2); font-weight: 300; }
+
     /* VIDEO PLAYER */
     .video-container {
       position: relative; width: 100%; aspect-ratio: 16/10; 
-      border-radius: 16px; overflow: hidden; border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden; border: 1px solid var(--border);
       background: var(--surface); box-shadow: 0 30px 60px rgba(0,0,0,0.4);
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease;
     }
     .video-container:hover { transform: translateY(-4px); border-color: var(--border-h); }
-    .video-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: opacity 0.3s ease; filter: grayscale(20%); }
-    .video-container:hover .video-poster { opacity: 0.9; filter: grayscale(0%); }
+    .video-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: opacity 0.3s ease; }
+    .video-container:hover .video-poster { opacity: 0.8; }
     .play-btn {
-      position: relative; z-index: 2; width: 80px; height: 80px; border-radius: 50%;
-      background: rgba(255,255,255,0.1); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2);
+      position: relative; z-index: 2; width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(8, 7, 13, 0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15);
       display: flex; align-items: center; justify-content: center; color: var(--text);
       transition: all 0.3s ease;
     }
     .video-container:hover .play-btn { background: var(--text); color: var(--bg); transform: scale(1.05); }
 
     /* SECTIONS */
-    .section { margin-bottom: 120px; }
-    .sec-title { font-size: 32px; margin-bottom: 40px; padding-bottom: 16px; border-bottom: 1px solid var(--border); font-weight: 500; }
+    .section { margin-bottom: 100px; }
+    .sec-title { font-size: 28px; margin-bottom: 32px; padding-bottom: 12px; border-bottom: 1px solid var(--border); font-weight: 600; }
     .content p { line-height: 1.7; margin-bottom: 24px; font-size: 16px; font-weight: 300; }
     .content strong { color: var(--text); font-weight: 500; }
     
     /* ARCHITECTURE PIPELINE */
-    .arch-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+    .arch-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
     .arch-header .sec-title { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
     
     .arch-box { 
-      background: var(--surface); border: 1px solid var(--border); border-radius: 16px; 
-      padding: 60px 40px; overflow-x: auto; box-shadow: inset 0 2px 10px rgba(0,0,0,0.2); 
+      background: var(--surface); border: 1px solid var(--border); border-radius: 20px; 
+      padding: 48px; overflow-x: auto; box-shadow: inset 0 2px 10px rgba(0,0,0,0.2); 
       position: relative;
     }
     .mermaid { min-width: 1000px; display: flex; justify-content: center; }
     
     /* MODAL */
     .modal {
-      position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px);
+      position: fixed; inset: 0; z-index: 1000; background: rgba(8, 7, 13, 0.95); backdrop-filter: blur(15px);
       display: flex; justify-content: center; align-items: center;
       opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
     }
     .modal.active { opacity: 1; pointer-events: auto; }
-    .modal-close { position: absolute; top: 32px; right: 40px; font-size: 32px; color: #fff; cursor: pointer; transition: color 0.2s; z-index: 1001; }
+    .modal-close { position: absolute; top: 32px; right: 40px; font-size: 28px; color: #fff; cursor: pointer; transition: color 0.2s; z-index: 1001; }
     .modal-close:hover { color: var(--accent); }
     .modal-content { width: 90vw; height: 90vh; display: flex; justify-content: center; align-items: center; }
     .modal-content svg { max-width: 100%; max-height: 100%; width: auto; height: auto; }
 
     /* DECISIONS */
-    .decisions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 32px; }
-    .decision { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 40px; transition: border-color 0.2s ease; height: 100%; display: flex; flex-direction: column; }
-    .decision:hover { border-color: var(--border-h); }
-    .d-title { font-size: 20px; color: var(--text); margin-bottom: 24px; font-weight: 500; }
-    .d-lbl { font-family: var(--mono); font-size: 11px; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 0.05em; margin-top: 32px; }
+    .decisions-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .decision { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 36px; transition: all 0.3s ease; height: 100%; display: flex; flex-direction: column; }
+    .decision:hover { border-color: var(--border-h); background: var(--surface-hov); transform: translateY(-2px); }
+    .d-title { font-size: 19px; color: var(--text); margin-bottom: 20px; font-weight: 600; }
+    .d-lbl { font-family: var(--mono); font-size: 11px; color: var(--accent); text-transform: uppercase; margin-bottom: 6px; display: block; letter-spacing: 0.05em; margin-top: 24px; }
     .d-lbl.decision-lbl { color: var(--green); }
-    .d-val { font-size: 15px; line-height: 1.6; font-weight: 300; color: var(--text2); }
-    .tradeoff { display: inline-block; margin-top: auto; padding-top: 32px; font-family: var(--mono); font-size: 12px; color: #888; }
+    .d-val { font-size: 14.5px; line-height: 1.6; font-weight: 300; color: var(--text2); }
+    .tradeoff { display: inline-block; margin-top: auto; padding-top: 28px; font-family: var(--mono); font-size: 12px; color: var(--text3); }
     
     @media(max-width: 1024px) {
-      .hero-split { grid-template-columns: 1fr; gap: 48px; }
+      .hero-split { grid-template-columns: 1fr; gap: 40px; }
       .arch-header { flex-direction: column; align-items: flex-start; gap: 16px; }
       .decisions-grid { grid-template-columns: 1fr; }
       .arch-box { padding: 24px 16px; border-radius: 12px; }
       .mermaid { min-width: 0; }
       .mermaid svg { max-width: 100% !important; height: auto !important; }
+      .highlights-strip { grid-template-columns: 1fr; gap: 16px; padding: 20px; }
+      .hl-item { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+      .hl-item:last-child { border-bottom: none; padding-bottom: 0; }
     }
   </style>
 </head>
@@ -141,7 +197,7 @@
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="back-link">← Back to Portfolio</a>
-    <span style="font-family: var(--mono); font-size: 11px; color: #666; letter-spacing: 0.1em;">// CASE STUDY</span>
+    <span style="font-family: var(--mono); font-size: 11px; color: var(--text3); letter-spacing: 0.1em;">// CASE STUDY</span>
   </div>
 </nav>
 
@@ -149,12 +205,12 @@
   
   <div class="hero-split">
     <header class="header">
-      <h1 class="title">Pathlight.ai</h1>
-      <p class="desc">An autonomous AI agent designed to revolutionize the job application process by dynamically tailoring resumes to specific job descriptions using a containerized, async microservices architecture.</p>
+      <h1 class="title grad-text">Pathlight.ai</h1>
+      <p class="desc">An autonomous resume engineering system designed to dynamically tailor master resumes to target job requirements, bypass ATS algorithms, and export publication-quality PDFs via a containerized, asynchronous event loop.</p>
       <div class="tags">
         <span class="tag">FastAPI</span>
         <span class="tag">Celery + Redis</span>
-        <span class="tag">Gemini / OpenRouter</span>
+        <span class="tag">Gemini 1.5 Flash</span>
         <span class="tag">PostgreSQL</span>
         <span class="tag">Docker</span>
       </div>
@@ -167,102 +223,119 @@
     <div class="video-container" onclick="alert('Demo video playback would initialize here.')">
       <img src="./assets/pathlight_ui.png" alt="Pathlight Demo" class="video-poster">
       <div class="play-btn">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
       </div>
     </div>
   </div>
 
-  <div class="section">
-    <h2 class="sec-title">The Problem</h2>
+  <!-- HIGHLIGHTS STRIP -->
+  <div class="highlights-strip">
+    <div class="hl-item">
+      <div class="hl-val">14-Step</div>
+      <div class="hl-lbl">Asynchronous NLP Pipeline</div>
+    </div>
+    <div class="hl-item">
+      <div class="hl-val">Zero</div>
+      <div class="hl-lbl">Blocking HTTP Event Loop Calls</div>
+    </div>
+    <div class="hl-item">
+      <div class="hl-val">~90%</div>
+      <div class="hl-lbl">Reduction in Resume Formulating Time</div>
+    </div>
+  </div>
+
+  <div class="section text-wrap">
+    <h2 class="sec-title grad-text">The Problem</h2>
     <div class="content">
-      <p>The modern job search is structurally broken. Candidates spend up to 90% of their time manually formatting resumes to bypass stringent Applicant Tracking Systems (ATS). This manual tailoring is essential for getting past automated filters, but it is fundamentally unscalable for human candidates.</p>
+      <p>The modern application pipeline is heavily asymmetrical. Recruiters filter applications using **Applicant Tracking Systems (ATS)** that scan for specific keywords, forcing applicants to spend up to 45 minutes manually tailoring their resume for every single job submission. This process is unscalable, error-prone, and presents severe friction for high-quality candidates.</p>
+      <p>Building an automated solver requires parsing semi-structured PDFs, conducting multi-step LLM analysis, generating consistent styling schemas, and printing standard-compliant PDFs. Doing this in a single HTTP route triggers timeouts, blocks threads, and fails under normal traffic loads.</p>
     </div>
   </div>
 
   <div class="section">
     <div class="arch-header">
-      <h2 class="sec-title">The Async Execution Pipeline</h2>
-      <button class="btn" onclick="openModal()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-        View Full Screen
+      <h2 class="sec-title grad-text">The Async Execution Pipeline</h2>
+      <button class="btn btn-outline" onclick="openModal()" style="padding: 8px 16px; font-size: 12px; border-radius: 8px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+        Full Screen
       </button>
     </div>
     
     <div class="arch-box" id="arch-box-container">
       <div class="mermaid" id="mermaid-source">
 graph TD
-    UI[Frontend HTML/JS] -->|POST /api/bulk-tailor| API[FastAPI Server]
-    API -->|Write Status| DB[(PostgreSQL)]
-    API -->|Queue LLM Jobs| Redis[Redis Broker]
-    Redis --> Worker[Celery Worker]
-    Worker -->|1. Extract JD| Apify[Apify Scraper]
+    UI[Frontend Dashboard] -->|POST /api/bulk-tailor| API[FastAPI Server]
+    API -->|Write Initial Status| DB[(PostgreSQL JSONB)]
+    API -->|Enqueue Task| Redis[Redis Broker]
+    Redis --> Worker[Celery Asynchronous Workers]
+    Worker -->|1. Extract JD & Resume| Scraper[Web Scraper / Parser]
     Worker -->|2. Suitability Filter| LLM[Gemini 1.5 Flash]
-    Worker -->|3. ATS Tailoring| LLM
-    Worker -->|4. HTML Render| HTML[Jinja2]
-    Worker -->|5. PDF Generation| PDF[Headless Chrome]
-    Worker -->|Update Status| DB
+    Worker -->|3. Keyword Matching & Mapping| LLM
+    Worker -->|4. HTML Jinja2 Compile| Jinja[Jinja2 Engine]
+    Worker -->|5. Headless Chrome PDF Print| Chromium[Headless Chrome Worker]
+    Worker -->|Update Status & PDF Link| DB
       </div>
     </div>
   </div>
 
   <div class="section">
-    <h2 class="sec-title" style="margin-bottom: 48px;">Core Engineering Decisions</h2>
+    <h2 class="sec-title grad-text" style="margin-bottom: 40px;">Core Engineering Decisions</h2>
     
     <div class="decisions-grid">
       <div class="decision">
-        <h3 class="d-title">Celery + Redis vs Blocking API Calls</h3>
+        <h3 class="d-title">Celery + Redis vs Blocking FastAPI Routes</h3>
         <div>
           <span class="d-lbl">The Alternative</span>
-          <p class="d-val">Make direct, synchronous HTTP calls to the LLM and wait for the resume generation inside the FastAPI route handler.</p>
+          <p class="d-val">Handle API queries, scrape job listings, and query LLM endpoints directly inside the FastAPI route handlers.</p>
           
           <span class="d-lbl decision-lbl">The Decision</span>
-          <p class="d-val">LLM generation and Headless Chrome PDF rendering take 15–30 seconds per resume. Doing this synchronously would block the event loop and trigger HTTP timeouts. Moving this to a Celery worker queue ensures zero blocking API calls and resilient error retries.</p>
+          <p class="d-val">LLM generation and Headless Chromium PDF rendering take 15–30 seconds. Synchronous processing would tie up web worker threads, leading to gateway timeouts. Offloading the work to Celery queues guarantees the backend remains responsive to user clicks immediately.</p>
         </div>
-        <span class="tradeoff">Trade-off: Increased infrastructure complexity (requiring a Redis container and separate worker processes) but absolutely mandatory for a production-grade NLP pipeline.</span>
+        <span class="tradeoff">Trade-off: Requires maintaining additional infrastructure containers (Redis + Celery workers), but is vital for application stability.</span>
       </div>
 
       <div class="decision">
-        <h3 class="d-title">Jinja2 + Headless Chrome vs Native PDF Libraries</h3>
+        <h3 class="d-title">Jinja2 + Headless Chrome vs Native Canvas Libraries</h3>
         <div>
           <span class="d-lbl">The Alternative</span>
-          <p class="d-val">Use a library like ReportLab or FPDF to manually draw strings and rectangles onto a PDF canvas.</p>
+          <p class="d-val">Draw string coordinates, margins, and lines manually using Python libraries like ReportLab.</p>
           
           <span class="d-lbl decision-lbl">The Decision</span>
-          <p class="d-val">PDF generation is famously brittle. By injecting the LLM's JSON output into semantic Jinja2 HTML templates, we leverage standard web technologies (CSS Grid, Flexbox, Web Fonts). We then spawn Headless Chromium via Pyppeteer to perfectly render the HTML to a PDF.</p>
+          <p class="d-val">Direct PDF canvas drawing is fragile and doesn't handle dynamic text heights well. By injecting tailored JSON structures into standard semantic HTML templates (using CSS Flexbox/Grid), we leverage Pyppeteer to wait for web fonts and print exact vector-based, selectable PDFs.</p>
         </div>
-        <span class="tradeoff">Trade-off: Headless Chrome is extremely memory-intensive. In a high-throughput environment, this requires careful container scaling to prevent OOM kills.</span>
+        <span class="tradeoff">Trade-off: Spawning Chromium processes is memory-intensive. Requires strict worker process limitations to avoid server crashes.</span>
       </div>
 
       <div class="decision">
-        <h3 class="d-title">Multi-Model LLM Routing</h3>
+        <h3 class="d-title">Fallback Model Routing (Gemini & Llama 3)</h3>
         <div>
           <span class="d-lbl">The Alternative</span>
-          <p class="d-val">Hardcode OpenAI or a single model API, making the system vulnerable to outages.</p>
+          <p class="d-val">Hardcode a single LLM provider, exposing the application to third-party outages or rate limit barriers.</p>
           
           <span class="d-lbl decision-lbl">The Decision</span>
-          <p class="d-val">Implemented a routing layer. Primary intelligence uses Gemini 1.5 Flash (for extreme speed and cost efficiency on long contexts), with a fallback to OpenRouter (Llama 3) if Gemini is rate-limited or throws 500s.</p>
+          <p class="d-val">Designed a fallback router. The pipeline uses Gemini 1.5 Flash as the primary agent (optimizing costs and parsing speed on large contexts), with an automatic fallback to Llama 3.3 via OpenRouter in case of rate limits or API outages.</p>
         </div>
-        <span class="tradeoff">Trade-off: Requires maintaining multiple prompt structures, but guarantees system uptime during external outages.</span>
+        <span class="tradeoff">Trade-off: Requires managing slightly different system prompts, but ensures near 100% uptime.</span>
       </div>
 
       <div class="decision">
-        <h3 class="d-title">PostgreSQL vs Document DB</h3>
+        <h3 class="d-title">PostgreSQL JSONB Caching</h3>
         <div>
           <span class="d-lbl">The Alternative</span>
-          <p class="d-val">Use MongoDB to loosely store unstructured job descriptions and raw resume data.</p>
+          <p class="d-val">Query the LLM on every page refresh or request, leading to massive token costs and slow load times.</p>
           
           <span class="d-lbl decision-lbl">The Decision</span>
-          <p class="d-val">We opted for PostgreSQL using JSONB columns. This provides the strict schema validation of relational tables (for user data and job statuses) while still allowing flexible unstructured storage for raw parsed resumes, all within a single managed instance.</p>
+          <p class="d-val">Implemented a caching layer in PostgreSQL using JSONB. By hashing the combined content of the resume and job listing, subsequent requests for the same pairing instantly retrieve pre-calculated matches in microseconds.</p>
         </div>
-        <span class="tradeoff">Trade-off: Querying deeply nested JSONB can be slightly slower than native NoSQL, but it avoids the overhead of managing two distinct database engines.</span>
+        <span class="tradeoff">Trade-off: Slightly larger database footprints, but massive cost and latency savings.</span>
       </div>
     </div>
   </div>
 
-  <div class="section">
-    <h2 class="sec-title">Result</h2>
+  <div class="section text-wrap">
+    <h2 class="sec-title grad-text">Operational Outcome</h2>
     <div class="content">
-      <p>Pathlight successfully reduces a 45-minute manual resume tailoring session down to a 30-second automated background task. The architecture is fully containerized with Docker Compose, separating the PostgreSQL state, Redis broker, FastAPI gateway, and Celery workers for an enterprise-ready topology.</p>
+      <p>Pathlight.ai completely automates resume restructuring. By decoupling the API from background processing, it handles batch job execution safely. The system parses, reviews, restructures, and compiles tailored PDFs, decreasing candidate friction and yielding professional, ATS-optimized deliverables.</p>
     </div>
   </div>
 
@@ -283,12 +356,11 @@ graph TD
     if(sourceSvg) {
       modalBody.innerHTML = '';
       const clonedSvg = sourceSvg.cloneNode(true);
-      // Remove any fixed max-width constraints on the clone so it can scale
       clonedSvg.style.maxWidth = '100%';
       clonedSvg.style.height = '100%';
       modalBody.appendChild(clonedSvg);
       modal.classList.add('active');
-      document.body.style.overflow = 'hidden'; // prevent background scrolling
+      document.body.style.overflow = 'hidden';
     }
   }
 

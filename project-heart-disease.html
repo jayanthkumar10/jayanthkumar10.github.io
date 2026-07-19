@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cardiac Anomaly Detection — Engineering Case Study | Jayanth Kumar</title>
+  <title>Clinical Cardiac Anomaly Detection — Engineering Case Study | Jayanth Kumar</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,88 +12,142 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #060606; --surface: #0e0e0e; --border: rgba(255,255,255,0.08); --border-h: rgba(255,255,255,0.15);
-      --text: #f5f5f5; --text2: #a3a3a3; --accent: #38bdf8; --green: #4ade80;
-      --sans: 'Inter', system-ui, sans-serif; --mono: 'JetBrains Mono', monospace;
+      --bg:          #06050a;
+      --bg-mesh:     radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.04) 0px, transparent 50%),
+                     radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.03) 0px, transparent 50%);
+      --surface:     rgba(15, 12, 25, 0.45);
+      --surface-hov: rgba(22, 18, 36, 0.65);
+      --border:      rgba(255, 255, 255, 0.03);
+      --border-h:    rgba(255, 255, 255, 0.08);
+      --text:        #f8fafc;
+      --text2:       #94a3b8;
+      --text3:       #576b85;
+      --accent:      #06b6d4; /* Teal accent for medical ML */
+      --green:       #10b981;
+      --sans:        'Inter', system-ui, sans-serif;
+      --mono:        'JetBrains Mono', monospace;
+      --glass-bg:    rgba(6, 5, 10, 0.75);
     }
     html { background: var(--bg); color: var(--text2); font-family: var(--sans); font-size: 16px; scroll-behavior: smooth; }
-    body { min-height: 100vh; overflow-x: hidden; }
-    ::selection { background: rgba(56, 189, 248, 0.15); color: var(--accent); }
-    ::-webkit-scrollbar { width: 6px; }
+    body { min-height: 100vh; overflow-x: hidden; background-image: var(--bg-mesh); background-attachment: fixed; }
+    ::selection { background: rgba(6, 118, 212, 0.1); color: var(--accent); }
+    ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 4px; border: 2px solid var(--bg); }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
 
-    h1, h2, h3, h4 { color: var(--text); font-weight: 500; letter-spacing: -0.03em; line-height: 1.2; }
-    a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
+    h1, h2, h3, h4 { color: var(--text); font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; }
+    a { color: inherit; text-decoration: none; transition: all 0.3s ease; }
     
-    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .text-wrap { max-width: 1000px; }
+
+    /* GRADIENTS */
+    .grad-text {
+      background: linear-gradient(135deg, var(--text) 30%, var(--text3) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .accent-grad-text {
+      background: linear-gradient(135deg, var(--text) 30%, var(--accent) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .tech-highlight { color: var(--accent); font-weight: 500; }
     
     /* NAV */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(6, 6, 6, 0.7); backdrop-filter: blur(20px) saturate(150%);
-      border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 60px;
+      background: var(--glass-bg); backdrop-filter: blur(20px) saturate(160%);
+      border-bottom: 1px solid var(--border); padding: 18px 0; margin-bottom: 60px;
     }
-    .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-    .back-link { font-size: 14px; font-weight: 400; color: var(--text2); display: flex; align-items: center; gap: 8px; transition: color 0.2s; }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .back-link { font-size: 14px; font-weight: 500; color: var(--text2); display: flex; align-items: center; gap: 8px; }
     .back-link:hover { color: var(--text); }
     
     /* HERO SPLIT */
-    .hero-split { display: grid; grid-template-columns: 1fr 1.3fr; gap: 64px; align-items: center; margin-bottom: 120px; }
+    .hero-split { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center; margin-bottom: 100px; }
     
-    .header { margin-bottom: 0; }
-    .title { font-size: clamp(40px, 4vw, 56px); margin-bottom: 24px; font-weight: 500; }
-    .desc { font-size: 18px; line-height: 1.6; color: var(--text2); margin-bottom: 32px; font-weight: 300; }
-    .tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
-    .tag { font-family: var(--mono); font-size: 11px; padding: 6px 12px; border: 1px solid var(--border); border-radius: 100px; color: var(--text2); background: rgba(255,255,255,0.02); }
+    .title { font-size: clamp(38px, 4.5vw, 52px); margin-bottom: 24px; font-weight: 600; line-height: 1.15; }
+    .desc { font-size: 17px; line-height: 1.65; color: var(--text2); margin-bottom: 32px; font-weight: 300; }
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
+    .tag { font-family: var(--mono); font-size: 11px; padding: 6px 14px; border: 1px solid var(--border-h); border-radius: 100px; color: var(--text2); background: rgba(255,255,255,0.02); }
     
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; font-size: 14px; font-weight: 500; border-radius: 8px; border: 1px solid var(--border-h); transition: all 0.2s ease; background: transparent; color: var(--text); cursor: pointer; }
-    .btn:hover { border-color: #555; background: rgba(255,255,255,0.02); }
-    .btn-primary { background: var(--text); color: var(--bg); border: none; }
-    .btn-primary:hover { background: #e0e0e0; border-color: transparent; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 12px 26px; font-size: 14px; font-weight: 500; border-radius: 12px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; border: 1px solid transparent;
+      letter-spacing: 0.01em; position: relative; overflow: hidden;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent) 0%, #0891b2 100%);
+      color: #040408; font-weight: 600;
+      box-shadow: 0 4px 20px rgba(6, 182, 212, 0.2);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(6, 182, 212, 0.35);
+      color: #fff;
+    }
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.01); border: 1px solid var(--border-h); color: var(--text); backdrop-filter: blur(10px);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent); background: rgba(6, 182, 212, 0.05); transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
     
+    /* HIGHLIGHTS STRIP */
+    .highlights-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+      padding: 24px; border: 1px solid var(--border); border-radius: 16px;
+      background: rgba(18, 16, 28, 0.3); backdrop-filter: blur(5px); margin-bottom: 80px;
+    }
+    .hl-item { text-align: center; border-right: 1px solid var(--border); }
+    .hl-item:last-child { border-right: none; }
+    .hl-val { font-family: var(--mono); font-size: 28px; font-weight: 500; color: var(--accent); margin-bottom: 6px; }
+    .hl-lbl { font-size: 13px; color: var(--text2); font-weight: 300; }
+
     /* STATIC IMAGE HERO */
     .hero-image-wrapper {
       position: relative; width: 100%; aspect-ratio: 16/10; 
-      border-radius: 16px; overflow: hidden; border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden; border: 1px solid var(--border);
       background: var(--surface); box-shadow: 0 30px 60px rgba(0,0,0,0.4);
       transition: transform 0.3s ease, border-color 0.3s ease;
     }
     .hero-image-wrapper:hover { transform: translateY(-4px); border-color: var(--border-h); }
-    .hero-poster { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); transition: filter 0.3s ease; }
-    .hero-image-wrapper:hover .hero-poster { filter: grayscale(0%); }
+    .hero-poster { width: 100%; height: 100%; object-fit: cover; }
 
     /* SECTIONS */
-    .section { margin-bottom: 120px; }
-    .sec-title { font-size: 32px; margin-bottom: 40px; padding-bottom: 16px; border-bottom: 1px solid var(--border); font-weight: 500; }
+    .section { margin-bottom: 100px; }
+    .sec-title { font-size: 28px; margin-bottom: 32px; padding-bottom: 12px; border-bottom: 1px solid var(--border); font-weight: 600; }
     .content p { line-height: 1.7; margin-bottom: 24px; font-size: 16px; font-weight: 300; }
     .content strong { color: var(--text); font-weight: 500; }
     
     /* ARCHITECTURE PIPELINE */
-    .arch-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+    .arch-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
     .arch-header .sec-title { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
     
     .arch-box { 
-      background: var(--surface); border: 1px solid var(--border); border-radius: 16px; 
-      overflow: hidden; box-shadow: inset 0 2px 10px rgba(0,0,0,0.2); 
-      position: relative;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 20px; 
+      padding: 0; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
     }
     .arch-box img { width: 100%; height: auto; display: block; }
-    
+
     /* DECISIONS */
-    .decisions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 32px; }
-    .decision { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 40px; transition: border-color 0.2s ease; height: 100%; display: flex; flex-direction: column; }
-    .decision:hover { border-color: var(--border-h); }
-    .d-title { font-size: 20px; color: var(--text); margin-bottom: 24px; font-weight: 500; }
-    .d-lbl { font-family: var(--mono); font-size: 11px; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 0.05em; margin-top: 32px; }
+    .decisions-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .decision { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 36px; transition: all 0.3s ease; height: 100%; display: flex; flex-direction: column; }
+    .decision:hover { border-color: var(--border-h); background: var(--surface-hov); transform: translateY(-2px); }
+    .d-title { font-size: 19px; color: var(--text); margin-bottom: 20px; font-weight: 600; }
+    .d-lbl { font-family: var(--mono); font-size: 11px; color: var(--accent); text-transform: uppercase; margin-bottom: 6px; display: block; letter-spacing: 0.05em; margin-top: 24px; }
     .d-lbl.decision-lbl { color: var(--green); }
-    .d-val { font-size: 15px; line-height: 1.6; font-weight: 300; color: var(--text2); }
-    .tradeoff { display: inline-block; margin-top: auto; padding-top: 32px; font-family: var(--mono); font-size: 12px; color: #888; }
+    .d-val { font-size: 14.5px; line-height: 1.6; font-weight: 300; color: var(--text2); }
+    .tradeoff { display: inline-block; margin-top: auto; padding-top: 28px; font-family: var(--mono); font-size: 12px; color: var(--text3); }
     
     @media(max-width: 1024px) {
-      .hero-split { grid-template-columns: 1fr; gap: 48px; }
-      .arch-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .hero-split { grid-template-columns: 1fr; gap: 40px; }
       .decisions-grid { grid-template-columns: 1fr; }
+      .highlights-strip { grid-template-columns: 1fr; gap: 16px; padding: 20px; }
+      .hl-item { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+      .hl-item:last-child { border-bottom: none; padding-bottom: 0; }
     }
   </style>
 </head>
@@ -102,7 +156,7 @@
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="back-link">← Back to Portfolio</a>
-    <span style="font-family: var(--mono); font-size: 11px; color: #666; letter-spacing: 0.1em;">// CASE STUDY</span>
+    <span style="font-family: var(--mono); font-size: 11px; color: var(--text3); letter-spacing: 0.1em;">// CASE STUDY</span>
   </div>
 </nav>
 
@@ -110,8 +164,8 @@
   
   <div class="hero-split">
     <header class="header">
-      <h1 class="title">Clinical Cardiac Anomaly Detection</h1>
-      <p class="desc">A complete end-to-end supervised machine learning workflow focused on clinical anomaly prediction. Features exhaustive exploratory data analysis, algorithm comparative analysis, and 5-fold cross-validation.</p>
+      <h1 class="title grad-text">Clinical Anomaly Detection</h1>
+      <p class="desc">A supervised machine learning classification pipeline designed to predict cardiac anomaly presence, utilizing patient exploratory data analysis, imputation workflows, and multi-model comparative validation.</p>
       <div class="tags">
         <span class="tag">Python</span>
         <span class="tag">Random Forest</span>
@@ -125,73 +179,89 @@
 
     <!-- STATIC IMAGE HERO -->
     <div class="hero-image-wrapper">
-      <img src="./images/hero-bg.jpg" alt="Heart Disease ML" class="hero-poster">
+      <img src="./assets/heart_disease_ui.png" alt="Cardiac ML Analytics" class="hero-poster">
     </div>
   </div>
 
-  <div class="section">
-    <h2 class="sec-title">The Problem</h2>
+  <!-- HIGHLIGHTS STRIP -->
+  <div class="highlights-strip">
+    <div class="hl-item">
+      <div class="hl-val">5-Fold</div>
+      <div class="hl-lbl">Cross-Validation Testing Architecture</div>
+    </div>
+    <div class="hl-item">
+      <div class="hl-val">LOCF</div>
+      <div class="hl-lbl">Patient-Level Imputation Strategy</div>
+    </div>
+    <div class="hl-item">
+      <div class="hl-val">Recall-Focused</div>
+      <div class="hl-lbl">Minimization of False Negatives in Healthcare</div>
+    </div>
+  </div>
+
+  <div class="section text-wrap">
+    <h2 class="sec-title grad-text">The Problem</h2>
     <div class="content">
-      <p>Heart disease is one of the leading causes of death worldwide. Early prediction can help doctors identify high-risk patients and begin preventive treatment earlier. The objective of this project was to build a binary classification model that predicts whether a patient has heart disease by learning patterns from historical clinical data.</p>
+      <p>Cardiovascular disease is a leading cause of mortality globally. Building automated screening models allows clinical professionals to isolate high-risk indicators earlier. However, raw clinical datasets present massive challenges, including missing values (imputed values can skew diagnostics), statistical noise, and high correlations between patient variables.</p>
+      <p>In clinical machine learning, optimizing pure **accuracy** is dangerous. A false negative (missing a patient with heart disease) has lethal consequences, meaning the model's **recall** rate must be prioritized, requiring highly precise threshold tuning and cross-validation pipelines.</p>
     </div>
   </div>
 
-
   <div class="section">
-    <h2 class="sec-title" style="margin-bottom: 48px;">Engineering Decisions</h2>
+    <h2 class="sec-title grad-text" style="margin-bottom: 40px;">Core Engineering Decisions</h2>
     
     <div class="decisions-grid">
       <div class="decision">
-        <h3 class="d-title">LOCF Imputation over Mean Imputation</h3>
+        <h3 class="d-title">LOCF Imputation vs Global Mean Replacement</h3>
         <div>
           <span class="d-lbl">The Alternative</span>
-          <p class="d-val">Replace missing clinical data points with the mathematical mean or median of the entire dataset.</p>
+          <p class="d-val">Fill missing patient parameters with the dataset's global mean or median values.</p>
           
           <span class="d-lbl decision-lbl">The Decision</span>
-          <p class="d-val">I utilized Forward Fill (LOCF). In sequential or patient-level clinical data, applying a global mean can aggressively skew individual patient profiles, masking the exact anomalies the model needs to detect.</p>
+          <p class="d-val">Using global statistical averages masks crucial individual patient variations and creates artificial correlations. I implemented Last Observation Carried Forward (LOCF) for sequential patient records, ensuring that missing attributes are filled using the patient's own historical observations to preserve context.</p>
         </div>
       </div>
 
       <div class="decision">
-        <h3 class="d-title">Algorithm Ensembling vs Single Models</h3>
+        <h3 class="d-title">Multi-Model Framework vs Monolithic Tuning</h3>
         <div>
           <span class="d-lbl">The Alternative</span>
-          <p class="d-val">Pick a single standard algorithm like Logistic Regression and tune it extensively.</p>
+          <p class="d-val">Select a standard classifier (like Logistic Regression) immediately and optimize it exclusively.</p>
           
           <span class="d-lbl decision-lbl">The Decision</span>
-          <p class="d-val">Instead of assuming one model is superior, I built a comparative evaluation pipeline. I trained and evaluated Logistic Regression, SVM, KNN, Naive Bayes, Decision Trees, and Random Forest simultaneously. Random Forest ultimately provided the best stability.</p>
+          <p class="d-val">I built a comparative evaluation framework that pipelines patient features to Logistic Regression, SVM, KNN, Naive Bayes, Decision Trees, and Random Forest. Evaluating them simultaneously demonstrated that Random Forest yielded the highest stability and recall performance.</p>
         </div>
       </div>
 
       <div class="decision">
-        <h3 class="d-title">5-Fold Cross Validation</h3>
+        <h3 class="d-title">5-Fold Cross Validation over Single Splits</h3>
         <div>
           <span class="d-lbl">The Alternative</span>
-          <p class="d-val">Rely purely on a standard 80/20 train-test split for final accuracy reporting.</p>
+          <p class="d-val">Rely on a simple 80/20 train-test split to report final metric evaluations.</p>
           
           <span class="d-lbl decision-lbl">The Decision</span>
-          <p class="d-val">A single split can result in optimistic or pessimistic accuracy scores due to the luck of the draw. I implemented 5-Fold Cross Validation to ensure the model's performance estimates were dependable and practically generalized across all segments of unseen data.</p>
+          <p class="d-val">Single splits are susceptible to the "luck of the draw", leading to over-optimistic test scores. Running a robust 5-Fold Cross Validation splits the data into five independent rotations, guaranteeing that the final precision and recall scores represent stable, generalizable performance.</p>
         </div>
       </div>
 
       <div class="decision">
-        <h3 class="d-title">Feature Selection via Importance</h3>
+        <h3 class="d-title">Feature Selection via Classifier Importance</h3>
         <div>
           <span class="d-lbl">The Alternative</span>
-          <p class="d-val">Train the model on all available clinical features without filtering.</p>
+          <p class="d-val">Train models on all raw patient features without checking for statistical variance.</p>
           
           <span class="d-lbl decision-lbl">The Decision</span>
-          <p class="d-val">I utilized Random Forest feature importance to identify and drop low-variance, noisy columns. This reduced the dimensionality of the dataset, lowering the chance of overfitting and improving the inference speed of the final deployed model.</p>
+          <p class="d-val">Clinical datasets contain noisy variables that lead to overfitting. I utilized Random Forest feature importance scores to isolate and drop low-influence attributes. This minimized model complexity, accelerated inference speeds, and improved generalization on test folds.</p>
         </div>
-        <span class="tradeoff">Trade-off: Dropping features always carries a slight risk of losing nuanced correlations, but yields a significantly more robust model in production.</span>
+        <span class="tradeoff">Trade-off: Dropping features can hide subtle multi-variable interactions, but drastically improves model robustness and prevents overfitting.</span>
       </div>
     </div>
   </div>
 
-  <div class="section">
-    <h2 class="sec-title">The Outcome</h2>
+  <div class="section text-wrap">
+    <h2 class="sec-title grad-text">Operational Outcome</h2>
     <div class="content">
-      <p>This project demonstrates a rigorous mastery of the complete machine learning pipeline—from foundational data cleaning to objective multi-algorithm comparison and evaluation using Precision, Recall, and F1 scores rather than relying on flawed, generic Accuracy metrics.</p>
+      <p>The anomaly detection project showcases a complete supervised learning pipeline. By incorporating feature selection, comparing multi-model architectures, and evaluating results using precision and recall curves, it presents a professional framework for medical diagnostic assistance.</p>
     </div>
   </div>
 

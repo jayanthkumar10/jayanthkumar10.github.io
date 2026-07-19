@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WhatsApp Clinic Receptionist — Engineering Case Study | Jayanth Kumar</title>
+  <title>AI Clinic Receptionist — Engineering Case Study | Jayanth Kumar</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,12 +14,12 @@
     mermaid.initialize({
       startOnLoad: true, theme: 'dark',
       themeVariables: {
-        fontFamily: 'JetBrains Mono, monospace', fontSize: '15px',
-        primaryColor: '#0e0e0e', primaryTextColor: '#f5f5f5',
-        primaryBorderColor: 'rgba(255,255,255,0.08)', lineColor: '#38bdf8',
-        background: '#060606', mainBkg: '#0e0e0e',
-        nodeBorder: 'rgba(255,255,255,0.15)', edgeLabelBackground: '#0e0e0e',
-        clusterBkg: '#0e0e0e', titleColor: '#f5f5f5',
+        fontFamily: 'JetBrains Mono, monospace', fontSize: '14px',
+        primaryColor: '#121020', primaryTextColor: '#f8fafc',
+        primaryBorderColor: 'rgba(255,255,255,0.05)', lineColor: '#a855f7',
+        background: '#08070d', mainBkg: '#121020',
+        nodeBorder: 'rgba(255,255,255,0.1)', edgeLabelBackground: '#121020',
+        clusterBkg: '#121020', titleColor: '#f8fafc',
       }
     });
   </script>
@@ -27,103 +27,149 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #060606; --surface: #0e0e0e; --border: rgba(255,255,255,0.08); --border-h: rgba(255,255,255,0.15);
-      --text: #f5f5f5; --text2: #a3a3a3; --accent: #38bdf8; --green: #4ade80;
-      --sans: 'Inter', system-ui, sans-serif; --mono: 'JetBrains Mono', monospace;
+      --bg:          #06050a;
+      --bg-mesh:     radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.04) 0px, transparent 50%),
+                     radial-gradient(at 100% 100%, rgba(14, 165, 233, 0.03) 0px, transparent 50%);
+      --surface:     rgba(15, 12, 25, 0.45);
+      --surface-hov: rgba(22, 18, 36, 0.65);
+      --border:      rgba(255, 255, 255, 0.03);
+      --border-h:    rgba(255, 255, 255, 0.08);
+      --text:        #f8fafc;
+      --text2:       #94a3b8;
+      --text3:       #576b85;
+      --accent:      #8b5cf6;
+      --accent-blue: #0ea5e9;
+      --sans:        'Inter', system-ui, sans-serif;
+      --mono:        'JetBrains Mono', monospace;
+      --glass-bg:    rgba(6, 5, 10, 0.75);
     }
     html { background: var(--bg); color: var(--text2); font-family: var(--sans); font-size: 16px; scroll-behavior: smooth; }
-    body { min-height: 100vh; overflow-x: hidden; }
-    ::selection { background: rgba(56, 189, 248, 0.15); color: var(--accent); }
-    ::-webkit-scrollbar { width: 6px; }
+    body { min-height: 100vh; overflow-x: hidden; background-image: var(--bg-mesh); background-attachment: fixed; }
+    ::selection { background: rgba(168, 85, 247, 0.1); color: var(--accent); }
+    ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 4px; border: 2px solid var(--bg); }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
 
-    h1, h2, h3, h4 { color: var(--text); font-weight: 500; letter-spacing: -0.03em; line-height: 1.2; }
-    a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
+    h1, h2, h3, h4 { color: var(--text); font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; }
+    a { color: inherit; text-decoration: none; transition: all 0.3s ease; }
     
-    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .text-wrap { max-width: 1000px; }
+
+    /* GRADIENTS */
+    .grad-text {
+      background: linear-gradient(135deg, var(--text) 30%, var(--text3) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .accent-grad-text {
+      background: linear-gradient(135deg, var(--text) 30%, var(--accent) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .tech-highlight { color: var(--accent-blue); font-weight: 500; }
     
     /* NAV */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(6, 6, 6, 0.7); backdrop-filter: blur(20px) saturate(150%);
-      border-bottom: 1px solid var(--border); padding: 20px 0; margin-bottom: 60px;
+      background: var(--glass-bg); backdrop-filter: blur(20px) saturate(160%);
+      border-bottom: 1px solid var(--border); padding: 18px 0; margin-bottom: 60px;
     }
-    .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-    .back-link { font-size: 14px; font-weight: 400; color: var(--text2); display: flex; align-items: center; gap: 8px; transition: color 0.2s; }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .back-link { font-size: 14px; font-weight: 500; color: var(--text2); display: flex; align-items: center; gap: 8px; }
     .back-link:hover { color: var(--text); }
     
     /* HERO SPLIT */
-    .hero-split { display: grid; grid-template-columns: 1fr 1.3fr; gap: 64px; align-items: center; margin-bottom: 120px; }
+    .hero-split { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center; margin-bottom: 100px; }
     
-    .header { margin-bottom: 0; }
-    .title { font-size: clamp(40px, 4vw, 56px); margin-bottom: 24px; font-weight: 500; }
-    .desc { font-size: 18px; line-height: 1.6; color: var(--text2); margin-bottom: 32px; font-weight: 300; }
-    .tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
-    .tag { font-family: var(--mono); font-size: 11px; padding: 6px 12px; border: 1px solid var(--border); border-radius: 100px; color: var(--text2); background: rgba(255,255,255,0.02); }
+    .title { font-size: clamp(38px, 4.5vw, 52px); margin-bottom: 24px; font-weight: 600; line-height: 1.15; }
+    .desc { font-size: 17px; line-height: 1.65; color: var(--text2); margin-bottom: 32px; font-weight: 300; }
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
+    .tag { font-family: var(--mono); font-size: 11px; padding: 6px 14px; border: 1px solid var(--border-h); border-radius: 100px; color: var(--text2); background: rgba(255,255,255,0.02); }
     
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; font-size: 14px; font-weight: 500; border-radius: 8px; border: 1px solid var(--border-h); transition: all 0.2s ease; background: transparent; color: var(--text); cursor: pointer; }
-    .btn:hover { border-color: #555; background: rgba(255,255,255,0.02); }
-    .btn-primary { background: var(--text); color: var(--bg); border: none; }
-    .btn-primary:hover { background: #e0e0e0; border-color: transparent; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 12px 26px; font-size: 14px; font-weight: 500; border-radius: 12px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; border: 1px solid transparent;
+      letter-spacing: 0.01em; position: relative; overflow: hidden;
+    }
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.01); border: 1px solid var(--border-h); color: var(--text); backdrop-filter: blur(10px);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent); background: rgba(168, 85, 247, 0.05); transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
     
+    /* HIGHLIGHTS STRIP */
+    .highlights-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+      padding: 24px; border: 1px solid var(--border); border-radius: 16px;
+      background: rgba(18, 16, 28, 0.3); backdrop-filter: blur(5px); margin-bottom: 80px;
+    }
+    .hl-item { text-align: center; border-right: 1px solid var(--border); }
+    .hl-item:last-child { border-right: none; }
+    .hl-val { font-family: var(--mono); font-size: 28px; font-weight: 500; color: var(--accent); margin-bottom: 6px; }
+    .hl-lbl { font-size: 13px; color: var(--text2); font-weight: 300; }
+
     /* STATIC IMAGE HERO */
     .hero-image-wrapper {
       position: relative; width: 100%; aspect-ratio: 16/10; 
-      border-radius: 16px; overflow: hidden; border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden; border: 1px solid var(--border);
       background: var(--surface); box-shadow: 0 30px 60px rgba(0,0,0,0.4);
       transition: transform 0.3s ease, border-color 0.3s ease;
     }
     .hero-image-wrapper:hover { transform: translateY(-4px); border-color: var(--border-h); }
-    .hero-poster { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); transition: filter 0.3s ease; }
-    .hero-image-wrapper:hover .hero-poster { filter: grayscale(0%); }
+    .hero-poster { width: 100%; height: 100%; object-fit: cover; }
 
     /* SECTIONS */
-    .section { margin-bottom: 120px; }
-    .sec-title { font-size: 32px; margin-bottom: 40px; padding-bottom: 16px; border-bottom: 1px solid var(--border); font-weight: 500; }
+    .section { margin-bottom: 100px; }
+    .sec-title { font-size: 28px; margin-bottom: 32px; padding-bottom: 12px; border-bottom: 1px solid var(--border); font-weight: 600; }
     .content p { line-height: 1.7; margin-bottom: 24px; font-size: 16px; font-weight: 300; }
     .content strong { color: var(--text); font-weight: 500; }
     
     /* ARCHITECTURE PIPELINE */
-    .arch-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+    .arch-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
     .arch-header .sec-title { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
     
     .arch-box { 
-      background: var(--surface); border: 1px solid var(--border); border-radius: 16px; 
-      padding: 60px 40px; overflow-x: auto; box-shadow: inset 0 2px 10px rgba(0,0,0,0.2); 
+      background: var(--surface); border: 1px solid var(--border); border-radius: 20px; 
+      padding: 48px; overflow-x: auto; box-shadow: inset 0 2px 10px rgba(0,0,0,0.2); 
       position: relative;
     }
     .mermaid { min-width: 1000px; display: flex; justify-content: center; }
     
     /* MODAL */
     .modal {
-      position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px);
+      position: fixed; inset: 0; z-index: 1000; background: rgba(8, 7, 13, 0.95); backdrop-filter: blur(15px);
       display: flex; justify-content: center; align-items: center;
       opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
     }
     .modal.active { opacity: 1; pointer-events: auto; }
-    .modal-close { position: absolute; top: 32px; right: 40px; font-size: 32px; color: #fff; cursor: pointer; transition: color 0.2s; z-index: 1001; }
+    .modal-close { position: absolute; top: 32px; right: 40px; font-size: 28px; color: #fff; cursor: pointer; transition: color 0.2s; z-index: 1001; }
     .modal-close:hover { color: var(--accent); }
     .modal-content { width: 90vw; height: 90vh; display: flex; justify-content: center; align-items: center; }
     .modal-content svg { max-width: 100%; max-height: 100%; width: auto; height: auto; }
 
     /* DECISIONS */
-    .decisions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 32px; }
-    .decision { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 40px; transition: border-color 0.2s ease; height: 100%; display: flex; flex-direction: column; }
-    .decision:hover { border-color: var(--border-h); }
-    .d-title { font-size: 20px; color: var(--text); margin-bottom: 24px; font-weight: 500; }
-    .d-lbl { font-family: var(--mono); font-size: 11px; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 0.05em; margin-top: 32px; }
-    .d-lbl.decision-lbl { color: var(--green); }
-    .d-val { font-size: 15px; line-height: 1.6; font-weight: 300; color: var(--text2); }
-    .tradeoff { display: inline-block; margin-top: auto; padding-top: 32px; font-family: var(--mono); font-size: 12px; color: #888; }
+    .decisions-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .decision { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 36px; transition: all 0.3s ease; height: 100%; display: flex; flex-direction: column; }
+    .decision:hover { border-color: var(--border-h); background: var(--surface-hov); transform: translateY(-2px); }
+    .d-title { font-size: 19px; color: var(--text); margin-bottom: 20px; font-weight: 600; }
+    .d-lbl { font-family: var(--mono); font-size: 11px; color: var(--accent-blue); text-transform: uppercase; margin-bottom: 6px; display: block; letter-spacing: 0.05em; margin-top: 24px; }
+    .d-lbl.decision-lbl { color: var(--accent); }
+    .d-val { font-size: 14.5px; line-height: 1.6; font-weight: 300; color: var(--text2); }
+    .tradeoff { display: inline-block; margin-top: auto; padding-top: 28px; font-family: var(--mono); font-size: 12px; color: var(--text3); }
     
     @media(max-width: 1024px) {
-      .hero-split { grid-template-columns: 1fr; gap: 48px; }
+      .hero-split { grid-template-columns: 1fr; gap: 40px; }
       .arch-header { flex-direction: column; align-items: flex-start; gap: 16px; }
       .decisions-grid { grid-template-columns: 1fr; }
       .arch-box { padding: 24px 16px; border-radius: 12px; }
       .mermaid { min-width: 0; }
       .mermaid svg { max-width: 100% !important; height: auto !important; }
+      .highlights-strip { grid-template-columns: 1fr; gap: 16px; padding: 20px; }
+      .hl-item { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+      .hl-item:last-child { border-bottom: none; padding-bottom: 0; }
     }
   </style>
 </head>
@@ -132,7 +178,7 @@
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="back-link">← Back to Portfolio</a>
-    <span style="font-family: var(--mono); font-size: 11px; color: #666; letter-spacing: 0.1em;">// CASE STUDY</span>
+    <span style="font-family: var(--mono); font-size: 11px; color: var(--text3); letter-spacing: 0.1em;">// CASE STUDY</span>
   </div>
 </nav>
 
@@ -140,54 +186,71 @@
   
   <div class="hero-split">
     <header class="header">
-      <h1 class="title">AI Clinic Receptionist</h1>
-      <p class="desc">A highly robust, stateful conversational agent serving as a medical clinic receptionist on WhatsApp. Built on n8n using a scalable Hub-and-Spoke pattern with Redis for global state management and transactional locks.</p>
+      <h1 class="title grad-text">AI Clinic Receptionist</h1>
+      <p class="desc">A highly robust, transactional conversational assistant serving as an automated receptionist. Orchestrated on n8n using a scalable Hub-and-Spoke pattern with Redis session caching and atomic calendar slot locks.</p>
       <div class="tags">
-        <span class="tag">n8n</span>
-        <span class="tag">Redis</span>
+        <span class="tag">n8n Workflow</span>
+        <span class="tag">Redis Cache</span>
         <span class="tag">Gemini 2.5 Flash</span>
-        <span class="tag">Google Sheets</span>
+        <span class="tag">Google Sheets API</span>
       </div>
       <div style="display: flex; gap: 16px;">
-        <a href="#" class="btn btn-primary" style="opacity: 0.5; cursor: not-allowed;" title="Private Client Repository">Private Repository</a>
+        <span class="btn btn-outline" style="opacity: 0.5; cursor: not-allowed; border-color: var(--border);" title="Private Enterprise Codebase">🔒 Private Repo</span>
       </div>
     </header>
 
     <!-- STATIC IMAGE HERO -->
     <div class="hero-image-wrapper">
-      <img src="./images/hero-bg.jpg" alt="WhatsApp Bot Architecture" class="hero-poster">
+      <img src="./assets/receptionist_ui.png" alt="WhatsApp Bot Architecture" class="hero-poster">
     </div>
   </div>
 
-  <div class="section">
-    <h2 class="sec-title">The Problem</h2>
+  <!-- HIGHLIGHTS STRIP -->
+  <div class="highlights-strip">
+    <div class="hl-item">
+      <div class="hl-val">100%</div>
+      <div class="hl-lbl">Concurrency Resilience (Atomic Slot Locking)</div>
+    </div>
+    <div class="hl-item">
+      <div class="hl-val">Zero</div>
+      <div class="hl-lbl">Webhook Race Conditions via Redis State</div>
+    </div>
+    <div class="hl-item">
+      <div class="hl-val">Self-Healing</div>
+      <div class="hl-lbl">Session Auto-Recovery via Phone ID Matching</div>
+    </div>
+  </div>
+
+  <div class="section text-wrap">
+    <h2 class="sec-title grad-text">The Problem</h2>
     <div class="content">
-      <p>A medical clinic was spending hours manually parsing incoming WhatsApp messages and creating Calendar events. Furthermore, building stateless LLM chatbots is easy, but building a <strong>stateful, transactional</strong> booking system on top of stateless webhooks (WhatsApp/Telegram) requires severe guardrails against race conditions, duplicate bookings, and conversational hallucination.</p>
+      <p>A high-traffic medical clinic spent over 15 hours weekly answering repetitive scheduling messages. While stateless LLM bots are simple to spin up, building a transactional, stateful booking agent on top of stateless message webhooks (WhatsApp/Telegram) introduces major engineering challenges. </p>
+      <p>The system must manage concurrent slot requests (preventing two patients from booking the same 9:00 AM slot), withstand mid-conversation session drops, extract complex structured variables (dates, names) from unstructured conversations, and remain resilient against rate limits or server errors.</p>
     </div>
   </div>
 
   <div class="section">
     <div class="arch-header">
-      <h2 class="sec-title">Hub-and-Spoke Architecture</h2>
-      <button class="btn" onclick="openModal()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-        View Full Screen
+      <h2 class="sec-title grad-text">Hub-and-Spoke Architecture</h2>
+      <button class="btn btn-outline" onclick="openModal()" style="padding: 8px 16px; font-size: 12px; border-radius: 8px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+        Full Screen
       </button>
     </div>
     
     <div class="arch-box" id="arch-box-container">
       <div class="mermaid" id="mermaid-source">
 flowchart TD
-    WH[WhatsApp Webhook] --> Main[Main Orchestrator]
-    Main --> Redis[(Redis Session State)]
-    Main --> LLM[Gemini 2.5 NLP Router]
+    WH[Telegram / WhatsApp webhook] --> Main[Hub Orchestrator Workflow]
+    Main --> Redis[(Redis Session Cache)]
+    Main --> LLM[Gemini 2.5 NLP Intent Router]
     
     LLM --> Switch{Intent Router}
     
-    Switch -->|Action: BOOK| B[Book Spoke]
-    Switch -->|Action: RESCHEDULE| R[Reschedule Spoke]
-    Switch -->|Action: CANCEL| C[Cancel Spoke]
-    Switch -->|Action: FAQ| F[FAQ Spoke]
+    Switch -->|intent: BOOK| B[Book Spoke sub-flow]
+    Switch -->|intent: RESCHEDULE| R[Reschedule Spoke sub-flow]
+    Switch -->|intent: CANCEL| C[Cancel Spoke sub-flow]
+    Switch -->|intent: FAQ| F[FAQ Spoke sub-flow]
     
     B --> DB[(Google Sheets / Calendar)]
     R --> DB
@@ -197,61 +260,61 @@ flowchart TD
   </div>
 
   <div class="section">
-    <h2 class="sec-title" style="margin-bottom: 48px;">Engineering Decisions</h2>
+    <h2 class="sec-title grad-text" style="margin-bottom: 40px;">Core Engineering Decisions</h2>
     
     <div class="decisions-grid">
       <div class="decision">
-        <h3 class="d-title">Redis State Management over Stateless Prompts</h3>
+        <h3 class="d-title">Redis State Management vs Stateless Prompts</h3>
         <div>
           <span class="d-lbl">The Alternative</span>
-          <p class="d-val">Passing the entire conversation history into the LLM prompt every time and asking it to deduce the current step (e.g., "Are we picking a doctor or a date?").</p>
+          <p class="d-val">Feed the entire messaging logs history into the LLM on every incoming webhook and ask the model to guess the current booking stage.</p>
           
           <span class="d-lbl decision-lbl">The Decision</span>
-          <p class="d-val">I implemented an external state machine in Redis. It explicitly tracks the user's current step (<code>MENU</code>, <code>AWAITING_DOCTOR</code>, <code>AWAITING_SLOT_CONFIRM</code>). This drastically reduces LLM hallucination and allows deterministic routing to the correct sub-workflow.</p>
+          <p class="d-val">Relying on LLM memory is slow and prone to hallucination. I designed an external finite state machine (FSM) inside Redis. Redis explicitly tracks the user's current step (e.g., <code>MENU</code>, <code>AWAITING_SLOT</code>, <code>AWAITING_CONFIRMATION</code>). This limits the LLM's role to extracting target parameters, stabilizing the flow.</p>
         </div>
-        <span class="tradeoff">Trade-off: Requires managing cache invalidation, timeout handling (e.g., automatically resetting stuck sessions after 30 minutes), and self-healing logic if the Redis instance wipes.</span>
+        <span class="tradeoff">Trade-off: Requires managing cache invalidation and auto-expiring inactive session tokens after 30 minutes, but guarantees reliable slot transitions.</span>
       </div>
 
       <div class="decision">
-        <h3 class="d-title">Transactional Slot Locking</h3>
+        <h3 class="d-title">Optimistic Slot Locking</h3>
         <div>
           <span class="d-lbl">The Alternative</span>
-          <p class="d-val">Assume that if a user says "I want 9:00 AM", the slot is definitely free, and immediately call the Google Calendar API.</p>
+          <p class="d-val">Query availability and immediately insert calendar slots without checks, causing double bookings if multiple users click concurrently.</p>
           
           <span class="d-lbl decision-lbl">The Decision</span>
-          <p class="d-val">In a high-traffic clinic, two patients might request 9:00 AM simultaneously. The Spoke Workflow implements a strict Concurrency Check. It appends a <code>PENDING</code> row to Google Sheets to establish an atomic lock. Only after the lock is verified does it create the Calendar Event and upgrade to <code>BOOKED</code>.</p>
-        </div>
-      </div>
-
-      <div class="decision">
-        <h3 class="d-title">LLM Fallback Extraction</h3>
-        <div>
-          <span class="d-lbl">The Alternative</span>
-          <p class="d-val">Expect the LLM to return perfect JSON 100% of the time, and crash the webhook if it wraps the JSON in markdown (```json ... ```).</p>
-          
-          <span class="d-lbl decision-lbl">The Decision</span>
-          <p class="d-val">I built a 3-layer safety net in a Custom Code node. It first strips markdown. If `JSON.parse` fails, it falls back to a Regex extractor. If that fails, it defaults to a safe `UNKNOWN` intent, preventing total system crashes.</p>
+          <p class="d-val">Implemented transactional concurrency locks. Before confirming a booking, the sub-workflow writes a temporary <code>PENDING</code> slot status in Google Sheets and checks the row state. If another booking process updated the slot first, the agent detects the conflict, releases the lock, and prompts the user to select another slot.</p>
         </div>
       </div>
 
       <div class="decision">
-        <h3 class="d-title">Session Auto-Recovery via Chat ID</h3>
+        <h3 class="d-title">Three-Layer Parse Safety Net</h3>
         <div>
           <span class="d-lbl">The Alternative</span>
-          <p class="d-val">If the Redis session is lost due to cache eviction, ask the user to completely restart the booking process from scratch.</p>
+          <p class="d-val">Crash the webhook or ignore the message if the LLM output deviates from the expected JSON format.</p>
           
           <span class="d-lbl decision-lbl">The Decision</span>
-          <p class="d-val">The webhook intercepts all messages and queries the Google Sheet using the sender's Phone Number. If it finds a <code>PENDING</code> booking for that ID, it automatically restores the Redis state to the exact step the user left off on, without them even realizing the cache was dumped.</p>
+          <p class="d-val">LLM JSON blocks occasionally contain markdown formats or trailing commas. I built a 3-layer parsing wrapper in a Custom JS node: it first sanitizes markdown wrappers, falls back to a regex parser on failure, and defaults to a safe <code>UNKNOWN</code> intent if extraction completely fails, preventing webhook crashes.</p>
         </div>
-        <span class="tradeoff">Trade-off: Requires an additional read query to Google Sheets on the first message of a potentially dead session, slightly increasing latency on cache misses.</span>
+      </div>
+
+      <div class="decision">
+        <h3 class="d-title">State Recovery via Phone Matching</h3>
+        <div>
+          <span class="d-lbl">The Alternative</span>
+          <p class="d-val">If the Redis session expires or is flushed, require the user to restart the booking from step one.</p>
+          
+          <span class="d-lbl decision-lbl">The Decision</span>
+          <p class="d-val">On cache misses, the orchestrator queries Google Sheets by phone number. If it discovers a active <code>PENDING</code> reservation row, it restores the session variables back to Redis, allowing the user to seamlessly resume their chat.</p>
+        </div>
+        <span class="tradeoff">Trade-off: Adds a query check on cache misses, but creates a frictionless user experience.</span>
       </div>
     </div>
   </div>
 
-  <div class="section">
-    <h2 class="sec-title">The Outcome</h2>
+  <div class="section text-wrap">
+    <h2 class="sec-title grad-text">Operational Outcome</h2>
     <div class="content">
-      <p>The system successfully acts as a highly empathetic, natural-language receptionist while enforcing strict enterprise rules on the backend. It handles third-party bookings (booking for a child), auto-recovers from lost state by scanning the database via Chat ID, and intelligently routes standard FAQs to a local knowledge base to bypass LLM latency entirely.</p>
+      <p>The clinic booking agent automates the scheduling pipeline, allowing natural conversational interactions while enforcing deterministic backend constraints. It manages scheduling, rescheduling, cancellations, and frequently asked questions securely, drastically reducing support staff workload.</p>
     </div>
   </div>
 
@@ -272,12 +335,11 @@ flowchart TD
     if(sourceSvg) {
       modalBody.innerHTML = '';
       const clonedSvg = sourceSvg.cloneNode(true);
-      // Remove any fixed max-width constraints on the clone so it can scale
       clonedSvg.style.maxWidth = '100%';
       clonedSvg.style.height = '100%';
       modalBody.appendChild(clonedSvg);
       modal.classList.add('active');
-      document.body.style.overflow = 'hidden'; // prevent background scrolling
+      document.body.style.overflow = 'hidden';
     }
   }
 
