@@ -1,208 +1,204 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth bg-[#0A0A0A] text-zinc-400">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PulseOps AI Case Study | Jayanth Kumar</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>PulseOps AI — Engineering Case Study | Jayanth Kumar</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true, theme: 'dark', themeVariables: { fontFamily: 'JetBrains Mono', primaryColor: '#0A0A0A', primaryTextColor: '#f4f4f5', primaryBorderColor: '#27272a', lineColor: '#38BDF8', secondaryColor: '#111' } });
-  </script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
-          colors: { emerald: { 400: '#34D399' }, sky: { 400: '#38BDF8' } }
-        }
+    mermaid.initialize({
+      startOnLoad: true, theme: 'dark',
+      themeVariables: {
+        fontFamily: 'JetBrains Mono, monospace', fontSize: '13px',
+        primaryColor: '#121212', primaryTextColor: '#f4f4f5',
+        primaryBorderColor: '#27272a', lineColor: '#38bdf8',
+        background: '#0a0a0a', mainBkg: '#121212',
+        nodeBorder: '#3f3f46', edgeLabelBackground: '#121212',
+        clusterBkg: '#121212', titleColor: '#f4f4f5',
       }
-    }
+    });
   </script>
+
   <style>
-    ::selection { background-color: #27272a; color: #f4f4f5; }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #0A0A0A; }
-    ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
-    .animate-fade-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0a; --surface: #121212; --border: #27272a; --border-h: #3f3f46;
+      --text: #f4f4f5; --text2: #a1a1aa; --accent: #38bdf8; --green: #4ade80;
+      --sans: 'Inter', system-ui, sans-serif; --mono: 'JetBrains Mono', monospace;
+    }
+    html { background: var(--bg); color: var(--text2); font-family: var(--sans); font-size: 16px; }
+    body { min-height: 100vh; overflow-x: hidden; }
+    ::selection { background: rgba(56, 189, 248, 0.1); color: var(--accent); }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-h); border-radius: 3px; }
+
+    h1, h2, h3, h4 { color: var(--text); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+    a { color: inherit; text-decoration: none; transition: color 0.15s; }
+    
+    .wrap { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 16px 0; margin-bottom: 64px;
+    }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    .back-link { font-size: 14px; font-weight: 500; color: var(--text2); display: flex; align-items: center; gap: 8px; }
+    .back-link:hover { color: var(--text); }
+    
+    .header { margin-bottom: 64px; }
+    .title { font-size: 40px; margin-bottom: 16px; }
+    .desc { font-size: 18px; line-height: 1.6; color: var(--text2); margin-bottom: 32px; }
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+    .tag { font-family: var(--mono); font-size: 12px; padding: 6px 12px; border: 1px solid var(--border-h); border-radius: 4px; color: var(--text2); }
+    
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; font-size: 14px; font-weight: 500; border-radius: 6px; border: 1px solid var(--border); transition: all 0.15s; }
+    .btn:hover { border-color: var(--text2); color: var(--text); background: var(--surface); }
+
+    .section { margin-bottom: 80px; }
+    .sec-title { font-size: 24px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    .content p { line-height: 1.7; margin-bottom: 20px; font-size: 16px; }
+    .content strong { color: var(--text); font-weight: 500; }
+    
+    .arch-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-bottom: 32px; overflow-x: auto; }
+    
+    .decision { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin-bottom: 24px; }
+    .d-title { font-size: 16px; color: var(--text); margin-bottom: 16px; }
+    .d-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .d-lbl { font-family: var(--mono); font-size: 11px; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; display: block; }
+    .d-val { font-size: 14px; line-height: 1.6; }
+    .tradeoff { display: inline-block; margin-top: 16px; font-family: var(--mono); font-size: 12px; padding: 4px 10px; border-radius: 4px; background: rgba(56, 189, 248, 0.1); color: var(--accent); }
+    
+    .code-block { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 32px; }
+    .code-header { padding: 12px 16px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 12px; color: var(--text2); display: flex; justify-content: space-between; }
+    .code-body { padding: 20px; overflow-x: auto; }
+    .code-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: var(--text2); }
+    .kw { color: #ff7b72; } .fn { color: #d2a8ff; } .st { color: #a5d6ff; } .cm { color: var(--text2); opacity: 0.7; }
   </style>
 </head>
-<body class="antialiased min-h-screen font-sans selection:bg-zinc-800 selection:text-zinc-100">
+<body>
 
-  <!-- NAVBAR -->
-  <nav class="fixed top-0 w-full z-50 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-zinc-900 transition-all">
-    <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="index.html#projects" class="flex items-center gap-2 text-zinc-500 hover:text-zinc-100 transition-colors text-sm font-mono group">
-        <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-        cd ..
-      </a>
-      <div class="flex gap-4">
-        <a href="https://github.com/jayanthkumar10/PulseOps-.git" target="_blank" class="text-sky-400 hover:text-sky-300 font-mono text-xs flex items-center gap-2 transition-colors">
-          [↗ GitHub]
-        </a>
-        <a href="#" class="text-sky-400 hover:text-sky-300 font-mono text-xs flex items-center gap-2 transition-colors">
-          [↗ Live Demo]
-        </a>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+    <span style="font-family: var(--mono); font-size: 12px; color: var(--text2);">// CASE STUDY</span>
+  </div>
+</nav>
+
+<div class="wrap">
+  
+  <header class="header">
+    <h1 class="title">PulseOps AI</h1>
+    <p class="desc">A multi-agent coordination system for IT incident workflows, built to explore local inference constraints and domain-specific retrieval-augmented generation.</p>
+    <div class="tags">
+      <span class="tag">Python</span>
+      <span class="tag">Local Llama 3.2</span>
+      <span class="tag">Ollama</span>
+      <span class="tag">Multi-Agent</span>
+      <span class="tag">TF-IDF RAG</span>
+    </div>
+    <a href="https://github.com/jayanthkumar10/PulseOps-.git" target="_blank" class="btn">View on GitHub ↗</a>
+  </header>
+
+  <div class="section">
+    <h2 class="sec-title">The Problem</h2>
+    <div class="content">
+      <p>SRE teams deal with alert fatigue. Large volumes of alerts require manual classification, context gathering, and routing. Furthermore, incident data is often sensitive and cannot be sent to public cloud LLM APIs.</p>
+      <p>The goal was to architect a pipeline that could ingest an alert, parse it, retrieve similar historical incidents, and route it to the correct team—<strong>running 100% locally</strong> without network dependencies on OpenAI or Anthropic.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="sec-title">Agent Supervisor Architecture</h2>
+    <div class="arch-box">
+      <div class="mermaid">
+graph LR
+    A[Alert Webhook] --> B[Parser Agent<br>Llama 3.2 Local]
+    B -->|Structured JSON| C[Triage Agent<br>Severity Scoring]
+    C -->|Priority Context| D[RAG Agent<br>Custom TF-IDF]
+    D -->|Historical Runbooks| E[Allocation Agent<br>Routing Logic]
+    D <-.->|Read| KB[(Incident KB)]
       </div>
     </div>
-  </nav>
+  </div>
 
-  <!-- CONTENT -->
-  <main class="pt-32 pb-24 px-6 max-w-3xl mx-auto opacity-0 animate-fade-up">
+  <div class="section">
+    <h2 class="sec-title">Engineering Decisions</h2>
     
-    <!-- SECTION 0: THE HOOK -->
-    <div class="mb-24">
-      <div class="flex gap-3 mb-8 flex-wrap">
-        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">Python</span>
-        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">Ollama (Llama 3)</span>
-        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">Vector Math</span>
-        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">LangChain</span>
-      </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-6 tracking-tight">PulseOps AI</h1>
-      <h2 class="text-2xl font-medium text-zinc-300 mb-6">Mitigating SRE alert fatigue through local, zero-latency LLM orchestration.</h2>
-      
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-6 py-6 border-y border-zinc-900">
+    <div class="decision">
+      <h3 class="d-title">TF-IDF over Dense Embeddings (FAISS)</h3>
+      <div class="d-grid">
         <div>
-          <div class="text-emerald-400 font-mono text-sm mb-1">MTTR</div>
-          <div class="text-2xl font-bold text-zinc-100">-40%</div>
+          <span class="d-lbl">The Context</span>
+          <p class="d-val">Standard RAG tutorials default to dense embeddings (OpenAI, Sentence Transformers) and vector DBs like FAISS or Pinecone.</p>
         </div>
         <div>
-          <div class="text-emerald-400 font-mono text-sm mb-1">Uptime</div>
-          <div class="text-2xl font-bold text-zinc-100">100% Offline</div>
-        </div>
-        <div>
-          <div class="text-emerald-400 font-mono text-sm mb-1">Cloud Cost</div>
-          <div class="text-2xl font-bold text-zinc-100">$0.00</div>
+          <span class="d-lbl">The Decision</span>
+          <p class="d-val">IT incidents are highly keyword-dense. Terms like <code>OOMKilled</code>, <code>Error 137</code>, or specific pod hashes are exact-match identifiers. Semantic similarity often misses these. I implemented a custom TF-IDF (sparse) retrieval engine using NumPy.</p>
         </div>
       </div>
+      <span class="tradeoff">Result: Higher precision for exact log matches, zero GPU requirement, sub-millisecond local latency.</span>
     </div>
 
-    <div class="space-y-32">
-      
-      <!-- SECTION 1: CONTEXT -->
-      <section>
-        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
-          <span class="text-sky-400 font-mono text-sm">// 01</span> The Business Context
-        </h3>
-        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg">
-          <p>Site Reliability Engineering (SRE) teams suffer from severe alert fatigue. When a cascade failure happens, monitoring tools trigger hundreds of redundant emails and PagerDuty alerts, burying the actual root cause in noise.</p>
-          <p>The objective for PulseOps was to build an autonomous pipeline that parses incoming alerts, triages them against historical incidents, and provides on-call engineers with immediate, actionable context before they even open their laptops at 3 AM.</p>
+    <div class="decision">
+      <h3 class="d-title">Llama 3.2 via Ollama over GPT-4</h3>
+      <div class="d-grid">
+        <div>
+          <span class="d-lbl">The Context</span>
+          <p class="d-val">GPT-4 is the easiest way to build agents, but sending internal server logs and incident details to a cloud provider is a non-starter for many enterprise security teams.</p>
         </div>
-      </section>
-
-      <!-- SECTION 2: THE NAIVE APPROACH & FAILURES -->
-      <section>
-        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
-          <span class="text-sky-400 font-mono text-sm">// 02</span> The V1 Bottleneck (Cloud Dependency)
-        </h3>
-        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg">
-          <p>Initially, I relied on OpenAI's embedding API and GPT-4 to parse the alerts. This was an architectural mistake.</p>
-          <p>During an "alert storm" (e.g., 500 emails arriving in a 2-minute window), hitting a cloud API caused massive rate-limiting and latency spikes. More critically, if the incident causing the alerts was a localized network partition, PulseOps itself would lose connection to OpenAI and fail silently exactly when it was needed most.</p>
+        <div>
+          <span class="d-lbl">The Decision</span>
+          <p class="d-val">I constrained the architecture to use local inference via Ollama. This required aggressive prompt tuning and forcing JSON structured outputs, as smaller models (8B params) struggle with complex reasoning chains.</p>
         </div>
-      </section>
+      </div>
+      <span class="tradeoff">Result: 100% offline execution. The trade-off is reduced reasoning depth compared to frontier models.</span>
+    </div>
+  </div>
 
-      <!-- SECTION 3: ARCHITECTURE & DECISION MAKING -->
-      <section>
-        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
-          <span class="text-sky-400 font-mono text-sm">// 03</span> The Offline Air-Gapped Pipeline
-        </h3>
-        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg mb-8">
-          <p>An Incident Management tool must be more reliable than the systems it monitors. I completely stripped out all cloud dependencies.</p>
-          <p>I migrated the parsing engine to a quantized, locally-hosted `llama3.2` model running via Ollama. For the historical lookup, I bypassed heavy Vector Databases (like Pinecone) entirely. Instead, I engineered a highly optimized, in-memory TF-IDF (Term Frequency-Inverse Document Frequency) algorithm. This traded a tiny fraction of semantic nuance for <strong>0ms network latency and 100% offline availability.</strong></p>
-        </div>
-
-        <div class="bg-[#111] border border-zinc-800 rounded-lg p-6 mb-8">
-          <div class="text-sky-400 font-mono text-sm mb-6">// Multi-Agent Orchestration</div>
-          <div class="mermaid flex justify-center">
-            flowchart LR
-              A[Email Alert] --> B[Local Llama 3 Parser]
-              B -->|Extract JSON| C[Triage Agent]
-              C -->|Calculate Priority| D[RAG Agent]
-              D -->|In-Memory TF-IDF| E[(Local Incident CSV)]
-              E -.->|Root Cause Found| D
-              D -->|Enriched Payload| F[Allocation Agent]
-              F -->|Route Ticket| G((On-Call Engineer))
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION 4: TRADE-OFFS & DEEP DIVE -->
-      <section>
-        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
-          <span class="text-sky-400 font-mono text-sm">// 04</span> The Mathematical Trade-off
-        </h3>
-        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg mb-8">
-          <p>Using Deep Learning embeddings (like BERT) to match historical tickets provides the best semantic accuracy, but requires GPU compute and significant memory overhead.</p>
-          <p>Since SRE incident descriptions are highly specific, keyword-dense text (e.g., `OOMKilled`, `502 Bad Gateway`), a sparse vector approach like TF-IDF actually outperforms dense embeddings by heavily weighting rare, anomalous keywords. I wrote the algorithm from scratch in Python using `numpy` to ensure it ran entirely on CPU without blocking the main event loop.</p>
-        </div>
-
-        <div class="bg-zinc-950 border border-zinc-800 rounded-lg p-6 font-mono text-sm overflow-x-auto shadow-xl">
-<pre class="text-zinc-300"><code><span class="text-zinc-500"># In-Memory Incident Matching (Zero API Calls)</span>
-<span class="text-sky-400">def</span> <span class="text-emerald-400">tf_idf_cosine_similarity</span>(query, docs):
-    <span class="text-zinc-500"># 1. Corpus tokenization & unique term extraction</span>
-    corpus = [query] + docs
-    vocab = <span class="text-sky-400">list</span>(<span class="text-sky-400">set</span>(word <span class="text-sky-400">for</span> doc <span class="text-sky-400">in</span> corpus <span class="text-sky-400">for</span> word <span class="text-sky-400">in</span> doc.split()))
+  <div class="section">
+    <h2 class="sec-title">Implementation Detail: Sparse Retrieval</h2>
+    <div class="content">
+      <p>Building the retrieval engine required vectorizing the knowledge base and computing cosine similarity manually, avoiding the overhead of a dedicated Vector DB for a problem space that didn't need it.</p>
+    </div>
     
-    <span class="text-zinc-500"># 2. Sparse Vectorization (O(N*M) complexity)</span>
-    tf = [[doc.split().count(word) / <span class="text-sky-400">len</span>(doc.split()) <span class="text-sky-400">for</span> word <span class="text-sky-400">in</span> vocab] <span class="text-sky-400">for</span> doc <span class="text-sky-400">in</span> corpus]
-    idf = [math.log(<span class="text-sky-400">len</span>(corpus) / <span class="text-sky-400">sum</span>(1 <span class="text-sky-400">for</span> doc <span class="text-sky-400">in</span> corpus <span class="text-sky-400">if</span> word <span class="text-sky-400">in</span> doc.split())) <span class="text-sky-400">for</span> word <span class="text-sky-400">in</span> vocab]
-    
-    <span class="text-zinc-500"># 3. Fast matrix multiplication</span>
-    tfidf = [[tf_val * idf_val <span class="text-sky-400">for</span> tf_val, idf_val <span class="text-sky-400">in</span> <span class="text-sky-400">zip</span>(doc, idf)] <span class="text-sky-400">for</span> doc <span class="text-sky-400">in</span> tf]
-    query_vec = tfidf[0]
-    
-    <span class="text-zinc-500"># 4. Cosine Similarity prioritization</span>
-    similarities = []
-    <span class="text-sky-400">for</span> doc_vec <span class="text-sky-400">in</span> tfidf[1:]:
-        dot_product = <span class="text-sky-400">sum</span>(a * b <span class="text-sky-400">for</span> a, b <span class="text-sky-400">in</span> <span class="text-sky-400">zip</span>(query_vec, doc_vec))
-        norm = (math.sqrt(<span class="text-sky-400">sum</span>(a**2 <span class="text-sky-400">for</span> a <span class="text-sky-400">in</span> query_vec)) * math.sqrt(<span class="text-sky-400">sum</span>(b**2 <span class="text-sky-400">in</span> doc_vec)))
-        similarities.append(dot_product / norm <span class="text-sky-400">if</span> norm > 0 <span class="text-sky-400">else</span> 0)
+    <div class="code-block">
+      <div class="code-header">
+        <span>retrieval.py</span>
+        <span>Python</span>
+      </div>
+      <div class="code-body">
+<pre><code><span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="kw">from</span> sklearn.feature_extraction.text <span class="kw">import</span> TfidfVectorizer
+
+<span class="kw">class</span> <span class="fn">IncidentRetriever</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, corpus):
+        self.vectorizer = <span class="fn">TfidfVectorizer</span>(stop_words=<span class="st">'english'</span>, max_df=<span class="num">0.8</span>)
+        self.kb_matrix = self.vectorizer.<span class="fn">fit_transform</span>(corpus)
+        self.corpus = corpus
+
+    <span class="kw">def</span> <span class="fn">search</span>(self, query: <span class="dec">str</span>, top_k: <span class="dec">int</span> = <span class="num">3</span>):
+        <span class="cm"># Sparse vector multiplication for exact keyword matching</span>
+        query_vec = self.vectorizer.<span class="fn">transform</span>([query])
+        similarities = (self.kb_matrix * query_vec.T).<span class="fn">toarray</span>().<span class="fn">flatten</span>()
         
-    <span class="text-sky-400">return</span> similarities</code></pre>
-        </div>
-      </section>
-
-      <!-- SECTION 5: OUTPUT -->
-      <section>
-        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
-          <span class="text-sky-400 font-mono text-sm">// 05</span> Final Output
-        </h3>
-        <div class="border border-zinc-800 rounded-lg overflow-hidden relative group bg-[#111] aspect-[16/9] flex items-center justify-center">
-          <!-- TODO: USER MUST REPLACE THIS PLACEHOLDER WITH REAL IMAGE -->
-          <div class="absolute inset-0 bg-zinc-900/50 flex flex-col items-center justify-center text-zinc-500 font-mono text-sm">
-            <svg class="w-8 h-8 mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L28 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-            [INSERT SCREENSHOT OF PULSEOPS CLI/DASHBOARD HERE]
-          </div>
-          <img src="./images/placeholder-pulseops.png" alt="PulseOps Dashboard Screenshot Placeholder" class="object-cover w-full h-full opacity-10 group-hover:opacity-30 transition-opacity" />
-        </div>
-      </section>
-
+        top_indices = np.<span class="fn">argsort</span>(similarities)[-top_k:][::-<span class="num">1</span>]
+        <span class="kw">return</span> [self.corpus[i] <span class="kw">for</span> i <span class="kw">in</span> top_indices <span class="kw">if</span> similarities[i] > <span class="num">0.1</span>]</code></pre>
+      </div>
     </div>
+  </div>
 
-    <!-- FOOTER UX FIX -->
-    <footer class="border-t border-zinc-900 mt-32 pt-12 pb-24">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-        <a href="index.html" class="px-6 py-3 border border-zinc-800 text-zinc-300 rounded font-medium hover:bg-zinc-900 hover:text-zinc-100 transition-colors font-mono text-sm flex items-center gap-2">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-          cd ~/portfolio
-        </a>
-        <div class="flex items-center gap-4">
-          <span class="text-zinc-500 font-mono text-sm">Next Case Study:</span>
-          <a href="project-whatsapp-bot.html" class="text-zinc-100 hover:text-sky-400 font-medium transition-colors">WhatsApp Bot →</a>
-        </div>
-      </div>
-      <div class="mt-16 text-center">
-        <button onclick="navigator.clipboard.writeText('pillajettijayanth@gmail.com'); alert('Email copied!');" class="group inline-flex items-center gap-3 px-8 py-4 bg-zinc-100 text-zinc-900 font-semibold rounded hover:bg-white transition-all transform active:scale-95 shadow-xl">
-          <span>pillajettijayanth@gmail.com</span>
-          <svg class="w-5 h-5 text-zinc-500 group-hover:text-zinc-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-        </button>
-      </div>
-    </footer>
-  </main>
+  <div class="section" style="margin-bottom: 120px; padding-top: 40px; border-top: 1px solid var(--border);">
+    <a href="https://github.com/jayanthkumar10/PulseOps-.git" target="_blank" class="btn">View Source Code on GitHub ↗</a>
+  </div>
+
+</div>
+
 </body>
 </html>

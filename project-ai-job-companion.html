@@ -1,206 +1,232 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth bg-[#0A0A0A] text-zinc-400">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pathlight.ai Case Study | Jayanth Kumar</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Pathlight.ai — Engineering Case Study | Jayanth Kumar</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true, theme: 'dark', themeVariables: { fontFamily: 'JetBrains Mono', primaryColor: '#0A0A0A', primaryTextColor: '#f4f4f5', primaryBorderColor: '#27272a', lineColor: '#38BDF8', secondaryColor: '#111' } });
-  </script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
-          colors: { emerald: { 400: '#34D399' }, sky: { 400: '#38BDF8' } }
-        }
+    mermaid.initialize({
+      startOnLoad: true, theme: 'dark',
+      themeVariables: {
+        fontFamily: 'JetBrains Mono, monospace', fontSize: '13px',
+        primaryColor: '#121212', primaryTextColor: '#f4f4f5',
+        primaryBorderColor: '#27272a', lineColor: '#38bdf8',
+        background: '#0a0a0a', mainBkg: '#121212',
+        nodeBorder: '#3f3f46', edgeLabelBackground: '#121212',
+        clusterBkg: '#121212', titleColor: '#f4f4f5',
       }
-    }
+    });
   </script>
+
   <style>
-    ::selection { background-color: #27272a; color: #f4f4f5; }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #0A0A0A; }
-    ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
-    .animate-fade-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0a; --surface: #121212; --border: #27272a; --border-h: #3f3f46;
+      --text: #f4f4f5; --text2: #a1a1aa; --accent: #38bdf8; --green: #4ade80;
+      --sans: 'Inter', system-ui, sans-serif; --mono: 'JetBrains Mono', monospace;
+    }
+    html { background: var(--bg); color: var(--text2); font-family: var(--sans); font-size: 16px; }
+    body { min-height: 100vh; overflow-x: hidden; }
+    ::selection { background: rgba(56, 189, 248, 0.1); color: var(--accent); }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-h); border-radius: 3px; }
+
+    h1, h2, h3, h4 { color: var(--text); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+    a { color: inherit; text-decoration: none; transition: color 0.15s; }
+    
+    .wrap { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 16px 0; margin-bottom: 64px;
+    }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    .back-link { font-size: 14px; font-weight: 500; color: var(--text2); display: flex; align-items: center; gap: 8px; }
+    .back-link:hover { color: var(--text); }
+    
+    /* HEADER */
+    .header { margin-bottom: 64px; }
+    .title { font-size: 40px; margin-bottom: 16px; }
+    .desc { font-size: 18px; line-height: 1.6; color: var(--text2); margin-bottom: 32px; }
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+    .tag { font-family: var(--mono); font-size: 12px; padding: 6px 12px; border: 1px solid var(--border-h); border-radius: 4px; color: var(--text2); }
+    
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; font-size: 14px; font-weight: 500; border-radius: 6px; border: 1px solid var(--border); transition: all 0.15s; }
+    .btn:hover { border-color: var(--text2); color: var(--text); background: var(--surface); }
+
+    /* SECTIONS */
+    .section { margin-bottom: 80px; }
+    .sec-title { font-size: 24px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    .content p { line-height: 1.7; margin-bottom: 20px; font-size: 16px; }
+    .content strong { color: var(--text); font-weight: 500; }
+    
+    /* ARCHITECTURE */
+    .arch-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-bottom: 32px; overflow-x: auto; }
+    
+    /* DECISIONS */
+    .decision { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin-bottom: 24px; }
+    .d-title { font-size: 16px; color: var(--text); margin-bottom: 16px; }
+    .d-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .d-lbl { font-family: var(--mono); font-size: 11px; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; display: block; }
+    .d-val { font-size: 14px; line-height: 1.6; }
+    .tradeoff { display: inline-block; margin-top: 16px; font-family: var(--mono); font-size: 12px; padding: 4px 10px; border-radius: 4px; background: rgba(56, 189, 248, 0.1); color: var(--accent); }
+    
+    /* CODE */
+    .code-block { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 32px; }
+    .code-header { padding: 12px 16px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 12px; color: var(--text2); display: flex; justify-content: space-between; }
+    .code-body { padding: 20px; overflow-x: auto; }
+    .code-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: var(--text2); }
+    .kw { color: #ff7b72; } .fn { color: #d2a8ff; } .st { color: #a5d6ff; } .cm { color: var(--text2); opacity: 0.7; }
   </style>
 </head>
-<body class="antialiased min-h-screen font-sans selection:bg-zinc-800 selection:text-zinc-100">
+<body>
 
-  <!-- NAVBAR -->
-  <nav class="fixed top-0 w-full z-50 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-zinc-900 transition-all">
-    <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="index.html#projects" class="flex items-center gap-2 text-zinc-500 hover:text-zinc-100 transition-colors text-sm font-mono group">
-        <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-        cd ..
-      </a>
-      <div class="flex gap-4">
-        <a href="https://github.com/jayanthkumar10/PathLight.ai" target="_blank" class="text-sky-400 hover:text-sky-300 font-mono text-xs flex items-center gap-2 transition-colors">
-          [↗ GitHub]
-        </a>
-        
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+    <span style="font-family: var(--mono); font-size: 12px; color: var(--text2);">// CASE STUDY</span>
+  </div>
+</nav>
+
+<div class="wrap">
+  
+  <header class="header">
+    <h1 class="title">Pathlight.ai</h1>
+    <p class="desc">Autonomous ATS-optimized resume tailoring engine. Built to solve the scaling problem of manually rewriting resumes for specific job descriptions.</p>
+    <div class="tags">
+      <span class="tag">FastAPI</span>
+      <span class="tag">LangGraph</span>
+      <span class="tag">Celery</span>
+      <span class="tag">Redis</span>
+      <span class="tag">Gemini Flash</span>
+      <span class="tag">Langfuse</span>
+    </div>
+    <a href="https://github.com/jayanthkumar10/PathLight.ai" target="_blank" class="btn">View on GitHub ↗</a>
+  </header>
+
+  <div class="section">
+    <h2 class="sec-title">The Problem</h2>
+    <div class="content">
+      <p>Job applications fail ATS screening not because of candidate quality, but because of <strong>keyword mismatch</strong>. Tailoring a resume manually for every single application is O(n) human effort that does not scale.</p>
+      <p>The goal was to build a system that accepts a job URL and a base resume, scrapes the job description, and uses an LLM to produce a tailored, ATS-optimized version without hallucinating fake experience.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="sec-title">Architecture Pipeline</h2>
+    <div class="arch-box">
+      <div class="mermaid">
+sequenceDiagram
+    participant U as Client
+    participant A as FastAPI
+    participant R as Redis Queue
+    participant W as Celery Worker
+    participant S as Apify
+    participant G as LangGraph (Gemini)
+    participant P as WeasyPrint
+
+    U->>A: POST /tailor {resume, job_url}
+    A->>R: enqueue task
+    A-->>U: 202 {task_id}
+    W->>S: scrape job description
+    S-->>W: job_description
+    W->>G: invoke chain (resume + JD)
+    G-->>W: tailored_resume_html
+    W->>P: render_pdf(html)
+    U->>A: GET /status/{task_id}
+    A-->>U: 200 {pdf_url}
       </div>
     </div>
-  </nav>
+  </div>
 
-  <!-- CONTENT -->
-  <main class="pt-32 pb-24 px-6 max-w-3xl mx-auto opacity-0 animate-fade-up">
+  <div class="section">
+    <h2 class="sec-title">Engineering Decisions</h2>
     
-    <!-- SECTION 0: THE HOOK -->
-    <div class="mb-24">
-      <div class="flex gap-3 mb-8 flex-wrap">
-        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">FastAPI</span>
-        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">Redis / Celery</span>
-        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">Google Gemini</span>
-        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">PostgreSQL</span>
-      </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-6 tracking-tight">Pathlight.ai</h1>
-      <h2 class="text-2xl font-medium text-zinc-300 mb-6">Bypassing ATS filters via Asynchronous LLM Generation.</h2>
-      
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-6 py-6 border-y border-zinc-900">
+    <div class="decision">
+      <h3 class="d-title">Async Queue (Celery + Redis) over Synchronous API</h3>
+      <div class="d-grid">
         <div>
-          <div class="text-emerald-400 font-mono text-sm mb-1">Latency</div>
-          <div class="text-2xl font-bold text-zinc-100">< 120ms</div>
+          <span class="d-lbl">The Failure State (V1)</span>
+          <p class="d-val">The initial version of Pathlight was a synchronous FastAPI endpoint. Under load, Gemini's response time exceeded the HTTP timeout threshold, causing 504 Gateway Timeouts. The entire request chain blocked.</p>
         </div>
         <div>
-          <div class="text-emerald-400 font-mono text-sm mb-1">API Blocking</div>
-          <div class="text-2xl font-bold text-zinc-100">Zero</div>
-        </div>
-        <div>
-          <div class="text-emerald-400 font-mono text-sm mb-1">Scale</div>
-          <div class="text-2xl font-bold text-zinc-100">Production</div>
+          <span class="d-lbl">The Decision</span>
+          <p class="d-val">Introduced Celery and Redis. FastAPI now accepts the request, enqueues a job, and returns a task ID instantly. Workers execute the slow LLM call independently.</p>
         </div>
       </div>
+      <span class="tradeoff">Result: 0 blocking API calls. System degrades gracefully under load.</span>
     </div>
 
-    <div class="space-y-32">
-      
-      <!-- SECTION 1: CONTEXT -->
-      <section>
-        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
-          <span class="text-sky-400 font-mono text-sm">// 01</span> The Business Context
-        </h3>
-        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg">
-          <p>Modern job applications suffer from massive Applicant Tracking System (ATS) rejection rates due to poor keyword matching. Manually tailoring a resume for every single job description is highly unscalable for the user, resulting in generic applications and low conversion rates.</p>
-          <p>The goal of Pathlight.ai was to build an autonomous pipeline that scrapes a live job URL, parses the user's base resume, and uses an LLM to generate a pixel-perfect, ATS-compliant PDF tailored precisely to the job requirements.</p>
+    <div class="decision">
+      <h3 class="d-title">LangGraph over LangChain LCEL</h3>
+      <div class="d-grid">
+        <div>
+          <span class="d-lbl">The Problem</span>
+          <p class="d-val">Standard LLM chains are linear. If the model hallucinates a fake skill or breaks the JSON schema, a linear chain fails catastrophically.</p>
         </div>
-      </section>
-
-      <!-- SECTION 2: THE NAIVE APPROACH & FAILURES -->
-      <section>
-        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
-          <span class="text-sky-400 font-mono text-sm">// 02</span> The V1 Bottleneck (Failure State)
-        </h3>
-        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg">
-          <p>The naive v1 architecture utilized a synchronous FastAPI endpoint. The client would POST the job URL, and the server would `await` the Apify scraper, `await` the Google Gemini LLM generation, and `await` the WeasyPrint PDF rendering.</p>
-          <p><strong>This failed immediately in production tests.</strong></p>
-          <p>LLM generation for a full resume takes 15-20 seconds. Standard frontend hosting providers (like Vercel) terminate HTTP requests after 10 seconds. The synchronous architecture resulted in 504 Gateway Timeouts, dropped connections, and a completely broken user experience.</p>
+        <div>
+          <span class="d-lbl">The Decision</span>
+          <p class="d-val">LangGraph models workflows as a state machine. I implemented an "Output Guard" node. If the validation step fails, the graph routes <em>back</em> to the LLM node with the error message to self-correct.</p>
         </div>
-      </section>
-
-      <!-- SECTION 3: ARCHITECTURE & DECISION MAKING -->
-      <section>
-        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
-          <span class="text-sky-400 font-mono text-sm">// 03</span> The Asynchronous Decoupling
-        </h3>
-        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg mb-8">
-          <p>To achieve zero blocking APIs, I had to architect a hard decoupling between the ingestion layer and the processing layer. I introduced a <strong>Redis</strong> message broker and <strong>Celery</strong> background workers.</p>
-          <p>Now, FastAPI simply validates the payload, pushes a task ID to Redis, and immediately returns a 202 Accepted response in under 120ms. The client then polls for completion while the heavy AI generation runs securely in the background.</p>
-        </div>
-
-        <div class="bg-[#111] border border-zinc-800 rounded-lg p-6 mb-8">
-          <div class="text-sky-400 font-mono text-sm mb-6">// Refactored System Architecture</div>
-          <div class="mermaid flex justify-center">
-            graph TD
-              A[Client Application] -->|POST Job URL| B(FastAPI Router)
-              B -->|Returns 202 task_id| A
-              B -->|Save Pending State| C[(PostgreSQL)]
-              B -->|Push Message| D{Redis Broker}
-              D -->|Consume| E[Celery Worker Pool]
-              E -->|Scrape| F[Apify Actor]
-              E -->|Stream| G[Google Gemini API]
-              G -->|Render| I[WeasyPrint PDF]
-              I -->|Update Completed State| C
-              A -.->|Polls GET /status| B
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION 4: TRADE-OFFS & DEEP DIVE -->
-      <section>
-        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
-          <span class="text-sky-400 font-mono text-sm">// 04</span> Observability & Trade-offs
-        </h3>
-        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg mb-8">
-          <p>Decoupling solved the timeout issue, but introduced a new constraint: <strong>Blind Spots</strong>. If the LLM hallucinates or fails in a background worker, the client simply hangs indefinitely.</p>
-          <p>To solve this, I integrated <strong>Langfuse via OpenTelemetry</strong> directly into the Celery pipeline. This provided real-time observability into token costs, latency, and prompt injection attempts, allowing the worker to safely fail and update the database state, which the client could then read and render gracefully.</p>
-        </div>
-
-        <div class="bg-zinc-950 border border-zinc-800 rounded-lg p-6 font-mono text-sm overflow-x-auto shadow-xl">
-<pre class="text-zinc-300"><code><span class="text-zinc-500"># Celery Worker Logic with Telemetry</span>
-<span class="text-sky-400">@celery.task</span>(bind=<span class="text-emerald-400">True</span>, max_retries=3)
-<span class="text-sky-400">def</span> <span class="text-emerald-400">generate_resume_task</span>(self, user_id, job_url):
-    <span class="text-sky-400">try</span>:
-        <span class="text-zinc-500"># 1. Initialize Langfuse Trace</span>
-        trace = langfuse.trace(name=<span class="text-zinc-300">"resume_generation"</span>, user_id=user_id)
-        
-        <span class="text-zinc-500"># 2. Extract & Generate</span>
-        job_data = apify_client.scrape(job_url)
-        llm_output = gemini_client.generate(prompt=build_prompt(job_data))
-        
-        <span class="text-zinc-500"># 3. Finalize State</span>
-        db.update_status(task_id=self.request.id, status=<span class="text-zinc-300">"COMPLETED"</span>)
-        
-    <span class="text-sky-400">except</span> <span class="text-emerald-400">Exception</span> <span class="text-sky-400">as</span> e:
-        trace.update(level=<span class="text-zinc-300">"ERROR"</span>, status_message=str(e))
-        db.update_status(task_id=self.request.id, status=<span class="text-zinc-300">"FAILED"</span>)
-        <span class="text-sky-400">raise</span> self.retry(exc=e, countdown=60)</code></pre>
-        </div>
-      </section>
-
-      <!-- SECTION 5: OUTPUT -->
-      <section>
-        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
-          <span class="text-sky-400 font-mono text-sm">// 05</span> Final Output
-        </h3>
-        <div class="border border-zinc-800 rounded-lg overflow-hidden relative group bg-[#111] aspect-[16/9] flex items-center justify-center">
-          <!-- TODO: USER MUST REPLACE THIS PLACEHOLDER WITH REAL IMAGE -->
-          <div class="absolute inset-0 bg-zinc-900/50 flex flex-col items-center justify-center text-zinc-500 font-mono text-sm">
-            <svg class="w-8 h-8 mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L28 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-            [INSERT SCREENSHOT OF GENERATED PDF RESUME HERE]
-          </div>
-          <img src="./images/placeholder-resume.png" alt="Generated Resume Screenshot Placeholder" class="object-cover w-full h-full opacity-10 group-hover:opacity-30 transition-opacity" />
-        </div>
-      </section>
-
+      </div>
+      <span class="tradeoff">Tradeoff: Steeper learning curve, but drastically improved output reliability.</span>
     </div>
+  </div>
 
-    <!-- FOOTER UX FIX -->
-    <footer class="border-t border-zinc-900 mt-32 pt-12 pb-24">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-        <a href="index.html" class="px-6 py-3 border border-zinc-800 text-zinc-300 rounded font-medium hover:bg-zinc-900 hover:text-zinc-100 transition-colors font-mono text-sm flex items-center gap-2">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-          cd ~/portfolio
-        </a>
-        <div class="flex items-center gap-4">
-          <span class="text-zinc-500 font-mono text-sm">Next Case Study:</span>
-          <a href="project-heart-disease.html" class="text-zinc-100 hover:text-sky-400 font-medium transition-colors">Heart Disease Prediction →</a>
-        </div>
+  <div class="section">
+    <h2 class="sec-title">Implementation Detail: The Async Worker</h2>
+    <div class="content">
+      <p>This is the core Celery task that processes the resume in the background, utilizing exponential backoff for transient LLM API failures.</p>
+    </div>
+    
+    <div class="code-block">
+      <div class="code-header">
+        <span>tasks.py</span>
+        <span>Python</span>
       </div>
-      <div class="mt-16 text-center">
-        <button onclick="navigator.clipboard.writeText('pillajettijayanth@gmail.com'); alert('Email copied!');" class="group inline-flex items-center gap-3 px-8 py-4 bg-zinc-100 text-zinc-900 font-semibold rounded hover:bg-white transition-all transform active:scale-95 shadow-xl">
-          <span>pillajettijayanth@gmail.com</span>
-          <svg class="w-5 h-5 text-zinc-500 group-hover:text-zinc-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-        </button>
+      <div class="code-body">
+<pre><code><span class="kw">@celery_app</span>.task(bind=<span class="kw">True</span>, max_retries=<span class="num">3</span>, acks_late=<span class="kw">True</span>)
+<span class="kw">def</span> <span class="fn">tailor_resume</span>(self, task_id: <span class="dec">str</span>, payload: <span class="dec">dict</span>):
+    <span class="kw">try</span>:
+        <span class="cm"># LangGraph state machine execution</span>
+        result = <span class="fn">tailoring_graph</span>.invoke({
+            <span class="st">"resume"</span>: payload[<span class="st">"resume"</span>],
+            <span class="st">"job_description"</span>: payload[<span class="st">"jd"</span>]
+        })
+        
+        <span class="cm"># Render output and update Redis state</span>
+        pdf_path = <span class="fn">render_pdf</span>(result[<span class="st">"html"</span>])
+        <span class="fn">redis_client</span>.set(task_id, {<span class="st">"status"</span>: <span class="st">"done"</span>, <span class="st">"url"</span>: pdf_path})
+        
+    <span class="kw">except</span> Exception <span class="kw">as</span> exc:
+        <span class="cm"># Exponential backoff for API rate limits</span>
+        <span class="fn">redis_client</span>.set(task_id, {<span class="st">"status"</span>: <span class="st">"failed"</span>})
+        <span class="kw">raise</span> self.<span class="fn">retry</span>(exc=exc, countdown=<span class="num">2</span> ** self.request.retries)</code></pre>
       </div>
-    </footer>
-  </main>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="sec-title">Observability & Tracing</h2>
+    <div class="content">
+      <p>I integrated <strong>Langfuse</strong> to trace every LLM generation. When you are building LLM applications, you cannot rely on console logs. You need to trace input tokens, output tokens, latency per hop, and cost per run. If the prompt begins to degrade, Langfuse provides the exact trace to debug it.</p>
+    </div>
+  </div>
+
+  <div class="section" style="margin-bottom: 120px; padding-top: 40px; border-top: 1px solid var(--border);">
+    <a href="https://github.com/jayanthkumar10/PathLight.ai" target="_blank" class="btn">View Source Code on GitHub ↗</a>
+  </div>
+
+</div>
+
 </body>
 </html>

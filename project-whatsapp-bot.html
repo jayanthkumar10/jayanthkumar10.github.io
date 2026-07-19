@@ -1,210 +1,171 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth bg-[#0A0A0A] text-zinc-400">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WhatsApp Bot Case Study | Jayanth Kumar</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>WhatsApp Booking Bot — Engineering Case Study | Jayanth Kumar</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true, theme: 'dark', themeVariables: { fontFamily: 'JetBrains Mono', primaryColor: '#0A0A0A', primaryTextColor: '#f4f4f5', primaryBorderColor: '#27272a', lineColor: '#38BDF8', secondaryColor: '#111' } });
-  </script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
-          colors: { emerald: { 400: '#34D399' }, sky: { 400: '#38BDF8' } }
-        }
+    mermaid.initialize({
+      startOnLoad: true, theme: 'dark',
+      themeVariables: {
+        fontFamily: 'JetBrains Mono, monospace', fontSize: '13px',
+        primaryColor: '#121212', primaryTextColor: '#f4f4f5',
+        primaryBorderColor: '#27272a', lineColor: '#38bdf8',
+        background: '#0a0a0a', mainBkg: '#121212',
+        nodeBorder: '#3f3f46', edgeLabelBackground: '#121212',
+        clusterBkg: '#121212', titleColor: '#f4f4f5',
       }
-    }
+    });
   </script>
+
   <style>
-    ::selection { background-color: #27272a; color: #f4f4f5; }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #0A0A0A; }
-    ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
-    .animate-fade-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0a; --surface: #121212; --border: #27272a; --border-h: #3f3f46;
+      --text: #f4f4f5; --text2: #a1a1aa; --accent: #38bdf8; --green: #4ade80;
+      --sans: 'Inter', system-ui, sans-serif; --mono: 'JetBrains Mono', monospace;
+    }
+    html { background: var(--bg); color: var(--text2); font-family: var(--sans); font-size: 16px; }
+    body { min-height: 100vh; overflow-x: hidden; }
+    ::selection { background: rgba(56, 189, 248, 0.1); color: var(--accent); }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-h); border-radius: 3px; }
+
+    h1, h2, h3, h4 { color: var(--text); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+    a { color: inherit; text-decoration: none; transition: color 0.15s; }
+    
+    .wrap { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 16px 0; margin-bottom: 64px;
+    }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    .back-link { font-size: 14px; font-weight: 500; color: var(--text2); display: flex; align-items: center; gap: 8px; }
+    .back-link:hover { color: var(--text); }
+    
+    .header { margin-bottom: 64px; }
+    .title { font-size: 40px; margin-bottom: 16px; }
+    .desc { font-size: 18px; line-height: 1.6; color: var(--text2); margin-bottom: 32px; }
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+    .tag { font-family: var(--mono); font-size: 12px; padding: 6px 12px; border: 1px solid var(--border-h); border-radius: 4px; color: var(--text2); }
+    
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; font-size: 14px; font-weight: 500; border-radius: 6px; border: 1px solid var(--border); transition: all 0.15s; }
+    .btn:hover { border-color: var(--text2); color: var(--text); background: var(--surface); }
+
+    .section { margin-bottom: 80px; }
+    .sec-title { font-size: 24px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    .content p { line-height: 1.7; margin-bottom: 20px; font-size: 16px; }
+    .content strong { color: var(--text); font-weight: 500; }
+    
+    .arch-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-bottom: 32px; overflow-x: auto; }
+    
+    .decision { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin-bottom: 24px; }
+    .d-title { font-size: 16px; color: var(--text); margin-bottom: 16px; }
+    .d-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .d-lbl { font-family: var(--mono); font-size: 11px; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; display: block; }
+    .d-val { font-size: 14px; line-height: 1.6; }
+    .tradeoff { display: inline-block; margin-top: 16px; font-family: var(--mono); font-size: 12px; padding: 4px 10px; border-radius: 4px; background: rgba(56, 189, 248, 0.1); color: var(--accent); }
+    
+    .code-block { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 32px; }
+    .code-header { padding: 12px 16px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 12px; color: var(--text2); display: flex; justify-content: space-between; }
+    .code-body { padding: 20px; overflow-x: auto; }
+    .code-body pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: var(--text2); }
+    .kw { color: #ff7b72; } .fn { color: #d2a8ff; } .st { color: #a5d6ff; } .cm { color: var(--text2); opacity: 0.7; }
   </style>
 </head>
-<body class="antialiased min-h-screen font-sans selection:bg-zinc-800 selection:text-zinc-100">
+<body>
 
-  <!-- NAVBAR -->
-  <nav class="fixed top-0 w-full z-50 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-zinc-900 transition-all">
-    <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="index.html#projects" class="flex items-center gap-2 text-zinc-500 hover:text-zinc-100 transition-colors text-sm font-mono group">
-        <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-        cd ..
-      </a>
-      <div class="flex gap-4">
-        <a href="#" class="text-sky-400 hover:text-sky-300 font-mono text-xs flex items-center gap-2 transition-colors">
-          [↗ GitHub]
-        </a>
-        <a href="#" class="text-sky-400 hover:text-sky-300 font-mono text-xs flex items-center gap-2 transition-colors">
-          [↗ Live Demo]
-        </a>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+    <span style="font-family: var(--mono); font-size: 12px; color: var(--text2);">// CASE STUDY</span>
+  </div>
+</nav>
+
+<div class="wrap">
+  
+  <header class="header">
+    <h1 class="title">WhatsApp Booking Bot</h1>
+    <p class="desc">A decoupled automation pipeline connecting WhatsApp to Google Calendar using n8n visual orchestration to eliminate manual scheduling effort.</p>
+    <div class="tags">
+      <span class="tag">n8n</span>
+      <span class="tag">Node.js</span>
+      <span class="tag">WhatsApp Cloud API</span>
+      <span class="tag">Google Calendar API</span>
+    </div>
+    <div style="display: flex; gap: 12px;">
+      <a href="#" class="btn" style="opacity: 0.5; cursor: not-allowed;" title="Private Client Repository">Private Repository</a>
+    </div>
+  </header>
+
+  <div class="section">
+    <h2 class="sec-title">The Problem</h2>
+    <div class="content">
+      <p>A small business was spending several hours per week manually reading WhatsApp messages and creating Calendar events. Every time a new booking scenario appeared (e.g., cancellation, reschedule, specific service request), it required a developer to write new regex parsing logic in a monolithic Node.js handler.</p>
+      <p>This was tightly coupled, brittle, and unmaintainable. I needed a way to decouple the webhook ingestion from the business logic so the flow could be modified quickly.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="sec-title">Decoupled Architecture</h2>
+    <div class="arch-box">
+      <div class="mermaid">
+sequenceDiagram
+    participant U as User (WhatsApp)
+    participant W as WhatsApp Webhook
+    participant N as Node.js (Auth Layer)
+    participant E as n8n Engine
+    participant C as Google Calendar API
+
+    U->>W: "Book a slot for tomorrow"
+    W->>N: POST /webhook (HMAC signature)
+    N->>N: Verify Signature
+    N->>E: POST /n8n-webhook (Validated payload)
+    E->>E: Switch Node (Detect Intent)
+    E->>C: GET /freeBusy
+    C-->>E: Available slots array
+    E->>W: Send API message
+    W-->>U: "Available: 10 AM or 2 PM?"
       </div>
     </div>
-  </nav>
+  </div>
 
-  <!-- CONTENT -->
-  <main class="pt-32 pb-24 px-6 max-w-3xl mx-auto opacity-0 animate-fade-up">
+  <div class="section">
+    <h2 class="sec-title">Engineering Decisions</h2>
     
-    <!-- SECTION 0: THE HOOK -->
-    <div class="mb-24">
-      <div class="flex gap-3 mb-8 flex-wrap">
-        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">Node.js</span>
-        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">n8n</span>
-        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">WhatsApp Cloud API</span>
-        <span class="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded font-mono text-xs">Google Calendar API</span>
-      </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-6 tracking-tight">WhatsApp Orchestration</h1>
-      <h2 class="text-2xl font-medium text-zinc-300 mb-6">Decoupling conversational logic from deployment cycles via n8n.</h2>
-      
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-6 py-6 border-y border-zinc-900">
+    <div class="decision">
+      <h3 class="d-title">n8n over Node.js for Business Logic</h3>
+      <div class="d-grid">
         <div>
-          <div class="text-emerald-400 font-mono text-sm mb-1">Manual Effort</div>
-          <div class="text-2xl font-bold text-zinc-100">-70%</div>
+          <span class="d-lbl">The Alternative</span>
+          <p class="d-val">Keep expanding the Node.js server to handle every possible chat intent with massive <code>switch</code> statements and regex parsers.</p>
         </div>
         <div>
-          <div class="text-emerald-400 font-mono text-sm mb-1">Time to Deploy</div>
-          <div class="text-2xl font-bold text-zinc-100">Seconds</div>
-        </div>
-        <div>
-          <div class="text-emerald-400 font-mono text-sm mb-1">Availability</div>
-          <div class="text-2xl font-bold text-zinc-100">24/7</div>
+          <span class="d-lbl">The Decision</span>
+          <p class="d-val">I moved all routing logic into <strong>n8n</strong>. The Node.js server now acts <em>only</em> as a security layer to verify the WhatsApp HMAC signature. New intents (like "Cancel") are simply added as visual nodes in n8n—requiring zero code deployments.</p>
         </div>
       </div>
+      <span class="tradeoff">Trade-off: n8n introduces an extra network hop (~50ms). For a chat bot, this latency is imperceptible. If this were high-frequency trading, this would be the wrong choice. Latency tolerance is context-dependent.</span>
     </div>
+  </div>
 
-    <div class="space-y-32">
-      
-      <!-- SECTION 1: CONTEXT -->
-      <section>
-        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
-          <span class="text-sky-400 font-mono text-sm">// 01</span> The Business Context
-        </h3>
-        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg">
-          <p>Customer service and booking management via WhatsApp is incredibly high-friction. Administrators were spending hours daily copying text from WhatsApp chats into Google Calendar, leading to double-bookings, missed messages, and severe operational inefficiency.</p>
-          <p>The goal was to build an automated, conversational booking agent that directly interfaces with the WhatsApp Cloud API and Google Calendar to handle 100% of tier-1 scheduling queries autonomously.</p>
-        </div>
-      </section>
-
-      <!-- SECTION 2: THE NAIVE APPROACH & FAILURES -->
-      <section>
-        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
-          <span class="text-sky-400 font-mono text-sm">// 02</span> The V1 Bottleneck (The Monolith)
-        </h3>
-        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg">
-          <p>My initial architecture was a massive Node.js Express monolith. It received the WhatsApp webhook, ran hundreds of regex string matches to determine user intent, made external API calls to Google Calendar, formatted the response, and POSTed it back to WhatsApp.</p>
-          <p><strong>This became a maintenance nightmare.</strong></p>
-          <p>If the client wanted to add a single new intent (e.g., "Cancel a booking" instead of just "Make a booking"), I had to write new regex, write new API logic, run CI/CD, and deploy the entire monolith. The tightly coupled architecture severely bottlenecked development velocity.</p>
-        </div>
-      </section>
-
-      <!-- SECTION 3: ARCHITECTURE & DECISION MAKING -->
-      <section>
-        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
-          <span class="text-sky-400 font-mono text-sm">// 03</span> The n8n Decoupling
-        </h3>
-        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg mb-8">
-          <p>I realized that conversational logic is fundamentally a routing problem, not a code problem. I deprecated the monolith and introduced <strong>n8n</strong> as an orchestration layer.</p>
-          <p>By moving the webhook ingestion and intent routing into a visual node-based engine, the business logic was completely decoupled from the codebase. Node.js was relegated strictly to handling complex custom transformations (AWS Lambda style), while n8n handled the API orchestration.</p>
-        </div>
-
-        <div class="bg-[#111] border border-zinc-800 rounded-lg p-6 mb-8">
-          <div class="text-sky-400 font-mono text-sm mb-6">// Refactored Webhook Flow</div>
-          <div class="mermaid flex justify-center">
-            sequenceDiagram
-              participant U as User (WhatsApp)
-              participant W as WhatsApp Cloud API
-              participant N as n8n (Webhook Router)
-              participant C as Google Calendar API
-              
-              U->>W: "Book a slot for tomorrow"
-              W->>N: POST /webhook (JSON)
-              N->>N: Switch Node (Intent Match)
-              N->>C: GET /freeBusy
-              C-->>N: Returns [10:00 AM, 2:00 PM]
-              N->>W: POST /messages
-              W-->>U: "Available times: 10:00 AM, 2:00 PM"
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION 4: TRADE-OFFS & DEEP DIVE -->
-      <section>
-        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
-          <span class="text-sky-400 font-mono text-sm">// 04</span> The Network Trade-off
-        </h3>
-        <div class="text-zinc-400 leading-relaxed space-y-6 text-lg mb-8">
-          <p>The trade-off for this agility is latency. Introducing n8n adds a network hop between the webhook ingestion and the execution. In a high-frequency trading app, this 50ms penalty would be fatal.</p>
-          <p>However, in asynchronous human chat interfaces (like WhatsApp), a 50ms delay is imperceptible to the user. The trade-off was a massive success: the time required to deploy a new conversational intent dropped from <strong>hours to seconds</strong>, and non-technical stakeholders could visually understand the chat flow.</p>
-        </div>
-
-        <div class="bg-zinc-950 border border-zinc-800 rounded-lg p-6 font-mono text-sm overflow-x-auto shadow-xl">
-<pre class="text-zinc-300"><code><span class="text-zinc-500">/* Example: Validating WhatsApp Webhook Security */</span>
-<span class="text-sky-400">const</span> crypto = require(<span class="text-zinc-300">'crypto'</span>);
-
-<span class="text-sky-400">function</span> <span class="text-emerald-400">verifyWhatsAppSignature</span>(req, rawBody) {
-  <span class="text-sky-400">const</span> signature = req.headers[<span class="text-zinc-300">'x-hub-signature-256'</span>];
-  <span class="text-sky-400">if</span> (!signature) <span class="text-sky-400">return</span> <span class="text-emerald-400">false</span>;
-
-  <span class="text-sky-400">const</span> expectedSignature = <span class="text-zinc-300">'sha256='</span> + crypto
-    .createHmac(<span class="text-zinc-300">'sha256'</span>, process.env.APP_SECRET)
-    .update(rawBody)
-    .digest(<span class="text-zinc-300">'hex'</span>);
-
-  <span class="text-zinc-500">/* Constant-time comparison to prevent timing attacks */</span>
-  <span class="text-sky-400">return</span> crypto.timingSafeEqual(
-    Buffer.from(signature),
-    Buffer.from(expectedSignature)
-  );
-}</code></pre>
-        </div>
-      </section>
-
-      <!-- SECTION 5: OUTPUT -->
-      <section>
-        <h3 class="text-xl font-bold text-zinc-100 mb-6 flex items-center gap-2">
-          <span class="text-sky-400 font-mono text-sm">// 05</span> Final Output
-        </h3>
-        <div class="border border-zinc-800 rounded-lg overflow-hidden relative group bg-[#111] aspect-[16/9] flex items-center justify-center">
-          <!-- TODO: USER MUST REPLACE THIS PLACEHOLDER WITH REAL IMAGE -->
-          <div class="absolute inset-0 bg-zinc-900/50 flex flex-col items-center justify-center text-zinc-500 font-mono text-sm">
-            <svg class="w-8 h-8 mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L28 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-            [INSERT SCREENSHOT OF WHATSAPP CHAT FLOW HERE]
-          </div>
-          <img src="./images/placeholder-whatsapp.png" alt="WhatsApp Chat Screenshot Placeholder" class="object-cover w-full h-full opacity-10 group-hover:opacity-30 transition-opacity" />
-        </div>
-      </section>
-
+  <div class="section">
+    <h2 class="sec-title">The Outcome</h2>
+    <div class="content">
+      <p>Standard booking flows (checking availability, confirming a slot, sending the confirmation) now run fully automatically. Estimated <strong>70% reduction in manual scheduling effort</strong> for the client. The system design ensures that when the client needs to change their availability logic, it can be done visually in n8n in minutes, rather than requiring a code review and server redeployment.</p>
     </div>
+  </div>
 
-    <!-- FOOTER UX FIX -->
-    <footer class="border-t border-zinc-900 mt-32 pt-12 pb-24">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-        <a href="index.html" class="px-6 py-3 border border-zinc-800 text-zinc-300 rounded font-medium hover:bg-zinc-900 hover:text-zinc-100 transition-colors font-mono text-sm flex items-center gap-2">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-          cd ~/portfolio
-        </a>
-        <div class="flex items-center gap-4">
-          <span class="text-zinc-500 font-mono text-sm">Next Case Study:</span>
-          <a href="project-ai-job-companion.html" class="text-zinc-100 hover:text-sky-400 font-medium transition-colors">Pathlight.ai →</a>
-        </div>
-      </div>
-      <div class="mt-16 text-center">
-        <button onclick="navigator.clipboard.writeText('pillajettijayanth@gmail.com'); alert('Email copied!');" class="group inline-flex items-center gap-3 px-8 py-4 bg-zinc-100 text-zinc-900 font-semibold rounded hover:bg-white transition-all transform active:scale-95 shadow-xl">
-          <span>pillajettijayanth@gmail.com</span>
-          <svg class="w-5 h-5 text-zinc-500 group-hover:text-zinc-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-        </button>
-      </div>
-    </footer>
-  </main>
+</div>
+
 </body>
 </html>
