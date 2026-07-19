@@ -8,151 +8,193 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0a0a0a;
-      --surface:   #121212;
-      --border:    #27272a;
-      --border-h:  #3f3f46;
-      --text:      #f4f4f5;
-      --text2:     #a1a1aa;
+      --bg:        #060606;
+      --surface:   #0e0e0e;
+      --surface-hov: #141414;
+      --border:    rgba(255,255,255,0.08);
+      --border-h:  rgba(255,255,255,0.15);
+      --text:      #f5f5f5;
+      --text2:     #a3a3a3;
       --accent:    #38bdf8;
-      --accent-bg: rgba(56, 189, 248, 0.1);
+      --accent-dim: rgba(56, 189, 248, 0.15);
       --green:     #4ade80;
       --sans:      'Inter', system-ui, sans-serif;
-      --mono:      'JetBrains Mono', 'Fira Code', monospace;
+      --mono:      'JetBrains Mono', monospace;
     }
 
-    html { background: var(--bg); color: var(--text2); font-family: var(--sans); font-size: 16px; }
+    html { background: var(--bg); color: var(--text2); font-family: var(--sans); font-size: 16px; scroll-behavior: smooth; }
     body { min-height: 100vh; overflow-x: hidden; }
 
-    ::selection { background: var(--accent-bg); color: var(--accent); }
+    ::selection { background: var(--accent-dim); color: var(--accent); }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border-h); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
 
-    h1, h2, h3, h4 { color: var(--text); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
-    a { color: inherit; text-decoration: none; transition: color 0.15s; }
+    h1, h2, h3, h4 { color: var(--text); font-weight: 500; letter-spacing: -0.03em; line-height: 1.1; }
+    a { color: inherit; text-decoration: none; transition: color 0.2s ease, border-color 0.2s ease; }
     
-    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
-    section { padding: 96px 0; border-bottom: 1px solid var(--border); }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    section { padding: 120px 0; border-bottom: 1px solid var(--border); }
     section:last-of-type { border-bottom: none; }
 
     /* ─── NAV ─── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border); height: 56px;
+      background: rgba(6, 6, 6, 0.7); backdrop-filter: blur(20px) saturate(150%);
+      border-bottom: 1px solid var(--border); height: 64px;
       display: flex; align-items: center;
     }
     .nav-inner {
-      max-width: 1000px; margin: 0 auto; padding: 0 24px; width: 100%;
+      max-width: 1200px; margin: 0 auto; padding: 0 32px; width: 100%;
       display: flex; justify-content: space-between; align-items: center;
     }
-    .nav-brand { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text); }
-    .nav-brand span { color: var(--text2); font-weight: 400; }
-    .nav-links { display: flex; gap: 32px; }
-    .nav-links a { font-size: 13px; color: var(--text2); font-weight: 500; }
+    .nav-brand { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text); letter-spacing: 0.02em; }
+    .nav-brand span { color: #666; font-weight: 400; }
+    .nav-links { display: flex; gap: 40px; }
+    .nav-links a { font-size: 13px; color: var(--text2); font-weight: 400; }
     .nav-links a:hover { color: var(--text); }
 
     /* ─── STATUS PILL ─── */
     .status-pill {
-      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px;
+      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 32px;
       padding: 6px 14px; border: 1px solid var(--border); border-radius: 100px;
-      background: var(--surface); font-family: var(--mono); font-size: 12px; color: var(--text2);
+      background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+      font-family: var(--mono); font-size: 11px; color: var(--text2); letter-spacing: 0.02em;
     }
-    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s infinite; }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
     /* ─── HERO ─── */
-    .hero { padding: 140px 0 80px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; }
-    .hero-title { font-size: clamp(36px, 5vw, 48px); margin-bottom: 16px; }
-    .hero-title span { color: var(--text2); font-weight: 400; }
-    .hero-sub { font-size: 17px; line-height: 1.6; color: var(--text2); margin-bottom: 32px; max-width: 480px; }
+    .hero { padding: 160px 0 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .hero-title { font-size: clamp(40px, 5.5vw, 64px); margin-bottom: 24px; font-weight: 500; }
+    .hero-title span { color: #666; }
+    .hero-sub { font-size: 18px; line-height: 1.6; color: var(--text2); margin-bottom: 40px; max-width: 480px; font-weight: 300; }
     
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 20px; font-size: 14px; font-weight: 500; border-radius: 6px;
-      transition: all 0.15s; cursor: pointer; border: 1px solid transparent;
+      padding: 12px 24px; font-size: 14px; font-weight: 500; border-radius: 8px;
+      transition: all 0.2s ease; cursor: pointer; border: 1px solid transparent;
+      letter-spacing: 0.01em;
     }
-    .btn-primary { background: var(--text); color: var(--bg); }
-    .btn-primary:hover { opacity: 0.9; }
-    .btn-outline { background: transparent; border-color: var(--border); color: var(--text); }
-    .btn-outline:hover { border-color: var(--border-h); background: var(--surface); }
+    .btn-primary { background: var(--text); color: var(--bg); box-shadow: 0 4px 14px rgba(255,255,255,0.1); }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,255,255,0.15); }
+    .btn-outline { background: transparent; border-color: var(--border-h); color: var(--text); }
+    .btn-outline:hover { border-color: #555; background: rgba(255,255,255,0.02); }
+    .btn-row { display: flex; gap: 16px; flex-wrap: wrap; }
 
-    /* ─── HERO DIAGRAM (Simplified Agent Flow) ─── */
-    .hero-diagram { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; }
-    .flow-node { padding: 8px 12px; background: var(--bg); border: 1px solid var(--border-h); border-radius: 6px; font-family: var(--mono); font-size: 11px; color: var(--text); display: inline-block; }
-    .flow-node.highlight { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
-    .flow-arrow { color: var(--border-h); margin: 0 8px; font-size: 12px; }
-    .flow-row { display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
-    .flow-row:last-child { margin-bottom: 0; }
-
+    /* ─── HERO ANIMATION CANVAS ─── */
+    .hero-canvas {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      background-image: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.05) 0%, transparent 70%);
+    }
+    .canvas-header {
+      border-bottom: 1px solid var(--border); padding: 12px 16px;
+      display: flex; align-items: center; gap: 6px;
+      font-family: var(--mono); font-size: 11px; color: #666;
+    }
+    .dot-w { width:8px; height:8px; border-radius:50%; background:#333; }
+    .canvas-body { padding: 24px; }
+    
     /* ─── TRUST STRIP ─── */
     .trust-strip {
       border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      display: flex; overflow-x: auto;
+      display: flex; overflow-x: auto; background: var(--surface);
     }
     .trust-item {
-      flex: 1; min-width: 140px; padding: 20px 24px; border-right: 1px solid var(--border);
+      flex: 1; min-width: 160px; padding: 24px 32px; border-right: 1px solid var(--border);
     }
     .trust-item:last-child { border-right: none; }
-    .trust-val { font-family: var(--mono); font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; display: block; }
-    .trust-lbl { font-size: 12px; color: var(--text2); }
+    .trust-val { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 6px; display: block; letter-spacing: -0.02em; }
+    .trust-lbl { font-size: 13px; color: var(--text2); font-weight: 300; }
 
     /* ─── SECTION HEADERS ─── */
-    .sec-label { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; display: block; }
-    .sec-title { font-size: 28px; margin-bottom: 40px; }
+    .sec-label { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; display: block; }
+    .sec-title { font-size: 32px; margin-bottom: 56px; }
 
     /* ─── FEATURED PROJECTS ─── */
     .project-card {
-      display: grid; grid-template-columns: 1fr 300px; gap: 40px;
-      padding: 40px; background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; margin-bottom: 24px; transition: border-color 0.2s;
+      display: grid; grid-template-columns: 1fr 360px; gap: 48px;
+      padding: 48px; background: linear-gradient(180deg, var(--surface) 0%, transparent 100%);
+      border: 1px solid var(--border); border-radius: 16px; margin-bottom: 32px;
+      transition: all 0.3s ease; position: relative; overflow: hidden;
     }
-    .project-card:hover { border-color: var(--border-h); }
-    .p-title { font-size: 22px; margin-bottom: 12px; }
-    .p-desc { font-size: 15px; line-height: 1.6; color: var(--text2); margin-bottom: 24px; }
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
-    .tag { font-family: var(--mono); font-size: 11px; padding: 4px 10px; border: 1px solid var(--border-h); border-radius: 4px; color: var(--text2); }
+    .project-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    }
+    .project-card:hover { border-color: var(--border-h); background: linear-gradient(180deg, var(--surface-hov) 0%, transparent 100%); }
+    .p-title { font-size: 24px; margin-bottom: 16px; font-weight: 500; }
+    .p-desc { font-size: 16px; line-height: 1.6; color: var(--text2); margin-bottom: 32px; font-weight: 300; }
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+    .tag { font-family: var(--mono); font-size: 11px; padding: 6px 12px; border: 1px solid var(--border); border-radius: 100px; color: var(--text2); background: rgba(255,255,255,0.02); }
     
-    .p-metric { font-family: var(--mono); font-size: 24px; font-weight: 600; color: var(--green); line-height: 1; margin-bottom: 6px; }
-    .p-metric-lbl { font-size: 12px; color: var(--text2); }
+    .p-metric { font-family: var(--mono); font-size: 28px; font-weight: 400; color: var(--text); line-height: 1; margin-bottom: 8px; letter-spacing: -0.04em; }
+    .p-metric span { color: var(--green); }
+    .p-metric-lbl { font-size: 13px; color: #666; font-weight: 400; }
     
-    .p-actions { display: flex; gap: 12px; }
-    .p-arch-preview { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; display: flex; flex-direction: column; justify-content: center; }
+    .p-actions { display: flex; gap: 16px; }
+    .p-arch-preview { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; justify-content: center; box-shadow: inset 0 2px 10px rgba(0,0,0,0.2); }
+
+    /* ─── CAPABILITIES (Curated Stack) ─── */
+    .cap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .cap-card { padding: 32px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+    .cap-title { font-family: var(--mono); font-size: 13px; color: var(--text); margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+    .cap-list { list-style: none; }
+    .cap-list li { font-size: 14px; color: var(--text2); margin-bottom: 12px; display: flex; justify-content: space-between; }
+    .cap-list li span { color: #666; font-family: var(--mono); font-size: 11px; }
 
     /* ─── PRINCIPLES ─── */
     .prin-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-    .prin-card { padding: 32px; border: 1px solid var(--border); border-radius: 12px; }
-    .prin-title { font-size: 16px; margin-bottom: 8px; }
-    .prin-desc { font-size: 14px; color: var(--text2); line-height: 1.6; }
+    .prin-card { padding: 40px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); transition: border-color 0.2s ease; }
+    .prin-card:hover { border-color: var(--border-h); }
+    .prin-title { font-size: 18px; margin-bottom: 12px; font-weight: 500; }
+    .prin-desc { font-size: 15px; color: var(--text2); line-height: 1.6; font-weight: 300; }
 
     /* ─── TIMELINE ─── */
-    .timeline { max-width: 600px; }
-    .tl-item { display: grid; grid-template-columns: 140px 1fr; gap: 24px; margin-bottom: 32px; }
-    .tl-item:last-child { margin-bottom: 0; }
-    .tl-year { font-family: var(--mono); font-size: 13px; color: var(--text2); padding-top: 2px; }
-    .tl-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-    .tl-org { font-size: 14px; color: var(--text2); }
+    .timeline { max-width: 700px; }
+    .tl-item { display: grid; grid-template-columns: 140px 1fr; gap: 32px; margin-bottom: 48px; position: relative; }
+    .tl-item::before { content:''; position:absolute; left:140px; top:24px; bottom:-48px; width:1px; background:var(--border); }
+    .tl-item:last-child::before { display: none; }
+    .tl-year { font-family: var(--mono); font-size: 13px; color: #666; padding-top: 4px; }
+    .tl-dot { position:absolute; left:136px; top:6px; width:9px; height:9px; border-radius:50%; background:var(--bg); border:2px solid var(--border-h); z-index:2; }
+    .tl-dot.live { border-color:var(--accent); background:var(--accent); box-shadow: 0 0 10px var(--accent-dim); }
+    .tl-title { font-size: 18px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
+    .tl-org { font-size: 14px; color: var(--accent); margin-bottom: 12px; font-weight: 400; }
+    .tl-desc { font-size: 15px; color: var(--text2); line-height: 1.6; font-weight: 300; }
 
     /* ─── CONTACT ─── */
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
-    .contact-link { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 12px; font-size: 14px; font-weight: 500; }
-    .contact-link:hover { border-color: var(--text2); color: var(--text); background: var(--surface); }
-    .contact-sub { font-family: var(--mono); font-size: 12px; color: var(--text2); font-weight: 400; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .contact-link { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 16px; font-size: 15px; font-weight: 500; background: var(--surface); transition: all 0.2s ease; }
+    .contact-link:hover { border-color: var(--text2); color: var(--text); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+    .contact-sub { font-family: var(--mono); font-size: 12px; color: #666; font-weight: 400; transition: color 0.2s ease; }
+    .contact-link:hover .contact-sub { color: var(--text2); }
+
+    /* ─── FOOTER ─── */
+    footer { border-top: 1px solid var(--border); padding: 40px 0; display: flex; justify-content: space-between; align-items: center; }
+    .footer-text { font-family: var(--mono); font-size: 12px; color: #555; }
 
     /* ─── RESPONSIVE ─── */
-    @media(max-width: 800px) {
-      .hero { grid-template-columns: 1fr; padding: 120px 0 60px; gap: 32px; }
+    @media(max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; padding: 140px 0 80px; gap: 48px; }
+      .project-card { grid-template-columns: 1fr; gap: 32px; padding: 32px; }
+      .p-arch-preview { display: none; }
+      .cap-grid, .prin-grid, .contact-grid { grid-template-columns: 1fr; gap: 32px; }
       .trust-strip { flex-wrap: wrap; }
       .trust-item { min-width: 45%; border-bottom: 1px solid var(--border); }
-      .project-card, .prin-grid, .contact-grid { grid-template-columns: 1fr; }
-      .p-arch-preview { display: none; } /* Hide arch preview on mobile to save space */
-      .tl-item { grid-template-columns: 1fr; gap: 8px; }
+      .tl-item { grid-template-columns: 1fr; gap: 16px; }
+      .tl-item::before, .tl-dot { display: none; }
+      .tl-year { padding-top: 0; color: var(--accent); }
       .nav-links { display: none; }
     }
   </style>
@@ -164,6 +206,7 @@
     <div class="nav-brand">Jayanth Kumar <span>/ AI Engineer</span></div>
     <div class="nav-links">
       <a href="#projects">Work</a>
+      <a href="#capabilities">Capabilities</a>
       <a href="#approach">Approach</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
@@ -182,43 +225,73 @@
         <span>for enterprise workflows.</span>
       </h1>
       <p class="hero-sub">
-        I combine an enterprise software foundation with modern AI engineering to build LLM applications, RAG pipelines, and automated agentic systems. Currently at TCS.
+        I combine an enterprise software foundation with modern AI engineering to build robust LLM applications, RAG pipelines, and automated agentic systems. Currently at TCS.
       </p>
       <div class="btn-row">
         <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="./Resume/jayanth_resume.pdf" download class="btn btn-outline">Resume</a>
+        <a href="./Resume/jayanth_resume.pdf" download class="btn btn-outline">Download Resume</a>
       </div>
     </div>
 
-    <!-- Simplified Agent Workflow Diagram -->
-    <div class="hero-diagram">
-      <div style="font-family: var(--mono); font-size: 11px; color: var(--text2); margin-bottom: 24px; text-align: center;">agent_workflow_loop</div>
-      <div class="flow-row">
-        <div class="flow-node">User Request</div>
-        <div class="flow-arrow">↓</div>
+    <!-- Animated SVG Agent Canvas -->
+    <div class="hero-canvas">
+      <div class="canvas-header">
+        <span class="dot-w"></span><span class="dot-w"></span><span class="dot-w"></span>
+        <span style="margin-left:8px;">agent_workflow.py</span>
       </div>
-      <div class="flow-row">
-        <div class="flow-node highlight">Planner Agent</div>
-      </div>
-      <div class="flow-row" style="margin: 16px 0;">
-        <div class="flow-arrow">↙</div>
-        <div style="width: 20px;"></div>
-        <div class="flow-arrow">↘</div>
-      </div>
-      <div class="flow-row">
-        <div class="flow-node highlight">Retriever (RAG)</div>
-        <div style="width: 16px;"></div>
-        <div class="flow-node highlight">Tool Executor</div>
-      </div>
-      <div class="flow-row" style="margin: 16px 0;">
-        <div class="flow-arrow">↘</div>
-        <div style="width: 20px;"></div>
-        <div class="flow-arrow">↙</div>
-      </div>
-      <div class="flow-row">
-        <div class="flow-node">LLM Reasoner</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-node" style="border-color: var(--green); color: var(--green);">Response</div>
+      <div class="canvas-body">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+          <defs>
+            <marker id="arr" markerWidth="6" markerHeight="4" refX="4" refY="2" orient="auto">
+              <polygon points="0 0, 6 2, 0 4" fill="#3f3f46"/>
+            </marker>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="2" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Edges -->
+          <g stroke="#3f3f46" stroke-width="1" fill="none" marker-end="url(#arr)">
+            <line x1="200" y1="40" x2="200" y2="70"/>
+            <line x1="200" y1="100" x2="140" y2="130"/>
+            <line x1="200" y1="100" x2="260" y2="130"/>
+            <line x1="140" y1="160" x2="200" y2="190"/>
+            <line x1="260" y1="160" x2="200" y2="190"/>
+            <line x1="200" y1="220" x2="200" y2="250"/>
+          </g>
+
+          <!-- Nodes -->
+          <g fill="#121212" stroke="#27272a" stroke-width="1.5" font-family="JetBrains Mono" font-size="11" text-anchor="middle">
+            <rect x="150" y="10" width="100" height="30" rx="6"/>
+            <text x="200" y="30" fill="#a3a3a3">User Request</text>
+
+            <rect x="140" y="70" width="120" height="30" rx="6" id="node-planner"/>
+            <text x="200" y="90" fill="#f5f5f5">Planner Agent</text>
+
+            <rect x="70" y="130" width="120" height="30" rx="6" id="node-rag"/>
+            <text x="130" y="150" fill="#38bdf8">Retriever (RAG)</text>
+
+            <rect x="210" y="130" width="120" height="30" rx="6" id="node-tool"/>
+            <text x="270" y="150" fill="#38bdf8">Tool Executor</text>
+
+            <rect x="140" y="190" width="120" height="30" rx="6" id="node-llm"/>
+            <text x="200" y="210" fill="#d2a8ff">LLM Reasoner</text>
+
+            <rect x="150" y="250" width="100" height="30" rx="6"/>
+            <text x="200" y="270" fill="#4ade80">Response</text>
+          </g>
+
+          <!-- Flow Tokens -->
+          <circle r="3" fill="#38bdf8" filter="url(#glow)">
+            <animateMotion dur="4s" repeatCount="indefinite" path="M200 40 L200 70 L140 130 L200 190 L200 250"/>
+            <animate attributeName="opacity" values="0;1;1;1;0" dur="4s" repeatCount="indefinite"/>
+          </circle>
+          <circle r="3" fill="#d2a8ff" filter="url(#glow)">
+            <animateMotion dur="4s" repeatCount="indefinite" begin="1s" path="M200 40 L200 70 L260 130 L200 190 L200 250"/>
+            <animate attributeName="opacity" values="0;1;1;1;0" dur="4s" repeatCount="indefinite" begin="1s"/>
+          </circle>
+        </svg>
       </div>
     </div>
   </section>
@@ -226,25 +299,27 @@
 
 <!-- TRUST STRIP -->
 <div class="trust-strip">
-  <div class="trust-item">
-    <span class="trust-val">~2 Years</span>
-    <span class="trust-lbl">Software Engineering exp.</span>
-  </div>
-  <div class="trust-item">
-    <span class="trust-val">TCS</span>
-    <span class="trust-lbl">Current Employer</span>
-  </div>
-  <div class="trust-item">
-    <span class="trust-val">Published</span>
-    <span class="trust-lbl">AI/ML Patent</span>
-  </div>
-  <div class="trust-item">
-    <span class="trust-val">Python / FastAPI</span>
-    <span class="trust-lbl">Core Backend Stack</span>
-  </div>
-  <div class="trust-item">
-    <span class="trust-val">LangGraph / RAG</span>
-    <span class="trust-lbl">Core AI Stack</span>
+  <div class="wrap" style="display: flex; width: 100%; padding: 0;">
+    <div class="trust-item">
+      <span class="trust-val">~2 Years</span>
+      <span class="trust-lbl">Software Engineering exp.</span>
+    </div>
+    <div class="trust-item">
+      <span class="trust-val">TCS</span>
+      <span class="trust-lbl">Current Employer</span>
+    </div>
+    <div class="trust-item">
+      <span class="trust-val">Application Published</span>
+      <span class="trust-lbl">AI/ML Patent</span>
+    </div>
+    <div class="trust-item">
+      <span class="trust-val">Python / FastAPI</span>
+      <span class="trust-lbl">Core Backend Stack</span>
+    </div>
+    <div class="trust-item">
+      <span class="trust-val">LangGraph / RAG</span>
+      <span class="trust-lbl">Core AI Stack</span>
+    </div>
   </div>
 </div>
 
@@ -264,9 +339,9 @@
           <span class="tag">LangGraph</span>
           <span class="tag">Celery + Redis</span>
         </div>
-        <div style="margin-bottom: 24px;">
-          <div class="p-metric">0</div>
-          <div class="p-metric-lbl">Blocking API calls (Async Queue)</div>
+        <div style="margin-bottom: 32px;">
+          <div class="p-metric"><span>0</span></div>
+          <div class="p-metric-lbl">Blocking API calls (Async Queue Architecture)</div>
         </div>
         <div class="p-actions">
           <a href="project-ai-job-companion.html" class="btn btn-primary">Read Case Study</a>
@@ -274,8 +349,8 @@
         </div>
       </div>
       <div class="p-arch-preview">
-        <span style="font-family: var(--mono); font-size: 11px; color: var(--text2); margin-bottom: 16px; display: block;">Architecture Preview</span>
-        <div style="font-size: 12px; color: var(--text2); line-height: 2;">
+        <span style="font-family: var(--mono); font-size: 11px; color: #666; margin-bottom: 16px; display: block; text-transform: uppercase;">Architecture Preview</span>
+        <div style="font-family: var(--mono); font-size: 12px; color: var(--text2); line-height: 2;">
           API Request<br>
           <span style="color: var(--border-h);">├─</span> Redis Queue<br>
           <span style="color: var(--border-h);">├─</span> Celery Worker<br>
@@ -296,9 +371,9 @@
           <span class="tag">Local Llama 3.2</span>
           <span class="tag">TF-IDF RAG</span>
         </div>
-        <div style="margin-bottom: 24px;">
-          <div class="p-metric">100%</div>
-          <div class="p-metric-lbl">Offline Availability (Local Inference)</div>
+        <div style="margin-bottom: 32px;">
+          <div class="p-metric"><span>100%</span></div>
+          <div class="p-metric-lbl">Offline Availability (Local Inference Constraint)</div>
         </div>
         <div class="p-actions">
           <a href="project-pulseops-ai.html" class="btn btn-primary">Read Case Study</a>
@@ -306,8 +381,8 @@
         </div>
       </div>
       <div class="p-arch-preview">
-        <span style="font-family: var(--mono); font-size: 11px; color: var(--text2); margin-bottom: 16px; display: block;">Supervisor Pattern Preview</span>
-        <div style="font-size: 12px; color: var(--text2); line-height: 2;">
+        <span style="font-family: var(--mono); font-size: 11px; color: #666; margin-bottom: 16px; display: block; text-transform: uppercase;">Supervisor Pattern Preview</span>
+        <div style="font-family: var(--mono); font-size: 12px; color: var(--text2); line-height: 2;">
           Incoming Alert<br>
           <span style="color: var(--border-h);">├─</span> Parser Agent (LLM)<br>
           <span style="color: var(--border-h);">├─</span> Triage Agent<br>
@@ -321,15 +396,15 @@
     <div class="project-card">
       <div>
         <h3 class="p-title">Cardiac Anomaly Detection</h3>
-        <p class="project-tagline">Clinical ML research focused on optimizing for Recall (Sensitivity) over Accuracy to minimize fatal False Negatives. Resulted in a published patent.</p>
+        <p class="p-desc">Clinical ML research focused on optimizing for Recall (Sensitivity) over Accuracy to minimize fatal False Negatives. Resulted in a published patent application.</p>
         <div class="tags">
           <span class="tag">Python</span>
           <span class="tag">XGBoost</span>
           <span class="tag">SMOTE</span>
         </div>
-        <div style="margin-bottom: 24px;">
-          <div class="p-metric">96.5%</div>
-          <div class="p-metric-lbl">Clinical Recall (Domain-optimized)</div>
+        <div style="margin-bottom: 32px;">
+          <div class="p-metric"><span>96.5%</span></div>
+          <div class="p-metric-lbl">Clinical Recall (Domain-optimized metric)</div>
         </div>
         <div class="p-actions">
           <a href="project-heart-disease.html" class="btn btn-primary">Read Case Study</a>
@@ -337,9 +412,9 @@
         </div>
       </div>
       <div class="p-arch-preview">
-        <span style="font-family: var(--mono); font-size: 11px; color: var(--text2); margin-bottom: 16px; display: block;">Research Outcome</span>
-        <div style="font-size: 12px; color: var(--text2); line-height: 1.6;">
-          <strong>Published Patent</strong><br><br>
+        <span style="font-family: var(--mono); font-size: 11px; color: #666; margin-bottom: 16px; display: block; text-transform: uppercase;">Research Outcome</span>
+        <div style="font-size: 14px; color: var(--text2); line-height: 1.6;">
+          <strong style="color: var(--text);">Patent Application Published</strong><br><br>
           Demonstrates ability to take an idea from hypothesis through implementation to formal clinical publication.
         </div>
       </div>
@@ -355,18 +430,18 @@
           <span class="tag">Node.js</span>
           <span class="tag">Webhooks</span>
         </div>
-        <div style="margin-bottom: 24px;">
-          <div class="p-metric">70%</div>
+        <div style="margin-bottom: 32px;">
+          <div class="p-metric"><span>70%</span></div>
           <div class="p-metric-lbl">Manual Effort Eliminated</div>
         </div>
         <div class="p-actions">
           <a href="project-whatsapp-bot.html" class="btn btn-primary">Read Case Study</a>
-          <a href="#" class="btn btn-outline" style="opacity: 0.5; cursor: not-allowed;" title="Private Repository">GitHub</a>
+          <button class="btn btn-outline" style="opacity: 0.3; cursor: not-allowed;" title="Private Repository">GitHub (Private)</button>
         </div>
       </div>
       <div class="p-arch-preview">
-        <span style="font-family: var(--mono); font-size: 11px; color: var(--text2); margin-bottom: 16px; display: block;">Orchestration Flow</span>
-        <div style="font-size: 12px; color: var(--text2); line-height: 2;">
+        <span style="font-family: var(--mono); font-size: 11px; color: #666; margin-bottom: 16px; display: block; text-transform: uppercase;">Orchestration Flow</span>
+        <div style="font-family: var(--mono); font-size: 12px; color: var(--text2); line-height: 2;">
           WhatsApp Webhook<br>
           <span style="color: var(--border-h);">├─</span> Node.js (HMAC Auth)<br>
           <span style="color: var(--border-h);">└─</span> n8n Engine<br>
@@ -377,11 +452,48 @@
     </div>
   </section>
 
+  <!-- CAPABILITIES -->
+  <section id="capabilities">
+    <span class="sec-label">Stack</span>
+    <h2 class="sec-title">Core Capabilities</h2>
+    <div class="cap-grid">
+      <div class="cap-card">
+        <h3 class="cap-title">AI & Orchestration</h3>
+        <ul class="cap-list">
+          <li>LangGraph <span>Agent Workflows</span></li>
+          <li>LangChain <span>Chains & Prompts</span></li>
+          <li>RAG <span>Vector & Sparse Auth</span></li>
+          <li>Ollama <span>Local Inference</span></li>
+          <li>Gemini / Llama <span>Model Integration</span></li>
+        </ul>
+      </div>
+      <div class="cap-card">
+        <h3 class="cap-title">Backend & Systems</h3>
+        <ul class="cap-list">
+          <li>Python <span>Primary Language</span></li>
+          <li>FastAPI <span>API Development</span></li>
+          <li>Celery + Redis <span>Async Queues</span></li>
+          <li>SQL / PL/SQL <span>Enterprise DB</span></li>
+          <li>REST Webhooks <span>Integration</span></li>
+        </ul>
+      </div>
+      <div class="cap-card">
+        <h3 class="cap-title">Automation & Data</h3>
+        <ul class="cap-list">
+          <li>n8n <span>Workflow Automation</span></li>
+          <li>Scikit-Learn <span>Classical ML</span></li>
+          <li>Pandas / NumPy <span>Data Parsing</span></li>
+          <li>Git <span>Version Control</span></li>
+          <li>Docker <span>Local Env</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <!-- APPROACH -->
   <section id="approach">
     <span class="sec-label">Engineering Philosophy</span>
     <h2 class="sec-title">How I Build</h2>
-
     <div class="prin-grid">
       <div class="prin-card">
         <h3 class="prin-title">Build Reliable Systems First</h3>
@@ -393,7 +505,7 @@
       </div>
       <div class="prin-card">
         <h3 class="prin-title">Decouple and Modularize</h3>
-        <p class="prin-desc">Prompts, retrieval logic, and orchestration belong in separate layers. An LLM swap shouldn't require an orchestration rewrite.</p>
+        <p class="prin-desc">Prompts, retrieval logic, and orchestration belong in separate layers. Swapping an underlying LLM model shouldn't require an orchestration rewrite.</p>
       </div>
       <div class="prin-card">
         <h3 class="prin-title">Context is Engineering</h3>
@@ -406,46 +518,45 @@
   <section id="experience">
     <span class="sec-label">Timeline</span>
     <h2 class="sec-title">Engineering Progression</h2>
-
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-year">2023 → Present</div>
+        <div class="tl-dot live"></div>
         <div>
           <div class="tl-title">AI Engineer</div>
           <div class="tl-org">Tata Consultancy Services (TCS)</div>
-          <p class="prin-desc" style="margin-top: 8px;">Developing enterprise software and contributing to an AI-powered internal support assistant (LLM + RAG). Building real-world experience with database optimization (PL/SQL), workflow automation, and enterprise deployment constraints.</p>
+          <p class="tl-desc">Developing enterprise software and contributing to an AI-powered internal support assistant (LLM + RAG). Building real-world experience with database optimization (PL/SQL), workflow automation, and enterprise deployment constraints.</p>
         </div>
       </div>
-      
       <div class="tl-item">
         <div class="tl-year">2023</div>
+        <div class="tl-dot"></div>
         <div>
           <div class="tl-title">Research Assistant (AI/ML)</div>
           <div class="tl-org">SRM University</div>
-          <p class="prin-desc" style="margin-top: 8px;">Conducted supervised ML research on cardiac disease detection. Learned to optimize for domain-specific metrics (Recall) over generic Accuracy. Resulted in a published patent.</p>
+          <p class="tl-desc">Conducted supervised ML research on cardiac disease detection. Learned to optimize for domain-specific metrics (Recall) over generic Accuracy. Resulted in a published patent application.</p>
         </div>
       </div>
-
       <div class="tl-item">
         <div class="tl-year">2019 → 2023</div>
+        <div class="tl-dot"></div>
         <div>
           <div class="tl-title">B.Tech — AI & Machine Learning</div>
           <div class="tl-org">SRM University AP</div>
-          <p class="prin-desc" style="margin-top: 8px;">Built the theoretical foundation: data structures, algorithms, deep learning, NLP, and distributed systems. GPA 8.2/10.</p>
+          <p class="tl-desc">Built the theoretical foundation: data structures, algorithms, deep learning, NLP, and distributed systems. GPA 8.2/10.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" style="padding-bottom: 120px;">
+  <section id="contact" style="padding-bottom: 160px;">
     <span class="sec-label">Contact</span>
     <h2 class="sec-title">Let's Build Together</h2>
-    
     <div class="contact-grid">
       <div>
-        <p class="prin-desc" style="margin-bottom: 24px;">I am actively looking for AI Engineering roles where I can architect robust systems, build production pipelines, and solve hard enterprise problems.</p>
-        <p class="prin-desc"><strong>Availability:</strong> Immediate Joiner<br><strong>Location:</strong> India / Remote / Global</p>
+        <p class="tl-desc" style="margin-bottom: 24px;">I am actively looking for AI Engineering roles where I can architect robust systems, build production pipelines, and solve hard enterprise problems.</p>
+        <p class="tl-desc"><strong>Availability:</strong> Immediate Joiner<br><strong>Location:</strong> India / Remote / Global</p>
       </div>
       <div>
         <a href="mailto:pillajettijayanth@gmail.com" class="contact-link">
@@ -463,6 +574,11 @@
       </div>
     </div>
   </section>
+
+  <footer>
+    <span class="footer-text">Jayanth Kumar · AI & Automation Engineer</span>
+    <span class="footer-text" style="color: #444;">2026</span>
+  </footer>
 </div>
 
 </body>
