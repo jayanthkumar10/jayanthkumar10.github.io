@@ -1,542 +1,1449 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth bg-[#0A0A0A] text-zinc-400">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jayanth Kumar | AI Systems Engineer</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts -->
+  <title>Jayanth Kumar — AI Systems Engineer</title>
+  <meta name="description" content="AI Systems Engineer specializing in autonomous agents, LLM platforms, RAG architectures, and enterprise AI pipelines. Currently at TCS.">
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            emerald: { 400: '#34D399' },
-            sky: { 400: '#38BDF8' }
-          }
-        }
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Mermaid -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        fontFamily: 'JetBrains Mono, monospace',
+        primaryColor: '#0d1117',
+        primaryTextColor: '#f0f6fc',
+        primaryBorderColor: '#1c2128',
+        lineColor: '#38bdf8',
+        secondaryColor: '#0d1117',
+        tertiaryColor: '#0d1117',
+        background: '#080b0e',
+        mainBkg: '#0d1117',
+        nodeBorder: '#1c2128',
+        clusterBkg: '#0d1117',
+        titleColor: '#f0f6fc',
+        edgeLabelBackground: '#0d1117',
+        fontSize: '13px'
       }
-    }
+    });
   </script>
+
   <style>
-    /* Premium subtle animations */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fade-up {
-      animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    .delay-100 { animation-delay: 100ms; }
-    .delay-200 { animation-delay: 200ms; }
-    .delay-300 { animation-delay: 300ms; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* Custom Selection */
-    ::selection { background-color: #27272a; color: #f4f4f5; }
+    :root {
+      --bg:        #080b0e;
+      --surface:   #0d1117;
+      --surface2:  #161b22;
+      --border:    #1c2128;
+      --border2:   #30363d;
+      --text:      #f0f6fc;
+      --text2:     #c9d1d9;
+      --muted:     #8b949e;
+      --accent:    #38bdf8;
+      --accent-dim:#0c4a6e;
+      --green:     #3fb950;
+      --font-sans: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #0A0A0A; }
-    ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+    html { background: var(--bg); color: var(--text2); font-family: var(--font-sans); }
+    body { min-height: 100vh; overflow-x: hidden; }
 
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    ::selection { background: rgba(56,189,248,0.2); color: var(--text); }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+    /* ─── TYPOGRAPHY ─── */
+    h1,h2,h3,h4,h5 { color: var(--text); font-weight: 600; letter-spacing: -0.02em; }
+    .mono { font-family: var(--font-mono); }
+    .label { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; }
+    .muted { color: var(--muted); }
+
+    /* ─── LAYOUT ─── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 96px 0; border-top: 1px solid var(--border); }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(8,11,14,0.85); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      height: 56px; display: flex; align-items: center;
     }
-    .reveal.active { opacity: 1; transform: translateY(0); }
-    
-    /* Project Accordion */
-    .project-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease-in-out, opacity 0.3s ease;
-      opacity: 0;
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
     }
-    .project-card.expanded .project-content {
-      max-height: 800px;
-      opacity: 1;
+    .nav-logo { font-family: var(--font-mono); font-size: 13px; color: var(--text); font-weight: 600; cursor: pointer; }
+    .nav-logo span { color: var(--muted); }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      font-size: 12px; font-family: var(--font-mono);
+      padding: 7px 16px; border: 1px solid var(--border2);
+      color: var(--text2); text-decoration: none; border-radius: 6px;
+      transition: all 0.15s; background: var(--surface);
     }
-    .project-card.expanded .chevron {
-      transform: rotate(180deg);
+    .nav-cta:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ─── STATUS PILL ─── */
+    .status-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 12px; border: 1px solid var(--border);
+      border-radius: 100px; background: var(--surface);
+      font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+    }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 140px 0 80px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    .hero-title {
+      font-size: clamp(36px, 5vw, 58px); line-height: 1.08;
+      font-weight: 700; letter-spacing: -0.03em; color: var(--text);
+      margin: 20px 0 20px;
+    }
+    .hero-title .dim { color: var(--muted); font-weight: 400; }
+    .hero-sub { font-size: 16px; line-height: 1.7; color: var(--muted); margin-bottom: 36px; max-width: 440px; }
+    .hero-sub span { color: var(--text2); }
+    .btn-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap-8px;
+      padding: 10px 22px; background: var(--accent); color: #080b0e;
+      font-size: 13px; font-weight: 600; border-radius: 6px; text-decoration: none;
+      transition: all 0.15s; border: 1px solid var(--accent);
+    }
+    .btn-primary:hover { background: #7dd3fc; }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 22px; background: transparent; color: var(--text2);
+      font-size: 13px; font-family: var(--font-mono); border-radius: 6px; text-decoration: none;
+      border: 1px solid var(--border2); transition: all 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ─── AGENT DIAGRAM ─── */
+    #agent-canvas {
+      width: 100%; height: 420px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; position: relative; overflow: hidden;
+    }
+    #agent-canvas svg { width: 100%; height: 100%; }
+
+    /* ─── CREDIBILITY STRIP ─── */
+    .cred-strip {
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      background: var(--surface); padding: 0;
+      display: flex; overflow-x: auto;
+    }
+    .cred-item {
+      flex: 1; min-width: 140px;
+      padding: 20px 24px; border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .cred-item:last-child { border-right: none; }
+    .cred-val { font-family: var(--font-mono); font-size: 15px; color: var(--text); font-weight: 600; }
+    .cred-label { font-size: 11px; color: var(--muted); }
+
+    /* ─── CARDS ─── */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 24px;
+    }
+    .card:hover { border-color: var(--border2); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+    /* ─── PHILOSOPHY GRID ─── */
+    .phil-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 20px;
+      transition: border-color 0.15s;
+    }
+    .phil-card:hover { border-color: var(--accent-dim); }
+    .phil-icon { font-size: 18px; margin-bottom: 10px; display: block; }
+    .phil-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .phil-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    /* ─── PROJECT CASE STUDY ─── */
+    .project-block {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden; margin-bottom: 32px;
+    }
+    .project-block:last-child { margin-bottom: 0; }
+    .project-header {
+      padding: 32px; border-bottom: 1px solid var(--border);
+      display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: start;
+    }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .tag {
+      font-family: var(--font-mono); font-size: 10px; padding: 3px 9px;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 4px;
+      color: var(--muted);
+    }
+    .tag.accent { border-color: var(--accent-dim); color: var(--accent); background: rgba(56,189,248,0.05); }
+    .project-title { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+    .project-sub { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .project-meta { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+    .metric-badge {
+      text-align: right;
+    }
+    .metric-val { font-family: var(--font-mono); font-size: 24px; font-weight: 700; color: var(--green); display: block; }
+    .metric-label { font-size: 11px; color: var(--muted); }
+    .project-body { padding: 32px; }
+    .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 32px; }
+    .project-section-title { font-size: 11px; font-family: var(--font-mono); color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+    .project-text { font-size: 14px; color: var(--muted); line-height: 1.8; }
+    .project-text strong { color: var(--text2); font-weight: 500; }
+    .project-links { display: flex; gap: 12px; margin-top: 24px; }
+
+    /* ─── ARCHITECTURE PANEL ─── */
+    .arch-panel {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden; margin-top: 24px;
+    }
+    .arch-panel-header {
+      padding: 12px 20px; border-bottom: 1px solid var(--border);
+      font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .arch-panel-header .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    .arch-panel-body { padding: 24px; overflow-x: auto; }
+
+    /* ─── CODE BLOCK ─── */
+    .code-block {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden; margin-top: 16px;
+    }
+    .code-header {
+      padding: 10px 16px; border-bottom: 1px solid var(--border);
+      font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .code-body { padding: 20px; overflow-x: auto; }
+    .code-body pre { font-family: var(--font-mono); font-size: 12px; line-height: 1.8; color: var(--text2); }
+    .kw { color: #79c0ff; }
+    .fn { color: #d2a8ff; }
+    .st { color: #a5d6ff; }
+    .cm { color: var(--muted); }
+    .num { color: #f2cc60; }
+
+    /* ─── DECISIONS ─── */
+    .decision-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 24px; transition: border-color 0.15s;
+    }
+    .decision-card:hover { border-color: var(--accent-dim); }
+    .decision-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .decision-choice { font-family: var(--font-mono); font-size: 11px; color: var(--accent); margin-bottom: 16px; }
+    .decision-row { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 8px; }
+    .decision-col { flex: 1; }
+    .decision-col-label { font-size: 10px; color: var(--muted); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+    .decision-col-val { font-size: 12px; color: var(--text2); line-height: 1.6; }
+    .tradeoff-pill {
+      display: inline-block; margin-top: 12px; font-size: 11px; font-family: var(--font-mono);
+      padding: 3px 10px; border-radius: 4px;
+      background: rgba(56,189,248,0.08); border: 1px solid var(--accent-dim); color: var(--accent);
+    }
+
+    /* ─── IMPACT ─── */
+    .impact-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 32px; text-align: center;
+    }
+    .impact-val { font-family: var(--font-mono); font-size: 40px; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+    .impact-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .impact-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    /* ─── TIMELINE ─── */
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 1px; background: var(--border); }
+    .tl-item { position: relative; margin-bottom: 48px; }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-dot {
+      position: absolute; left: -38px; top: 4px;
+      width: 12px; height: 12px; border-radius: 50%;
+      border: 2px solid var(--border); background: var(--bg);
+    }
+    .tl-dot.active { border-color: var(--accent); background: var(--accent); box-shadow: 0 0 0 4px rgba(56,189,248,0.15); }
+    .tl-date { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+    .tl-role { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .tl-org { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+    .tl-desc { font-size: 14px; color: var(--muted); line-height: 1.8; }
+    .tl-capability { font-size: 11px; font-family: var(--font-mono); padding: 4px 10px; background: rgba(56,189,248,0.07); border: 1px solid var(--accent-dim); border-radius: 4px; color: var(--accent); display: inline-block; margin-top: 10px; }
+
+    /* ─── CONTACT ─── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .avail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 24px; }
+    .avail-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text2); padding: 10px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; }
+    .avail-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+    .contact-links { display: flex; flex-direction: column; gap: 12px; }
+    .contact-link {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; text-decoration: none; color: var(--text2);
+      font-size: 14px; transition: all 0.15s;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--text); }
+    .contact-link-platform { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+    .email-copy {
+      width: 100%; padding: 14px 18px; background: var(--accent); color: #080b0e;
+      border: none; border-radius: 8px; font-size: 14px; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+      font-family: var(--font-sans); transition: background 0.15s; margin-bottom: 12px;
+    }
+    .email-copy:hover { background: #7dd3fc; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border); padding: 32px 0;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-text { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+    /* ─── REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── RESPONSIVE ─── */
+    @media(max-width: 768px) {
+      .hero { grid-template-columns: 1fr; gap: 40px; padding: 120px 0 60px; }
+      .grid-2, .grid-3, .grid-4, .project-grid, .contact-grid { grid-template-columns: 1fr; }
+      .project-header { grid-template-columns: 1fr; }
+      .project-meta { align-items: flex-start; }
+      .nav-links { display: none; }
+      .cred-strip { flex-direction: column; }
+      .cred-item { border-right: none; border-bottom: 1px solid var(--border); }
     }
   </style>
 </head>
-<body class="antialiased min-h-screen font-sans selection:bg-zinc-800 selection:text-zinc-100">
+<body>
 
-  <!-- NAVBAR -->
-  <nav class="fixed top-0 w-full z-50 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-zinc-900 transition-all">
-    <div class="max-w-6xl mx-auto px-6 h-16 flex justify-between items-center">
-      <div class="font-mono text-zinc-100 font-bold tracking-tight cursor-pointer" onclick="window.scrollTo(0,0)">JAYANTH<span class="text-zinc-600">.SYS</span></div>
-      <div class="hidden md:flex gap-8 text-sm font-medium">
-        <a href="#impact" class="hover:text-zinc-100 transition-colors">Value</a>
-        <a href="#projects" class="hover:text-zinc-100 transition-colors">Engineering</a>
-        <a href="#experience" class="hover:text-zinc-100 transition-colors">Experience</a>
-      </div>
-      <a href="#contact" class="px-4 py-2 bg-zinc-100 text-zinc-900 rounded font-medium text-sm hover:bg-white transition-colors">
-        Initialize Contact
-      </a>
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      JAYANTH<span>.SYS</span>
     </div>
-  </nav>
+    <div class="nav-links">
+      <a href="#systems">Systems</a>
+      <a href="#philosophy">Philosophy</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#decisions">Decisions</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="./Resume/jayanth_resume.pdf" download class="nav-cta">Download Resume</a>
+  </div>
+</nav>
 
-  <!-- HERO SECTION -->
-  <section class="pt-32 pb-20 px-6 max-w-6xl mx-auto min-h-[90vh] flex flex-col justify-center">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <!-- Left Copy -->
-      <div class="opacity-0 animate-fade-up">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/50 border border-zinc-800 mb-6">
-          <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
-          <span class="font-mono text-xs text-zinc-300">Status: Engineering AI Systems at TCS</span>
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<div class="container">
+  <div class="hero">
+    <!-- Left -->
+    <div class="reveal">
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        AI Engineer · TCS · Immediate Joiner
+      </div>
+
+      <h1 class="hero-title">
+        I design autonomous<br>
+        <span class="dim">AI systems that eliminate</span><br>
+        enterprise bottlenecks.
+      </h1>
+
+      <p class="hero-sub">
+        I engineer <span>Agentic Pipelines</span>, <span>LLM Platforms</span>,
+        <span>RAG Architectures</span>, <span>Multi-Agent Workflows</span>,
+        and <span>Distributed AI Infrastructure</span> for production environments.
+      </p>
+
+      <div class="btn-row">
+        <a href="#systems" class="btn-primary">Explore Systems →</a>
+        <a href="#decisions" class="btn-secondary">Engineering Decisions</a>
+        <a href="./Resume/jayanth_resume.pdf" download class="btn-secondary">Download Resume</a>
+      </div>
+    </div>
+
+    <!-- Right: Animated Agent Architecture -->
+    <div class="reveal" id="agent-canvas">
+      <svg id="agent-svg" viewBox="0 0 380 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#38bdf8" opacity="0.7"/>
+          </marker>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- Connection lines -->
+        <g stroke="#38bdf8" stroke-width="1" opacity="0.3" fill="none" marker-end="url(#arrowhead)">
+          <line id="l1" x1="190" y1="44" x2="190" y2="70"/>
+          <line id="l2" x1="190" y1="94" x2="190" y2="120"/>
+          <line id="l3" x1="190" y1="144" x2="130" y2="170"/>
+          <line id="l4" x1="190" y1="144" x2="250" y2="170"/>
+          <line id="l5" x1="130" y1="194" x2="130" y2="220"/>
+          <line id="l6" x1="250" y1="194" x2="250" y2="220"/>
+          <line id="l7" x1="130" y1="244" x2="190" y2="270"/>
+          <line id="l8" x1="250" y1="244" x2="190" y2="270"/>
+          <line id="l9" x1="190" y1="294" x2="190" y2="320"/>
+          <line id="l10" x1="190" y1="344" x2="190" y2="370"/>
+        </g>
+
+        <!-- Nodes -->
+        <!-- User -->
+        <g class="agent-node" id="n-user">
+          <rect x="140" y="10" width="100" height="34" rx="5" fill="#0d1117" stroke="#1c2128" stroke-width="1"/>
+          <text x="190" y="32" text-anchor="middle" fill="#8b949e" font-family="JetBrains Mono" font-size="11">User Request</text>
+        </g>
+
+        <!-- Planner -->
+        <g class="agent-node" id="n-planner">
+          <rect x="130" y="70" width="120" height="34" rx="5" fill="#0d1117" stroke="#1c2128" stroke-width="1"/>
+          <text x="190" y="88" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="11" font-weight="600">Planner Agent</text>
+          <text x="190" y="99" text-anchor="middle" fill="#8b949e" font-family="JetBrains Mono" font-size="9">Decompose · Route</text>
+        </g>
+
+        <!-- Supervisor -->
+        <g class="agent-node" id="n-supervisor">
+          <rect x="130" y="120" width="120" height="34" rx="5" fill="#0d1117" stroke="#1c2128" stroke-width="1"/>
+          <text x="190" y="138" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="11" font-weight="600">Supervisor</text>
+          <text x="190" y="149" text-anchor="middle" fill="#8b949e" font-family="JetBrains Mono" font-size="9">Orchestrate · Validate</text>
+        </g>
+
+        <!-- Memory -->
+        <g class="agent-node" id="n-memory">
+          <rect x="65" y="170" width="110" height="34" rx="5" fill="#0d1117" stroke="#1c2128" stroke-width="1"/>
+          <text x="120" y="188" text-anchor="middle" fill="#d2a8ff" font-family="JetBrains Mono" font-size="11" font-weight="600">Memory</text>
+          <text x="120" y="199" text-anchor="middle" fill="#8b949e" font-family="JetBrains Mono" font-size="9">Redis · Context</text>
+        </g>
+
+        <!-- Retriever -->
+        <g class="agent-node" id="n-retriever">
+          <rect x="200" y="170" width="110" height="34" rx="5" fill="#0d1117" stroke="#1c2128" stroke-width="1"/>
+          <text x="255" y="188" text-anchor="middle" fill="#d2a8ff" font-family="JetBrains Mono" font-size="11" font-weight="600">Retriever</text>
+          <text x="255" y="199" text-anchor="middle" fill="#8b949e" font-family="JetBrains Mono" font-size="9">FAISS · RAG</text>
+        </g>
+
+        <!-- Reasoner -->
+        <g class="agent-node" id="n-reasoner">
+          <rect x="65" y="220" width="110" height="34" rx="5" fill="#0d1117" stroke="#1c2128" stroke-width="1"/>
+          <text x="120" y="238" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="11" font-weight="600">Reasoner</text>
+          <text x="120" y="249" text-anchor="middle" fill="#8b949e" font-family="JetBrains Mono" font-size="9">LLM · CoT</text>
+        </g>
+
+        <!-- Tool Router -->
+        <g class="agent-node" id="n-router">
+          <rect x="200" y="220" width="110" height="34" rx="5" fill="#0d1117" stroke="#1c2128" stroke-width="1"/>
+          <text x="255" y="238" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="11" font-weight="600">Tool Router</text>
+          <text x="255" y="249" text-anchor="middle" fill="#8b949e" font-family="JetBrains Mono" font-size="9">APIs · Functions</text>
+        </g>
+
+        <!-- Output -->
+        <g class="agent-node" id="n-output">
+          <rect x="130" y="270" width="120" height="34" rx="5" fill="#0d1117" stroke="#1c2128" stroke-width="1"/>
+          <text x="190" y="288" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="11" font-weight="600">Aggregator</text>
+          <text x="190" y="299" text-anchor="middle" fill="#8b949e" font-family="JetBrains Mono" font-size="9">Merge · Rank</text>
+        </g>
+
+        <!-- Evaluator -->
+        <g class="agent-node" id="n-eval">
+          <rect x="130" y="320" width="120" height="34" rx="5" fill="#0d1117" stroke="#1c2128" stroke-width="1"/>
+          <text x="190" y="338" text-anchor="middle" fill="#3fb950" font-family="JetBrains Mono" font-size="11" font-weight="600">Eval Guard</text>
+          <text x="190" y="349" text-anchor="middle" fill="#8b949e" font-family="JetBrains Mono" font-size="9">Hallucination · QA</text>
+        </g>
+
+        <!-- Response -->
+        <g class="agent-node" id="n-response">
+          <rect x="140" y="370" width="100" height="34" rx="5" fill="#0d1117" stroke="#3fb950" stroke-width="1"/>
+          <text x="190" y="391" text-anchor="middle" fill="#3fb950" font-family="JetBrains Mono" font-size="11" font-weight="600">Response</text>
+        </g>
+
+        <!-- Token streaming animation -->
+        <circle id="token1" cx="190" cy="10" r="3" fill="#38bdf8" opacity="0">
+          <animateMotion dur="3s" repeatCount="indefinite" begin="0s">
+            <mpath href="#flow-path"/>
+          </animateMotion>
+          <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite" begin="0s"/>
+        </circle>
+        <circle id="token2" cx="190" cy="10" r="2.5" fill="#d2a8ff" opacity="0">
+          <animateMotion dur="3s" repeatCount="indefinite" begin="1s">
+            <mpath href="#flow-path"/>
+          </animateMotion>
+          <animate attributeName="opacity" values="0;0.8;0" dur="3s" repeatCount="indefinite" begin="1s"/>
+        </circle>
+        <circle id="token3" cx="190" cy="10" r="2" fill="#3fb950" opacity="0">
+          <animateMotion dur="3s" repeatCount="indefinite" begin="2s">
+            <mpath href="#flow-path"/>
+          </animateMotion>
+          <animate attributeName="opacity" values="0;0.7;0" dur="3s" repeatCount="indefinite" begin="2s"/>
+        </circle>
+        <path id="flow-path" d="M190,10 L190,387" fill="none" stroke="none"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ CREDIBILITY STRIP ═══════════════════════ -->
+<div class="cred-strip">
+  <div class="cred-item">
+    <span class="cred-val mono">2+ yrs</span>
+    <span class="cred-label">Professional Experience</span>
+  </div>
+  <div class="cred-item">
+    <span class="cred-val mono">TCS</span>
+    <span class="cred-label">Current Employer</span>
+  </div>
+  <div class="cred-item">
+    <span class="cred-val mono">01</span>
+    <span class="cred-label">Published Patent</span>
+  </div>
+  <div class="cred-item">
+    <span class="cred-val mono">4</span>
+    <span class="cred-label">Production Systems</span>
+  </div>
+  <div class="cred-item">
+    <span class="cred-val mono">Gemini · RAG · LangGraph</span>
+    <span class="cred-label">LLM Stack</span>
+  </div>
+  <div class="cred-item">
+    <span class="cred-val mono" style="color: var(--green)">Available</span>
+    <span class="cred-label">Immediate Joiner</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════ SYSTEMS ═══════════════════════ -->
+<section class="section" id="systems">
+  <div class="container">
+    <div class="reveal" style="margin-bottom: 48px;">
+      <div class="label" style="margin-bottom: 12px;">// 01 — SYSTEMS</div>
+      <h2 style="font-size: 32px; margin-bottom: 12px;">Production Systems</h2>
+      <p class="muted" style="font-size: 15px; max-width: 560px; line-height: 1.7;">
+        Each system below is production-deployed or research-published. Not demos. Not notebooks. Real architectural decisions, real trade-offs, real impact.
+      </p>
+    </div>
+
+    <!-- ── PROJECT 1: PATHLIGHT ── -->
+    <div class="project-block reveal">
+      <div class="project-header">
+        <div>
+          <div class="project-tags">
+            <span class="tag accent">Flagship</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Celery</span>
+            <span class="tag">Redis</span>
+            <span class="tag">Google Gemini</span>
+            <span class="tag">WeasyPrint</span>
+            <span class="tag">Langfuse</span>
+            <span class="tag">Apify</span>
+          </div>
+          <h3 class="project-title">Pathlight.ai</h3>
+          <p class="project-sub">Autonomous ATS-Optimized Resume Tailoring Engine · Asynchronous LLM Pipeline with Full Observability</p>
         </div>
-        <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-zinc-100 tracking-tight leading-[1.1] mb-6">
-          Architecting <br/><span class="text-zinc-500">Autonomous</span> Systems.
-        </h1>
-        <p class="text-lg md:text-xl text-zinc-400 max-w-lg mb-8 leading-relaxed">
-          I engineer production-grade LLM pipelines, autonomous agents, and RAG architectures that eliminate manual bottlenecks and scale business operations.
-        </p>
-        <div class="flex gap-4">
-          <a href="#projects" class="px-6 py-3 bg-zinc-100 text-zinc-900 rounded font-semibold hover:bg-white transition-colors flex items-center gap-2">
-            View Architecture
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+        <div class="project-meta">
+          <div class="metric-badge">
+            <span class="metric-val">0</span>
+            <span class="metric-label">Blocking API calls</span>
+          </div>
+          <a href="https://github.com/jayanthkumar10/PathLight.ai" target="_blank" class="btn-secondary" style="font-size:11px;padding:6px 14px;">↗ GitHub</a>
+        </div>
+      </div>
+
+      <div class="project-body">
+        <div class="project-grid">
+          <div>
+            <div class="project-section-title">// The Problem</div>
+            <p class="project-text">
+              Job applications fail ATS screening not because of candidate quality but because of <strong>keyword mismatch</strong>. Manual tailoring per job description is O(n) human effort that doesn't scale. The existing tooling required a human in the loop for every single application cycle.
+            </p>
+          </div>
+          <div>
+            <div class="project-section-title">// The Failure State (V1)</div>
+            <p class="project-text">
+              Initial architecture: synchronous FastAPI endpoint calling Gemini directly. Under load, Gemini's <strong>response time exceeded the HTTP timeout threshold</strong>, causing 504s. The entire request chain blocked. Workers starved. No recovery path.
+            </p>
+          </div>
+          <div>
+            <div class="project-section-title">// The Architecture Decision</div>
+            <p class="project-text">
+              Introduced <strong>Celery + Redis</strong> as a durable task queue. FastAPI now accepts the request, enqueues a job, and returns a task ID instantly. The client polls for status. Celery workers execute the LLM call, PDF generation, and S3 upload independently. <strong>Zero blocking.</strong>
+            </p>
+          </div>
+          <div>
+            <div class="project-section-title">// Observability Layer</div>
+            <p class="project-text">
+              Integrated <strong>Langfuse via OpenTelemetry</strong> to trace every LLM generation: input tokens, output tokens, latency per hop, cost per run. If the primary model (Gemini) fails, the pipeline automatically falls back to <strong>OpenRouter</strong>. Every fallback is logged.
+            </p>
+          </div>
+        </div>
+
+        <div class="arch-panel">
+          <div class="arch-panel-header">
+            <span class="dot"></span>
+            pathlight.ai · async pipeline architecture
+          </div>
+          <div class="arch-panel-body">
+            <div class="mermaid">
+sequenceDiagram
+    participant C as Client
+    participant A as FastAPI
+    participant R as Redis Queue
+    participant W as Celery Worker
+    participant S as Apify Scraper
+    participant L as Gemini LLM
+    participant P as WeasyPrint
+    participant O as Langfuse
+
+    C->>A: POST /tailor {resume, job_url}
+    A->>R: enqueue(task_id)
+    A-->>C: 202 {task_id}
+    W->>S: scrape(job_url)
+    S-->>W: job_description JSON
+    W->>L: prompt(resume + JD)
+    L-->>W: tailored_resume_html
+    W->>P: render_pdf(html)
+    W->>O: trace(tokens, cost, latency)
+    C->>A: GET /status/{task_id}
+    A-->>C: 200 {pdf_url}
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block" style="margin-top: 20px;">
+          <div class="code-header">
+            <span>tasks/resume_tailor.py — Celery task with fallback chain</span>
+            <span class="mono" style="font-size:10px;">Python</span>
+          </div>
+          <div class="code-body">
+<pre><code><span class="kw">@celery_app</span>.task(bind=<span class="kw">True</span>, max_retries=<span class="num">3</span>, acks_late=<span class="kw">True</span>)
+<span class="kw">def</span> <span class="fn">tailor_resume</span>(self, task_id: str, payload: dict):
+    <span class="cm"># Primary: Gemini Flash 1.5</span>
+    <span class="kw">try</span>:
+        result = <span class="fn">gemini_client</span>.generate(payload)
+    <span class="kw">except</span> GeminiRateLimitError:
+        <span class="cm"># Automatic fallback to OpenRouter</span>
+        result = <span class="fn">openrouter_client</span>.generate(payload, model=<span class="st">"mistral-7b-instruct"</span>)
+
+    <span class="cm"># Observability: trace every generation</span>
+    <span class="fn">langfuse</span>.trace(
+        name=<span class="st">"resume_tailor"</span>, input=payload,
+        output=result, metadata={<span class="st">"task_id"</span>: task_id}
+    )
+    <span class="fn">pdf_path</span> = <span class="fn">render_pdf</span>(result.html)
+    <span class="fn">redis</span>.set(task_id, {<span class="st">"status"</span>: <span class="st">"done"</span>, <span class="st">"url"</span>: pdf_path})</code></pre>
+          </div>
+        </div>
+
+        <div class="project-links">
+          <a href="https://github.com/jayanthkumar10/PathLight.ai" target="_blank" class="btn-secondary">↗ View Repository</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PROJECT 2: PULSEOPS ── -->
+    <div class="project-block reveal">
+      <div class="project-header">
+        <div>
+          <div class="project-tags">
+            <span class="tag accent">Multi-Agent</span>
+            <span class="tag">Python</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Ollama</span>
+            <span class="tag">Llama 3.2</span>
+            <span class="tag">TF-IDF RAG</span>
+            <span class="tag">Local Inference</span>
+          </div>
+          <h3 class="project-title">PulseOps AI</h3>
+          <p class="project-sub">Autonomous Incident Triage & Allocation Engine · Offline-First Multi-Agent Pipeline</p>
+        </div>
+        <div class="project-meta">
+          <div class="metric-badge">
+            <span class="metric-val">&lt;1ms</span>
+            <span class="metric-label">Vector search latency</span>
+          </div>
+          <a href="https://github.com/jayanthkumar10/PulseOps-.git" target="_blank" class="btn-secondary" style="font-size:11px;padding:6px 14px;">↗ GitHub</a>
+        </div>
+      </div>
+
+      <div class="project-body">
+        <div class="project-grid">
+          <div>
+            <div class="project-section-title">// The Problem</div>
+            <p class="project-text">
+              SRE teams suffer from <strong>alert fatigue</strong>: hundreds of incidents per day, each requiring manual triage, root cause lookup, and on-call assignment. MTTR is inflated not by remediation time but by routing time.
+            </p>
+          </div>
+          <div>
+            <div class="project-section-title">// The Failure State (V1)</div>
+            <p class="project-text">
+              Initial build used cloud LLM APIs (GPT-4). During actual <strong>network outages</strong> — the exact moments when incident management is most critical — the system was entirely unavailable. An AI that fails during failures is useless.
+            </p>
+          </div>
+          <div>
+            <div class="project-section-title">// The Architecture Decision</div>
+            <p class="project-text">
+              Rebuilt with <strong>local Llama 3.2 via Ollama</strong>. Zero network dependency. The vector store is an in-memory TF-IDF engine (pure NumPy), intentionally chosen over FAISS because SRE incident descriptions are keyword-dense — sparse vectors outperform dense embeddings in this domain.
+            </p>
+          </div>
+          <div>
+            <div class="project-section-title">// The Trade-off</div>
+            <p class="project-text">
+              Local Llama 3.2 has a <strong>smaller context window and lower accuracy</strong> than GPT-4. This was acceptable: the Triage Agent uses deterministic scoring matrices, reducing LLM responsibility to structured extraction only. Accuracy-critical reasoning is explicit, not model-dependent.
+            </p>
+          </div>
+        </div>
+
+        <div class="arch-panel">
+          <div class="arch-panel-header">
+            <span class="dot"></span>
+            pulseops-ai · multi-agent supervisor pattern
+          </div>
+          <div class="arch-panel-body">
+            <div class="mermaid">
+graph LR
+    A[Incoming Alert Email] --> B[Parser Agent<br>Ollama llama3.2]
+    B -->|Structured JSON| C[Triage Agent<br>SLA Matrix]
+    C -->|Priority Score| D[RAG Agent<br>TF-IDF Cosine Search]
+    D -->|Historical RCA| E[Allocation Agent<br>Workload Routing]
+    E --> F[On-Call Engineer]
+    D <-->|Read/Write| G[(Incident Knowledge Base)]
+    style A fill:#0d1117,stroke:#1c2128
+    style G fill:#0d1117,stroke:#38bdf8
+    style F fill:#0d1117,stroke:#3fb950
+            </div>
+          </div>
+        </div>
+
+        <div class="project-links">
+          <a href="https://github.com/jayanthkumar10/PulseOps-.git" target="_blank" class="btn-secondary">↗ View Repository</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PROJECT 3: HEART DISEASE ── -->
+    <div class="project-block reveal">
+      <div class="project-header">
+        <div>
+          <div class="project-tags">
+            <span class="tag accent">Published Patent</span>
+            <span class="tag">Python</span>
+            <span class="tag">Scikit-Learn</span>
+            <span class="tag">XGBoost</span>
+            <span class="tag">SMOTE</span>
+            <span class="tag">Clinical ML</span>
+          </div>
+          <h3 class="project-title">Cardiac Anomaly Detection</h3>
+          <p class="project-sub">Clinical ML Pipeline Optimizing for Recall over Accuracy · Cost-Sensitive Loss Engineering</p>
+        </div>
+        <div class="project-meta">
+          <div class="metric-badge">
+            <span class="metric-val">96.5%</span>
+            <span class="metric-label">Clinical Recall (sensitivity)</span>
+          </div>
+          <a href="https://github.com/jayanthkumar10/Heart-disease-Prediction-using-Supervised-Machine-Learning-algorithms" target="_blank" class="btn-secondary" style="font-size:11px;padding:6px 14px;">↗ GitHub</a>
+        </div>
+      </div>
+
+      <div class="project-body">
+        <div class="project-grid">
+          <div>
+            <div class="project-section-title">// The Problem</div>
+            <p class="project-text">
+              In medical ML, a <strong>False Negative is a patient sent home to die</strong>. Standard model optimization targets Accuracy. A model predicting "Healthy" 100% of the time on an imbalanced clinical dataset achieves 93% accuracy — and kills people.
+            </p>
+          </div>
+          <div>
+            <div class="project-section-title">// The Failure State (V1)</div>
+            <p class="project-text">
+              Initial Random Forest model achieved 93% accuracy with a <strong>catastrophic False Negative rate</strong>. Standard optimization metrics were completely wrong for this domain. The mathematical framework had to be rebuilt from the domain constraint up.
+            </p>
+          </div>
+          <div>
+            <div class="project-section-title">// The Architecture Decision</div>
+            <p class="project-text">
+              Replaced Accuracy with <strong>Recall as the sole optimization target</strong>. Applied SMOTE oversampling to synthetically balance the minority class. Introduced a custom cost-sensitive penalty matrix in XGBoost: False Negatives penalized 10x more than False Positives. This explicit mathematical constraint encoded the clinical domain requirement.
+            </p>
+          </div>
+          <div>
+            <div class="project-section-title">// The Trade-off</div>
+            <p class="project-text">
+              Precision dropped from 95% to 89%. In SaaS, this creates user friction. In healthcare, this is <strong>legally and ethically mandatory</strong>. The decision to sacrifice Precision for Recall was not a model limitation — it was the correct engineering choice for the domain. This nuance became the core of a published patent.
+            </p>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-header">
+            <span>evaluation.py — Clinical viability gate</span>
+            <span class="mono" style="font-size:10px;">Python</span>
+          </div>
+          <div class="code-body">
+<pre><code><span class="kw">def</span> <span class="fn">evaluate_clinical_viability</span>(y_true, y_pred_proba, threshold=<span class="num">0.35</span>):
+    <span class="cm"># Lower decision boundary → aggressively catch positives</span>
+    y_pred = (y_pred_proba >= threshold).astype(<span class="kw">int</span>)
+    tn, fp, fn, tp = <span class="fn">confusion_matrix</span>(y_true, y_pred).ravel()
+
+    <span class="cm"># Hard reject: False Negative rate cannot exceed 5% of True Positives</span>
+    <span class="kw">if</span> fn > (tp * <span class="num">0.05</span>):
+        <span class="kw">raise</span> ClinicalRejectionError(
+            <span class="st">f"Model rejected: FN={fn}, TP={tp}. Ratio exceeds clinical threshold."</span>
+        )
+    <span class="kw">return</span> {<span class="st">"recall"</span>: <span class="fn">recall_score</span>(y_true, y_pred), <span class="st">"false_negatives"</span>: fn}</code></pre>
+          </div>
+        </div>
+
+        <div class="project-links">
+          <a href="https://github.com/jayanthkumar10/Heart-disease-Prediction-using-Supervised-Machine-Learning-algorithms" target="_blank" class="btn-secondary">↗ View Repository</a>
+          <a href="https://patents.google.com/" target="_blank" class="btn-secondary">↗ View Patent</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PROJECT 4: WHATSAPP BOT ── -->
+    <div class="project-block reveal">
+      <div class="project-header">
+        <div>
+          <div class="project-tags">
+            <span class="tag">Node.js</span>
+            <span class="tag">n8n</span>
+            <span class="tag">WhatsApp Cloud API</span>
+            <span class="tag">Google Calendar API</span>
+            <span class="tag">Webhook Orchestration</span>
+          </div>
+          <h3 class="project-title">WhatsApp Booking Orchestration</h3>
+          <p class="project-sub">Decoupled Conversational Agent · Business Logic Decoupled from Deployment Cycles via n8n</p>
+        </div>
+        <div class="project-meta">
+          <div class="metric-badge">
+            <span class="metric-val">70%</span>
+            <span class="metric-label">Manual effort eliminated</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-body">
+        <div class="project-grid">
+          <div>
+            <div class="project-section-title">// The Problem</div>
+            <p class="project-text">
+              Administrators spent hours daily copying WhatsApp messages into Google Calendar manually, causing double-bookings and missed appointments. Every new booking intent required a developer code change.
+            </p>
+          </div>
+          <div>
+            <div class="project-section-title">// The Failure State (V1)</div>
+            <p class="project-text">
+              Initial architecture: a monolithic Node.js Express app with hundreds of regex matches. Adding a single new intent (e.g., "Cancel booking") required code changes, CI/CD, and a full deployment. <strong>Development velocity bottlenecked by coupling.</strong>
+            </p>
+          </div>
+          <div>
+            <div class="project-section-title">// The Architecture Decision</div>
+            <p class="project-text">
+              Introduced <strong>n8n as a visual orchestration layer</strong>. Webhook ingestion, intent routing, and Google Calendar API calls moved into n8n's node-based engine. Node.js was relegated to cryptographic validation only. New intents deploy in seconds, not hours.
+            </p>
+          </div>
+          <div>
+            <div class="project-section-title">// The Trade-off</div>
+            <p class="project-text">
+              n8n adds ~50ms network overhead. In a high-frequency trading system, fatal. In <strong>asynchronous human chat interfaces</strong>, imperceptible. The correct engineering call is not "minimize latency always" — it's "minimize latency where it matters." Time-to-deploy for new intents dropped from hours to seconds.
+            </p>
+          </div>
+        </div>
+
+        <div class="arch-panel">
+          <div class="arch-panel-header">
+            <span class="dot"></span>
+            whatsapp-agent · decoupled orchestration flow
+          </div>
+          <div class="arch-panel-body">
+            <div class="mermaid">
+sequenceDiagram
+    participant U as User (WhatsApp)
+    participant W as WhatsApp Cloud API
+    participant N as n8n Orchestrator
+    participant C as Google Calendar API
+
+    U->>W: "Book a slot for tomorrow"
+    W->>N: POST /webhook (HMAC validated)
+    N->>N: Switch node · intent classification
+    N->>C: GET /freeBusy {timeMin, timeMax}
+    C-->>N: ["10:00 AM", "2:00 PM"]
+    N->>W: POST /messages
+    W-->>U: "Available: 10AM or 2PM. Which works?"
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ PHILOSOPHY ═══════════════════════ -->
+<section class="section" id="philosophy">
+  <div class="container">
+    <div class="reveal" style="margin-bottom: 48px;">
+      <div class="label" style="margin-bottom: 12px;">// 02 — ENGINEERING PHILOSOPHY</div>
+      <h2 style="font-size: 32px; margin-bottom: 12px;">How I Think</h2>
+      <p class="muted" style="font-size: 15px; max-width: 560px; line-height: 1.7;">
+        Every AI system I build is designed against these constraints — not as afterthoughts, but as first-class architectural requirements.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px;" class="reveal">
+      <div class="phil-card">
+        <span class="phil-icon">⚡</span>
+        <div class="phil-title">Latency-First Design</div>
+        <div class="phil-desc">Every LLM call is measured. Async by default. Sync only when the UX demands it. P99 budgets enforced at design time.</div>
+      </div>
+      <div class="phil-card">
+        <span class="phil-icon">📡</span>
+        <div class="phil-title">Observable by Default</div>
+        <div class="phil-desc">Traces, structured logs, and metrics on every agent hop. If I can't measure it, I can't improve it.</div>
+      </div>
+      <div class="phil-card">
+        <span class="phil-icon">🔁</span>
+        <div class="phil-title">Fallback-Ready</div>
+        <div class="phil-desc">Every external call has a timeout, retry budget, and fallback path. Systems that fail gracefully are production systems.</div>
+      </div>
+      <div class="phil-card">
+        <span class="phil-icon">💰</span>
+        <div class="phil-title">Cost-Aware Architecture</div>
+        <div class="phil-desc">Token budgets enforced. Cheaper model fallbacks on low-complexity tasks. Inference cost is a product constraint, not an ops detail.</div>
+      </div>
+      <div class="phil-card">
+        <span class="phil-icon">🧪</span>
+        <div class="phil-title">Eval-Driven Development</div>
+        <div class="phil-desc">Ground-truth evaluations exist before any model swap. "It feels better" is not an evaluation strategy.</div>
+      </div>
+      <div class="phil-card">
+        <span class="phil-icon">👤</span>
+        <div class="phil-title">Human-in-the-Loop</div>
+        <div class="phil-desc">Escalation paths for low-confidence outputs. AI augments the human; it doesn't remove accountability.</div>
+      </div>
+      <div class="phil-card">
+        <span class="phil-icon">🗄️</span>
+        <div class="phil-title">Stateless Agents</div>
+        <div class="phil-desc">Shared state lives in Redis or Postgres, never in-process. Any agent instance can pick up any task.</div>
+      </div>
+      <div class="phil-card">
+        <span class="phil-icon">📐</span>
+        <div class="phil-title">Schema-First Outputs</div>
+        <div class="phil-desc">Structured outputs validated with Pydantic before they leave the LLM boundary. Free-text from models is never trusted raw.</div>
+      </div>
+      <div class="phil-card">
+        <span class="phil-icon">🔒</span>
+        <div class="phil-title">Offline-Capable</div>
+        <div class="phil-desc">Local inference for sensitive or air-gapped environments. Data privacy is an architectural constraint, not a legal footnote.</div>
+      </div>
+      <div class="phil-card">
+        <span class="phil-icon">🔍</span>
+        <div class="phil-title">Explainable Reasoning</div>
+        <div class="phil-desc">Reasoning traces surfaced to end users and operators. Black-box AI in enterprise = unacceptable risk.</div>
+      </div>
+      <div class="phil-card">
+        <span class="phil-icon">🔧</span>
+        <div class="phil-title">Swappable Components</div>
+        <div class="phil-desc">Agents are decoupled. Swap the LLM, the vector store, or the queue without rewriting the orchestration layer.</div>
+      </div>
+      <div class="phil-card">
+        <span class="phil-icon">🚀</span>
+        <div class="phil-title">Production, Not Demo</div>
+        <div class="phil-desc">Deployed systems, not notebooks. Notebooks are for exploration. Production is the standard.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ ARCHITECTURE ═══════════════════════ -->
+<section class="section" id="architecture">
+  <div class="container">
+    <div class="reveal" style="margin-bottom: 48px;">
+      <div class="label" style="margin-bottom: 12px;">// 03 — ARCHITECTURE</div>
+      <h2 style="font-size: 32px; margin-bottom: 12px;">Architecture Gallery</h2>
+      <p class="muted" style="font-size: 15px; max-width: 560px; line-height: 1.7;">
+        System diagrams as engineering documentation. Every diagram here represents a real production decision.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div class="arch-panel reveal">
+        <div class="arch-panel-header">
+          <span class="dot"></span>
+          RAG Retrieval Pipeline
+        </div>
+        <div class="arch-panel-body">
+          <div class="mermaid">
+graph TD
+    Q[User Query] --> E[Embedding Model]
+    E --> V[Vector Store<br>FAISS / TF-IDF]
+    V -->|Top-K chunks| R[Re-ranker]
+    R --> C[Context Window]
+    C --> L[LLM Generator]
+    L --> A[Structured Answer]
+    style Q fill:#0d1117,stroke:#1c2128
+    style L fill:#0d1117,stroke:#38bdf8
+    style A fill:#0d1117,stroke:#3fb950
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-panel reveal">
+        <div class="arch-panel-header">
+          <span class="dot"></span>
+          Async Queue Architecture
+        </div>
+        <div class="arch-panel-body">
+          <div class="mermaid">
+graph LR
+    C[Client] -->|POST /task| A[FastAPI]
+    A -->|task_id| C
+    A -->|enqueue| R[(Redis Queue)]
+    R -->|dequeue| W1[Worker 1]
+    R -->|dequeue| W2[Worker 2]
+    W1 -->|result| D[(Postgres)]
+    W2 -->|result| D
+    C -->|GET /status| A
+    A -->|poll| D
+    style R fill:#0d1117,stroke:#38bdf8
+    style D fill:#0d1117,stroke:#1c2128
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-panel reveal">
+        <div class="arch-panel-header">
+          <span class="dot"></span>
+          LLM Evaluation Pipeline
+        </div>
+        <div class="arch-panel-body">
+          <div class="mermaid">
+graph TD
+    P[Prompt] --> M1[Model A]
+    P --> M2[Model B]
+    M1 --> E[Evaluator LLM]
+    M2 --> E
+    E --> S[Scoring Matrix<br>Accuracy · Hallucination · Cost]
+    S --> D{Pass Threshold?}
+    D -->|Yes| PROD[Promote to Production]
+    D -->|No| ITER[Iterate Prompt / Model]
+    style E fill:#0d1117,stroke:#38bdf8
+    style PROD fill:#0d1117,stroke:#3fb950
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-panel reveal">
+        <div class="arch-panel-header">
+          <span class="dot"></span>
+          Agent Supervisor Pattern
+        </div>
+        <div class="arch-panel-body">
+          <div class="mermaid">
+graph TD
+    S[Supervisor Agent] -->|route| PA[Parser Agent]
+    S -->|route| TA[Triage Agent]
+    S -->|route| RA[RAG Agent]
+    S -->|route| AA[Allocation Agent]
+    PA -->|JSON| S
+    TA -->|Priority| S
+    RA -->|RCA Context| S
+    AA -->|Assignment| OUT[Output]
+    S <-->|State| M[(Shared Memory<br>Redis)]
+    style S fill:#0d1117,stroke:#38bdf8
+    style M fill:#0d1117,stroke:#d2a8ff
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ ENGINEERING DECISIONS ═══════════════════════ -->
+<section class="section" id="decisions">
+  <div class="container">
+    <div class="reveal" style="margin-bottom: 48px;">
+      <div class="label" style="margin-bottom: 12px;">// 04 — ENGINEERING DECISIONS</div>
+      <h2 style="font-size: 32px; margin-bottom: 12px;">Why, Not What</h2>
+      <p class="muted" style="font-size: 15px; max-width: 560px; line-height: 1.7;">
+        Junior engineers list technologies. Senior engineers explain why they chose them over the alternatives they seriously considered.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div class="decision-card reveal">
+        <div class="decision-title">FastAPI over Flask</div>
+        <div class="decision-choice">→ Chosen: FastAPI</div>
+        <div class="decision-row">
+          <div class="decision-col">
+            <div class="decision-col-label">Why</div>
+            <div class="decision-col-val">Native async, Pydantic validation baked in, automatic OpenAPI docs generation.</div>
+          </div>
+          <div class="decision-col">
+            <div class="decision-col-label">Alternative</div>
+            <div class="decision-col-val">Flask: synchronous by default, requires extensions for validation, no native async.</div>
+          </div>
+        </div>
+        <span class="tradeoff-pill">Tradeoff: steeper learning curve → eliminated tech debt at scale</span>
+      </div>
+
+      <div class="decision-card reveal">
+        <div class="decision-title">Redis + Celery over Threading</div>
+        <div class="decision-choice">→ Chosen: Celery + Redis</div>
+        <div class="decision-row">
+          <div class="decision-col">
+            <div class="decision-col-label">Why</div>
+            <div class="decision-col-val">Durable task queue survives process restarts. Tasks observable. Workers horizontally scalable.</div>
+          </div>
+          <div class="decision-col">
+            <div class="decision-col-label">Alternative</div>
+            <div class="decision-col-val">asyncio background tasks: in-memory, lost on crash, no retry, no visibility.</div>
+          </div>
+        </div>
+        <span class="tradeoff-pill">Tradeoff: operational overhead → required at production reliability levels</span>
+      </div>
+
+      <div class="decision-card reveal">
+        <div class="decision-title">TF-IDF over Dense Embeddings</div>
+        <div class="decision-choice">→ Chosen: TF-IDF (PulseOps RAG)</div>
+        <div class="decision-row">
+          <div class="decision-col">
+            <div class="decision-col-label">Why</div>
+            <div class="decision-col-val">SRE incident text is keyword-dense and domain-specific. Sparse vectors outperform dense on rare, anomalous tokens like "OOMKilled" or "502 Bad Gateway".</div>
+          </div>
+          <div class="decision-col">
+            <div class="decision-col-label">Alternative</div>
+            <div class="decision-col-val">FAISS + sentence-transformers: higher semantic recall, requires GPU, 300ms overhead.</div>
+          </div>
+        </div>
+        <span class="tradeoff-pill">Tradeoff: lower semantic recall → offset by &lt;1ms CPU-only latency</span>
+      </div>
+
+      <div class="decision-card reveal">
+        <div class="decision-title">Local Llama 3.2 over Cloud API</div>
+        <div class="decision-choice">→ Chosen: Ollama (PulseOps)</div>
+        <div class="decision-row">
+          <div class="decision-col">
+            <div class="decision-col-label">Why</div>
+            <div class="decision-col-val">Incident management must work during network outages. Zero external dependencies. Data privacy enforced by architecture, not policy.</div>
+          </div>
+          <div class="decision-col">
+            <div class="decision-col-label">Alternative</div>
+            <div class="decision-col-val">GPT-4 API: higher accuracy, but unavailable during the exact incidents where it's needed most.</div>
+          </div>
+        </div>
+        <span class="tradeoff-pill">Tradeoff: smaller context, lower accuracy → offset by 100% availability</span>
+      </div>
+
+      <div class="decision-card reveal">
+        <div class="decision-title">Langfuse over Custom Logging</div>
+        <div class="decision-choice">→ Chosen: Langfuse + OpenTelemetry</div>
+        <div class="decision-row">
+          <div class="decision-col">
+            <div class="decision-col-label">Why</div>
+            <div class="decision-col-val">Purpose-built for LLM observability. Token cost tracking, per-trace latency, hallucination eval hooks, and dataset management.</div>
+          </div>
+          <div class="decision-col">
+            <div class="decision-col-label">Alternative</div>
+            <div class="decision-col-val">Prometheus + custom: requires building the LLM-specific layer from scratch (weeks of effort).</div>
+          </div>
+        </div>
+        <span class="tradeoff-pill">Tradeoff: vendor dependency → massive setup savings, open-source self-hostable</span>
+      </div>
+
+      <div class="decision-card reveal">
+        <div class="decision-title">Recall over Accuracy (Clinical ML)</div>
+        <div class="decision-choice">→ Chosen: Domain-constrained loss function</div>
+        <div class="decision-row">
+          <div class="decision-col">
+            <div class="decision-col-label">Why</div>
+            <div class="decision-col-val">In medical diagnostics, a False Negative (missed disease) is categorically worse than a False Positive (unnecessary test). Standard Accuracy is the wrong objective function for this domain.</div>
+          </div>
+          <div class="decision-col">
+            <div class="decision-col-label">Alternative</div>
+            <div class="decision-col-val">Optimizing for F1/Accuracy: maximizes overall performance, hides catastrophic False Negative rate on imbalanced data.</div>
+          </div>
+        </div>
+        <span class="tradeoff-pill">Tradeoff: precision -6% → recall +25%, clinically correct, resulted in patent</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ IMPACT ═══════════════════════ -->
+<section class="section" id="impact">
+  <div class="container">
+    <div class="reveal" style="margin-bottom: 48px;">
+      <div class="label" style="margin-bottom: 12px;">// 05 — BUSINESS IMPACT</div>
+      <h2 style="font-size: 32px; margin-bottom: 12px;">Measurable Outcomes</h2>
+      <p class="muted" style="font-size: 15px; max-width: 560px; line-height: 1.7;">
+        Technology is a means. Business impact is the measure.
+      </p>
+    </div>
+
+    <div class="grid-3 reveal">
+      <div class="impact-card">
+        <div class="impact-val">70%+</div>
+        <div class="impact-title">Manual Effort Eliminated</div>
+        <div class="impact-desc">WhatsApp booking agent replaced full-time scheduling overhead. Zero missed appointments.</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-val">0</div>
+        <div class="impact-title">Blocking API Calls</div>
+        <div class="impact-desc">Pathlight's async queue eliminated all synchronous LLM timeouts that plagued the v1 architecture.</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-val">&lt;1ms</div>
+        <div class="impact-title">Vector Search Latency</div>
+        <div class="impact-desc">PulseOps TF-IDF engine runs entirely in-memory. No GPU. No network. Sub-millisecond retrieval on CPU.</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-val">96.5%</div>
+        <div class="impact-title">Clinical Recall (Sensitivity)</div>
+        <div class="impact-desc">Heart disease detection model optimized for the correct metric for the domain. Published as patent.</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-val">100%</div>
+        <div class="impact-title">Offline Availability</div>
+        <div class="impact-desc">PulseOps operates without internet connectivity — critical for infrastructure incidents that cause network outages.</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-val">01</div>
+        <div class="impact-title">Published Patent</div>
+        <div class="impact-desc">Research-to-production pipeline in supervised ML cardiac diagnostics. Demonstrates ability to ship at research level.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ EXPERIENCE ═══════════════════════ -->
+<section class="section" id="experience">
+  <div class="container">
+    <div class="reveal" style="margin-bottom: 48px;">
+      <div class="label" style="margin-bottom: 12px;">// 06 — EXPERIENCE</div>
+      <h2 style="font-size: 32px; margin-bottom: 12px;">Engineering Evolution</h2>
+      <p class="muted" style="font-size: 15px; max-width: 560px; line-height: 1.7;">
+        Not a job history. A progression of capabilities unlocked.
+      </p>
+    </div>
+
+    <div style="max-width: 680px;" class="reveal">
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-dot active"></div>
+          <div class="tl-date">2023 → Present</div>
+          <div class="tl-role">AI Engineer</div>
+          <div class="tl-org">Tata Consultancy Services (TCS)</div>
+          <div class="tl-desc">
+            Architecting an enterprise AI-powered internal support agent using LLM-driven RAG over structured SOPs. Leading the pilot deployment to autonomously handle high-volume L1 support queries for an enterprise client — reducing escalation overhead and analyst response time.
+          </div>
+          <span class="tl-capability">→ Capability unlocked: Enterprise LLM Architecture · RAG in Production · Stakeholder Alignment</span>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date">2023</div>
+          <div class="tl-role">Research Assistant (AI/ML)</div>
+          <div class="tl-org">SRM University</div>
+          <div class="tl-desc">
+            Designed and validated a supervised ML pipeline for early-stage cardiac disease detection. Engineered a unified dataset from fragmented clinical sources, implemented cost-sensitive loss functions, and published the methodology as a patent.
+          </div>
+          <span class="tl-capability">→ Capability unlocked: Domain-constrained ML · Clinical Evaluation · Research Publication</span>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date">2019 → 2023</div>
+          <div class="tl-role">B.Tech — Artificial Intelligence & Machine Learning</div>
+          <div class="tl-org">SRM University AP · GPA: 8.2/10</div>
+          <div class="tl-desc">
+            Core curriculum: Machine Learning, Deep Learning, NLP, Distributed Systems, Data Structures & Algorithms. Foundation for every production system built since.
+          </div>
+          <span class="tl-capability">→ Capability unlocked: Mathematical Foundations · Systems Thinking · Research Methodology</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CONTACT ═══════════════════════ -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="reveal" style="margin-bottom: 56px;">
+      <div class="label" style="margin-bottom: 12px;">// 07 — CONTACT</div>
+      <h2 style="font-size: 36px; margin-bottom: 12px;">Let's build enterprise AI together.</h2>
+      <p class="muted" style="font-size: 15px; line-height: 1.7; max-width: 520px;">
+        I'm actively looking for AI Engineering roles where I can architect autonomous systems, build production pipelines, and create measurable business impact.
+      </p>
+    </div>
+
+    <div class="contact-grid reveal">
+      <div>
+        <div class="label" style="margin-bottom: 16px;">Availability</div>
+        <div class="avail-grid">
+          <div class="avail-item"><span class="avail-dot"></span>Immediate Joiner</div>
+          <div class="avail-item"><span class="avail-dot"></span>Remote</div>
+          <div class="avail-item"><span class="avail-dot"></span>Hybrid</div>
+          <div class="avail-item"><span class="avail-dot"></span>On-site</div>
+          <div class="avail-item"><span class="avail-dot"></span>India</div>
+          <div class="avail-item"><span class="avail-dot"></span>Global</div>
+        </div>
+
+        <div style="margin-top: 32px;">
+          <div class="label" style="margin-bottom: 16px;">Open to</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span class="tag accent">AI Engineering</span>
+            <span class="tag accent">ML Engineering</span>
+            <span class="tag accent">LLM Platform Engineering</span>
+            <span class="tag accent">AI Infrastructure</span>
+            <span class="tag accent">Agent Systems</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="label" style="margin-bottom: 16px;">Get in Touch</div>
+        <div class="contact-links">
+          <button class="email-copy" onclick="copyEmail(this)">
+            <span id="email-text">pillajettijayanth@gmail.com</span>
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          </button>
+          <a href="https://www.linkedin.com/in/jayanth-kumar-/?skipRedirect=true" target="_blank" class="contact-link">
+            <span>LinkedIn</span>
+            <span class="contact-link-platform">linkedin.com/in/jayanth-kumar-</span>
           </a>
-          <a href="./Resume/jayanth_resume.pdf" download class="px-6 py-3 border border-zinc-800 text-zinc-300 rounded font-medium hover:bg-zinc-900 hover:text-zinc-100 transition-colors font-mono text-sm flex items-center gap-2">
-            Download Resume
+          <a href="https://github.com/jayanthkumar10" target="_blank" class="contact-link">
+            <span>GitHub</span>
+            <span class="contact-link-platform">github.com/jayanthkumar10</span>
           </a>
-        </div>
-      </div>
-      
-      <!-- Right Terminal/Status -->
-      <div class="opacity-0 animate-fade-up delay-200">
-        <div class="bg-[#111] border border-zinc-800 rounded-lg p-4 font-mono text-sm overflow-hidden shadow-2xl relative">
-          <div class="flex items-center gap-2 mb-4 pb-4 border-b border-zinc-800">
-            <div class="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
-            <div class="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
-            <div class="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50"></div>
-            <span class="text-zinc-600 ml-2 text-xs">system_log.sh</span>
-          </div>
-          <div class="space-y-2 text-zinc-500" id="terminal-logs">
-            <div class="flex gap-4 opacity-0"><span class="text-zinc-700">01</span><span class="text-sky-400">INFO</span><span class="typewriter" data-text="Initializing agent deployment..."></span></div>
-            <div class="flex gap-4 opacity-0"><span class="text-zinc-700">02</span><span class="text-sky-400">INFO</span><span class="typewriter" data-text="Connecting to FAISS vector store... [OK]"></span></div>
-            <div class="flex gap-4 opacity-0"><span class="text-zinc-700">03</span><span class="text-emerald-400">SUCCESS</span><span class="text-zinc-300 typewriter" data-text="RAG pipeline latency: 120ms"></span></div>
-            <div class="flex gap-4 opacity-0"><span class="text-zinc-700">04</span><span class="text-sky-400">INFO</span><span class="typewriter" data-text="Routing incoming IT incident..."></span></div>
-            <div class="flex gap-4 opacity-0"><span class="text-zinc-700">05</span><span class="text-emerald-400">SUCCESS</span><span class="text-zinc-300 typewriter" data-text="Resolution automated (Confidence: 99%)"></span></div>
-            <div class="flex gap-4 mt-4 opacity-0" id="terminal-cursor-line"><span class="text-zinc-700">06</span><span class="text-zinc-400 animate-pulse">_</span></div>
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-[#111] via-transparent to-transparent pointer-events-none"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- IMPACT & VALUE -->
-  <section id="impact" class="py-24 border-t border-zinc-900 bg-zinc-950/50">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="mb-16 reveal">
-        <h2 class="font-mono text-sky-400 text-sm mb-2">// THE VALUE PROPOSITION</h2>
-        <h3 class="text-3xl md:text-4xl font-bold text-zinc-100">Engineering for Business Impact</h3>
-      </div>
-      
-      <div class="grid md:grid-cols-3 gap-8 reveal delay-100">
-        <!-- Metric 1 -->
-        <div class="p-6 border border-zinc-800 rounded-lg bg-[#0A0A0A]">
-          <div class="text-4xl font-bold text-emerald-400 mb-2 font-mono">70%+</div>
-          <h4 class="text-zinc-100 font-semibold mb-2">Manual Effort Reduction</h4>
-          <p class="text-sm text-zinc-400">Automating high-volume workflows via LLM-driven logic, saving thousands of human hours in triage and scheduling.</p>
-        </div>
-        <!-- Metric 2 -->
-        <div class="p-6 border border-zinc-800 rounded-lg bg-[#0A0A0A]">
-          <div class="text-4xl font-bold text-sky-400 mb-2 font-mono">End-to-End</div>
-          <h4 class="text-zinc-100 font-semibold mb-2">Autonomous Pipelines</h4>
-          <p class="text-sm text-zinc-400">From raw data ingestion to vector stores (FAISS) and reasoning agents (LangGraph), I build full-stack AI infrastructure.</p>
-        </div>
-        <!-- Metric 3 -->
-        <div class="p-6 border border-zinc-800 rounded-lg bg-[#0A0A0A]">
-          <a href="https://patents.google.com/" target="_blank" class="block group">
-            <div class="text-4xl font-bold text-zinc-100 mb-2 font-mono group-hover:text-sky-400 transition-colors flex items-center gap-2">01 <svg class="w-6 h-6 text-zinc-600 group-hover:text-sky-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></div>
-            <h4 class="text-zinc-100 font-semibold mb-2 group-hover:text-sky-400 transition-colors">Published Patent</h4>
-            <p class="text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors">Demonstrated ability to innovate at the theoretical level and push supervised ML algorithms to production standards.</p>
+          <a href="https://wa.me/919133985109" target="_blank" class="contact-link">
+            <span>WhatsApp</span>
+            <span class="contact-link-platform">+91 91339 85109</span>
           </a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- PROJECTS / ENGINEERING -->
-  <section id="projects" class="py-24 border-t border-zinc-900">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="mb-16 reveal">
-        <h2 class="font-mono text-sky-400 text-sm mb-2">// ARCHITECTURE & DEPLOYMENTS</h2>
-        <h3 class="text-3xl md:text-4xl font-bold text-zinc-100">Case Studies</h3>
-        <p class="text-zinc-400 mt-4 max-w-2xl">Deep dives into the technical constraints, architectural decisions, and final impact of my core deployments.</p>
-      </div>
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<div class="container">
+  <footer>
+    <span class="footer-text">JAYANTH<span style="color:var(--muted)">.SYS</span> · AI Systems Engineer</span>
+    <span class="footer-text" style="color:var(--border2)">Built to production standards.</span>
+    <a href="./Resume/jayanth_resume.pdf" download class="footer-text" style="text-decoration:none;color:var(--muted);transition:color 0.15s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Download Resume →</a>
+  </footer>
+</div>
 
-      <div class="space-y-6">
-        
-        <!-- PROJECT 1 -->
-        <div class="project-card border border-zinc-800 rounded-lg bg-[#0A0A0A] overflow-hidden reveal">
-          <!-- Header (Clickable) -->
-          <button class="w-full text-left p-6 md:p-8 flex justify-between items-center hover:bg-zinc-900/50 transition-colors focus:outline-none" onclick="toggleProject(this)">
-            <div>
-              <div class="flex gap-3 mb-3 flex-wrap">
-                <span class="px-2 py-1 bg-zinc-800 text-zinc-300 rounded font-mono text-xs">Google Gemini</span>
-                <span class="px-2 py-1 bg-zinc-800 text-zinc-300 rounded font-mono text-xs">Celery Worker</span>
-                <span class="px-2 py-1 bg-zinc-800 text-zinc-300 rounded font-mono text-xs">FastAPI / PostgreSQL</span>
-              </div>
-              <h4 class="text-2xl font-bold text-zinc-100">Pathlight.ai <span class="text-zinc-500 font-medium text-lg hidden sm:inline">(Autonomous Job Tailoring)</span></h4>
-              <p class="text-zinc-500 text-sm mt-1">Autonomous ATS-Optimized Resume Tailoring & Job Co-Pilot.</p>
-            </div>
-            <svg class="chevron w-6 h-6 text-zinc-600 transition-transform duration-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-          </button>
-          <!-- Expanded Content -->
-          <div class="project-content border-t border-zinc-800/50 bg-[#0F0F0F]">
-            <div class="p-6 md:p-8 grid md:grid-cols-2 gap-8">
-              <div>
-                <h5 class="text-zinc-100 font-semibold mb-2">The Problem</h5>
-                <p class="text-zinc-400 text-sm mb-6">Job applications suffer from ATS rejection due to poor keyword matching, and manual tailoring per Job Description is highly unscalable.</p>
-                
-                <h5 class="text-zinc-100 font-semibold mb-2">The Architecture</h5>
-                <p class="text-zinc-400 text-sm mb-4">Built an asynchronous LLM pipeline via FastAPI and Celery. Features live job scraping (Apify), prompt-engineered resume tailoring (Gemini/OpenRouter fallback), and HTML-to-PDF rendering (WeasyPrint). Integrated Langfuse (OpenTelemetry) for cost and token observability.</p>
-                
-                <div class="p-3 bg-emerald-400/10 border border-emerald-400/20 rounded mb-6">
-                  <span class="font-mono text-emerald-400 text-xs font-bold block mb-1">IMPACT METRIC</span>
-                  <span class="text-zinc-300 text-sm">Zero blocking API calls via Redis message queues. Real-time LLM cost monitoring.</span>
-                </div>
-
-                <div class="flex gap-4">
-                  <a href="https://github.com/jayanthkumar10/PathLight.ai" target="_blank" class="text-sky-400 hover:text-sky-300 font-mono text-sm flex items-center gap-2 transition-colors">
-                    [↗ GitHub Repo]
-                  </a>
-                  
-                </div>
-              </div>
-              <div class="bg-[#111] border border-zinc-800 rounded p-6 flex flex-col justify-center items-center font-mono text-sm text-zinc-500">
-                <div class="w-full text-left text-sky-400 mb-2">// Asynchronous Pipeline</div>
-                <div class="flex items-center gap-2 w-full text-zinc-300 border border-zinc-800 p-2 rounded">
-                  <span class="text-emerald-400">FastAPI</span> → <span class="text-zinc-500">Task queued to</span> Redis
-                </div>
-                <div class="w-px h-4 bg-zinc-700 my-1 ml-6 self-start"></div>
-                <div class="flex items-center gap-2 w-full text-zinc-300 border border-zinc-800 p-2 rounded">
-                  <span class="text-emerald-400">Celery Worker</span> → <span class="text-zinc-500">Executes LLM Call</span>
-                </div>
-                <div class="w-px h-4 bg-zinc-700 my-1 ml-6 self-start"></div>
-                <div class="flex items-center gap-2 w-full text-zinc-300 border border-zinc-800 p-2 rounded">
-                  <span class="text-emerald-400">Langfuse</span> → <span class="text-zinc-500">Observability Logs</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PROJECT 2 -->
-        <div class="project-card border border-zinc-800 rounded-lg bg-[#0A0A0A] overflow-hidden reveal">
-          <button class="w-full text-left p-6 md:p-8 flex justify-between items-center hover:bg-zinc-900/50 transition-colors focus:outline-none" onclick="toggleProject(this)">
-            <div>
-              <div class="flex gap-3 mb-3 flex-wrap">
-                <span class="px-2 py-1 bg-zinc-800 text-zinc-300 rounded font-mono text-xs">Machine Learning</span>
-                <span class="px-2 py-1 bg-zinc-800 text-zinc-300 rounded font-mono text-xs">Supervised Algos</span>
-                <span class="px-2 py-1 bg-emerald-400/20 text-emerald-400 border border-emerald-400/30 rounded font-mono text-xs">Published Patent</span>
-              </div>
-              <h4 class="text-2xl font-bold text-zinc-100">Heart Disease Prediction</h4>
-              <p class="text-zinc-500 text-sm mt-1">Supervised ML algorithms applied to unified clinical datasets.</p>
-            </div>
-            <svg class="chevron w-6 h-6 text-zinc-600 transition-transform duration-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-          </button>
-          <div class="project-content border-t border-zinc-800/50 bg-[#0F0F0F]">
-            <div class="p-6 md:p-8 grid md:grid-cols-2 gap-8">
-              <div>
-                <h5 class="text-zinc-100 font-semibold mb-2">The Research</h5>
-                <p class="text-zinc-400 text-sm mb-6">Traditional diagnostics often identify heart disease in later stages. The goal was to engineer a robust ML model capable of early-stage prediction using standard clinical metrics.</p>
-                
-                <h5 class="text-zinc-100 font-semibold mb-2">The Implementation</h5>
-                <p class="text-zinc-400 text-sm mb-6">Aggregated and pre-processed fragmented clinical datasets into a unified structure. Evaluated multiple supervised algorithms (Random Forest, SVM, XGBoost) to optimize for recall (minimizing false negatives in medical diagnostics).</p>
-                
-                <div class="flex gap-4">
-                  <a href="#" class="text-sky-400 hover:text-sky-300 font-mono text-sm flex items-center gap-2 transition-colors">
-                    [↗ View Patent]
-                  </a>
-                  <a href="project-heart-disease.html" class="text-sky-400 hover:text-sky-300 font-mono text-sm flex items-center gap-2 transition-colors">
-                    [↗ Project Details]
-                  </a>
-                </div>
-              </div>
-              <div class="bg-[#111] border border-zinc-800 rounded p-6 font-mono text-xs text-zinc-400 flex flex-col justify-center">
-                <div class="mb-2 text-zinc-500">// Model Performance Metrics</div>
-                <div class="flex justify-between border-b border-zinc-800 py-2">
-                  <span>Accuracy</span><span class="text-zinc-100">94.2%</span>
-                </div>
-                <div class="flex justify-between border-b border-zinc-800 py-2">
-                  <span>Precision</span><span class="text-zinc-100">92.8%</span>
-                </div>
-                <div class="flex justify-between border-b border-zinc-800 py-2">
-                  <span>Recall</span><span class="text-emerald-400 font-bold">96.5%</span>
-                </div>
-                <div class="flex justify-between py-2">
-                  <span>F1-Score</span><span class="text-zinc-100">94.6%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PROJECT 3 -->
-        <div class="project-card border border-zinc-800 rounded-lg bg-[#0A0A0A] overflow-hidden reveal">
-          <button class="w-full text-left p-6 md:p-8 flex justify-between items-center hover:bg-zinc-900/50 transition-colors focus:outline-none" onclick="toggleProject(this)">
-            <div>
-              <div class="flex gap-3 mb-3 flex-wrap">
-                <span class="px-2 py-1 bg-zinc-800 text-zinc-300 rounded font-mono text-xs">Multi-Agent (Ollama)</span>
-                <span class="px-2 py-1 bg-zinc-800 text-zinc-300 rounded font-mono text-xs">Local LLM</span>
-                <span class="px-2 py-1 bg-zinc-800 text-zinc-300 rounded font-mono text-xs">FastAPI</span>
-              </div>
-              <h4 class="text-2xl font-bold text-zinc-100">PulseOps AI</h4>
-              <p class="text-zinc-500 text-sm mt-1">Autonomous Incident Response & Triaging Engine.</p>
-            </div>
-            <svg class="chevron w-6 h-6 text-zinc-600 transition-transform duration-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-          </button>
-          <div class="project-content border-t border-zinc-800/50 bg-[#0F0F0F]">
-            <div class="p-6 md:p-8 grid md:grid-cols-2 gap-8">
-              <div>
-                <h5 class="text-zinc-100 font-semibold mb-2">The Problem</h5>
-                <p class="text-zinc-400 text-sm mb-6">SRE teams face severe alert fatigue and high Mean Time To Resolution (MTTR) due to manual incident triage.</p>
-                
-                <h5 class="text-zinc-100 font-semibold mb-2">The Architecture</h5>
-                <p class="text-zinc-400 text-sm mb-4">A chained multi-agent orchestration pipeline. Utilizes a local <code>llama3.2</code> runner (Ollama) to parse unstructured alarms. Incorporates an in-memory TF-IDF vector database for fast Retrieval-Augmented Generation (RAG) of historical root causes, circumventing GPU/HTTP timeouts.</p>
-
-                <div class="p-3 bg-emerald-400/10 border border-emerald-400/20 rounded mb-6">
-                  <span class="font-mono text-emerald-400 text-xs font-bold block mb-1">IMPACT METRIC</span>
-                  <span class="text-zinc-300 text-sm">"Zero API latency" local inference, automated on-call allocation matrix, dynamic offline NLP parsing.</span>
-                </div>
-                
-                <div class="flex gap-4">
-                  <a href="https://github.com/jayanthkumar10/PulseOps-.git" target="_blank" class="text-sky-400 hover:text-sky-300 font-mono text-sm flex items-center gap-2 transition-colors">
-                    [↗ GitHub Repo]
-                  </a>
-                  <a href="project-pulseops-ai.html" class="text-sky-400 hover:text-sky-300 font-mono text-sm flex items-center gap-2 transition-colors">
-                    [↗ Architecture Specs]
-                  </a>
-                </div>
-              </div>
-              <div class="bg-[#111] border border-zinc-800 rounded p-6 font-mono text-xs text-zinc-400 flex flex-col justify-center">
-                <div class="w-full text-left text-sky-400 mb-2">// Multi-Agent Pipeline</div>
-                <div class="flex justify-between items-center w-full text-zinc-300 border-b border-zinc-800 py-2">
-                  <span>1. Parser Agent</span> <span class="text-zinc-500">Extracts JSON via local Ollama</span>
-                </div>
-                <div class="flex justify-between items-center w-full text-zinc-300 border-b border-zinc-800 py-2">
-                  <span>2. Triage Agent</span> <span class="text-zinc-500">Calculates Priority & SLA Risk</span>
-                </div>
-                <div class="flex justify-between items-center w-full text-zinc-300 border-b border-zinc-800 py-2">
-                  <span>3. RAG Agent</span> <span class="text-emerald-400">TF-IDF Cosine Similarity Search</span>
-                </div>
-                <div class="flex justify-between items-center w-full text-zinc-300 pt-2">
-                  <span>4. Allocation Agent</span> <span class="text-zinc-500">Routes to on-call engineer</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-<!-- PROJECT 4 -->
-        <div class="project-card border border-zinc-800 rounded-lg bg-[#0A0A0A] overflow-hidden reveal">
-          <button class="w-full text-left p-6 md:p-8 flex justify-between items-center hover:bg-zinc-900/50 transition-colors focus:outline-none" onclick="toggleProject(this)">
-            <div>
-              <div class="flex gap-3 mb-3 flex-wrap">
-                <span class="px-2 py-1 bg-zinc-800 text-zinc-300 rounded font-mono text-xs">n8n</span>
-                <span class="px-2 py-1 bg-zinc-800 text-zinc-300 rounded font-mono text-xs">WhatsApp API</span>
-                <span class="px-2 py-1 bg-zinc-800 text-zinc-300 rounded font-mono text-xs">Conversational AI</span>
-              </div>
-              <h4 class="text-2xl font-bold text-zinc-100">WhatsApp Appointment Bot</h4>
-              <p class="text-zinc-500 text-sm mt-1">Production-grade scheduling automation reducing manual effort by 70%.</p>
-            </div>
-            <svg class="chevron w-6 h-6 text-zinc-600 transition-transform duration-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-          </button>
-          <div class="project-content border-t border-zinc-800/50 bg-[#0F0F0F]">
-            <div class="p-6 md:p-8 grid md:grid-cols-2 gap-8">
-              <div>
-                <h5 class="text-zinc-100 font-semibold mb-2">The Problem</h5>
-                <p class="text-zinc-400 text-sm mb-6">Client scheduling required constant human intervention, leading to delays, missed messages, and high operational overhead.</p>
-                
-                <h5 class="text-zinc-100 font-semibold mb-2">The Solution</h5>
-                <p class="text-zinc-400 text-sm mb-4">Built a conversational AI layer directly into WhatsApp via official APIs. Utilized n8n for orchestration, integrating NLP to handle intent recognition, slot availability checking, and calendar booking seamlessly.</p>
-
-                <div class="p-3 bg-emerald-400/10 border border-emerald-400/20 rounded mb-6">
-                  <span class="font-mono text-emerald-400 text-xs font-bold block mb-1">IMPACT METRIC</span>
-                  <span class="text-zinc-300 text-sm">Reduced manual scheduling operations by >70%, improving booking conversion rate.</span>
-                </div>
-                
-                <div class="flex gap-4">
-                  <a href="project-whatsapp-bot.html" class="text-sky-400 hover:text-sky-300 font-mono text-sm flex items-center gap-2 transition-colors">
-                    [↗ View Architecture]
-                  </a>
-                </div>
-              </div>
-              <div class="bg-[#111] border border-zinc-800 rounded p-6 font-mono text-xs text-zinc-400 flex flex-col gap-2 justify-center">
-                <div class="flex gap-2 items-center"><span class="text-zinc-600">[User]</span> "Can I book a slot for tomorrow?"</div>
-                <div class="pl-4 border-l-2 border-zinc-800 ml-4 py-2 flex flex-col gap-2">
-                  <div class="text-sky-400">→ Trigger: Webhook (WhatsApp API)</div>
-                  <div class="text-emerald-400">→ Intent: schedule_appointment</div>
-                  <div class="text-zinc-500">→ Action: Query Calendar API</div>
-                </div>
-                <div class="flex gap-2 items-center"><span class="text-sky-400">[Bot]</span> "I have 10:00 AM and 2:00 PM available. Which works best?"</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-              </div>
-    </div>
-  </section>
-
-  <!-- EXPERIENCE -->
-  <section id="experience" class="py-24 border-t border-zinc-900 bg-zinc-950/50">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="mb-16 reveal">
-        <h2 class="font-mono text-sky-400 text-sm mb-2">// CAREER TIMELINE</h2>
-        <h3 class="text-3xl md:text-4xl font-bold text-zinc-100">Experience & Education</h3>
-      </div>
-
-      <div class="max-w-3xl relative border-l border-zinc-800 ml-4 md:ml-0">
-        
-        <!-- Item 1 -->
-        <div class="mb-12 pl-8 relative reveal">
-          <div class="absolute w-3 h-3 bg-zinc-100 rounded-full -left-[6.5px] top-1.5 outline outline-4 outline-[#0A0A0A]"></div>
-          <div class="font-mono text-sky-400 text-sm mb-1">Present</div>
-          <h4 class="text-xl font-bold text-zinc-100">AI Engineer</h4>
-          <div class="text-zinc-500 text-sm mb-4">Tata Consultancy Services</div>
-          <p class="text-zinc-400 text-sm leading-relaxed">
-            Architecting an AI-powered internal support chatbot utilizing LLM-driven logic and Retrieval-Augmented Generation (RAG) over structured Standard Operating Procedures (SOPs). Driving the pilot deployment to autonomously handle high-volume support queries, significantly reducing L1 support overhead.
-          </p>
-        </div>
-
-        <!-- Item 2 -->
-        <div class="mb-12 pl-8 relative reveal delay-100">
-          <div class="absolute w-3 h-3 bg-zinc-800 rounded-full -left-[6.5px] top-1.5 outline outline-4 outline-[#0A0A0A]"></div>
-          <div class="font-mono text-zinc-500 text-sm mb-1">2023</div>
-          <h4 class="text-xl font-bold text-zinc-100">Research Assistant</h4>
-          <div class="text-zinc-500 text-sm mb-4">SRM University</div>
-          <p class="text-zinc-400 text-sm leading-relaxed">
-            Engineered a unified clinical dataset and applied Supervised Machine Learning algorithms for early-stage Heart Disease Prediction, resulting in a successfully published patent.
-          </p>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="pl-8 relative reveal delay-200">
-          <div class="absolute w-3 h-3 bg-zinc-800 rounded-full -left-[6.5px] top-1.5 outline outline-4 outline-[#0A0A0A]"></div>
-          <div class="font-mono text-zinc-500 text-sm mb-1">2023</div>
-          <h4 class="text-xl font-bold text-zinc-100">B.Tech, Artificial Intelligence & Machine Learning</h4>
-          <div class="text-zinc-500 text-sm mb-2">SRM University AP</div>
-          <p class="text-zinc-400 text-sm">Graduated with an 8.2/10 GPA.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="py-32 border-t border-zinc-900 bg-[#0A0A0A]">
-    <div class="max-w-4xl mx-auto px-6 text-center reveal">
-      <h2 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-6 tracking-tight">Let's build something.</h2>
-      <p class="text-zinc-400 text-lg mb-12">Currently open for full-time roles in AI Engineering and Systems Architecture.</p>
-      
-      <button onclick="copyEmailFinal()" class="group inline-flex items-center gap-3 px-8 py-4 bg-zinc-100 text-zinc-900 font-semibold rounded hover:bg-white transition-all transform active:scale-95 shadow-xl">
-        <span id="copy-btn-text-final">pillajettijayanth@gmail.com</span>
-        <svg class="w-5 h-5 text-zinc-500 group-hover:text-zinc-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-      </button>
-
-      <div class="mt-16 flex justify-center gap-8 text-sm font-mono text-zinc-500">
-        <a href="https://www.linkedin.com/in/jayanth-kumar-/?skipRedirect=true" target="_blank" class="hover:text-zinc-100 transition-colors">LinkedIn</a>
-        <a href="https://github.com/jayanthkumar10" target="_blank" class="hover:text-zinc-100 transition-colors">GitHub</a>
-        <a href="https://wa.me/919133985109" target="_blank" class="hover:text-zinc-100 transition-colors">WhatsApp</a>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    // Intersection Observer for Reveal Animations
-    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    // Project Accordion Logic
-    function toggleProject(button) {
-      const card = button.closest('.project-card');
-      const isExpanded = card.classList.contains('expanded');
-      
-      // Close all others
-      document.querySelectorAll('.project-card').forEach(c => {
-        c.classList.remove('expanded');
-      });
-
-      // Toggle current
-      if (!isExpanded) {
-        card.classList.add('expanded');
-      }
-    }
-
-    // Modern Clipboard API
-    async function copyEmailFinal() {
-      const email = "pillajettijayanth@gmail.com";
-      const btnText = document.getElementById('copy-btn-text-final');
-      
-      try {
-        await navigator.clipboard.writeText(email);
-        const originalText = btnText.innerText;
-        btnText.innerText = 'Copied to Clipboard!';
-        setTimeout(() => { btnText.innerText = originalText; }, 2000);
-      } catch (err) {
-        console.error('Failed to copy', err);
-      }
-    }
-
-    // Terminal Typing Effect
-    document.addEventListener('DOMContentLoaded', () => {
-      const logs = document.querySelectorAll('#terminal-logs > div:not(#terminal-cursor-line)');
-      const cursorLine = document.getElementById('terminal-cursor-line');
-      
-      let currentLog = 0;
-      
-      function typeWriter(element, text, i, cb) {
-        if (i < text.length) {
-          element.innerHTML += text.charAt(i);
-          setTimeout(() => typeWriter(element, text, i + 1, cb), Math.random() * 30 + 10);
-        } else {
-          setTimeout(cb, 150);
-        }
-      }
-
-      function processNextLog() {
-        if (currentLog < logs.length) {
-          const logDiv = logs[currentLog];
-          logDiv.classList.remove('opacity-0');
-          const typeTarget = logDiv.querySelector('.typewriter');
-          if (typeTarget) {
-            const text = typeTarget.getAttribute('data-text');
-            typeTarget.innerHTML = '';
-            typeWriter(typeTarget, text, 0, processNextLog);
-          } else {
-            processNextLog();
-          }
-          currentLog++;
-        } else {
-          if (cursorLine) cursorLine.classList.remove('opacity-0');
-        }
-      }
-
-      setTimeout(processNextLog, 1200);
+<!-- ═══════════════════════ SCRIPTS ═══════════════════════ -->
+<script>
+  // ── Reveal on scroll ──
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
     });
-  </script>
+  }, { threshold: 0.08 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // ── Active nav highlight ──
+  const sections = document.querySelectorAll('section[id], div[id="systems"], div[id="philosophy"]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.style.color = '');
+        const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if (active) active.style.color = 'var(--accent)';
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('section[id]').forEach(s => sectionObserver.observe(s));
+
+  // ── Agent node animation ──
+  const nodes = document.querySelectorAll('.agent-node');
+  const lines = document.querySelectorAll('#agent-svg line');
+  let currentStep = 0;
+  const nodeOrder = ['n-user','n-planner','n-supervisor','n-memory','n-retriever','n-reasoner','n-router','n-output','n-eval','n-response'];
+  const lineOrder = ['l1','l2','l3','l4','l5','l6','l7','l8','l9','l10'];
+
+  function resetAnimation() {
+    nodes.forEach(n => {
+      const rect = n.querySelector('rect');
+      if (rect) {
+        rect.setAttribute('stroke', '#1c2128');
+        rect.setAttribute('stroke-width', '1');
+      }
+    });
+    lines.forEach(l => { l.setAttribute('opacity', '0.2'); });
+    currentStep = 0;
+  }
+
+  function animateStep() {
+    if (currentStep >= nodeOrder.length) {
+      setTimeout(() => { resetAnimation(); setTimeout(runAnimation, 800); }, 1200);
+      return;
+    }
+    const nodeId = nodeOrder[currentStep];
+    const lineId = lineOrder[currentStep - 1];
+    const node = document.getElementById(nodeId);
+    if (node) {
+      const rect = node.querySelector('rect');
+      if (rect) {
+        rect.setAttribute('stroke', '#38bdf8');
+        rect.setAttribute('stroke-width', '1.5');
+        rect.setAttribute('filter', 'url(#glow)');
+        setTimeout(() => {
+          rect.setAttribute('stroke', '#1c2128');
+          rect.setAttribute('stroke-width', '1');
+          rect.removeAttribute('filter');
+        }, 600);
+      }
+    }
+    if (lineId) {
+      const line = document.getElementById(lineId);
+      if (line) {
+        line.setAttribute('opacity', '0.8');
+        setTimeout(() => line.setAttribute('opacity', '0.3'), 800);
+      }
+    }
+    currentStep++;
+    setTimeout(animateStep, 380);
+  }
+
+  function runAnimation() { resetAnimation(); setTimeout(animateStep, 400); }
+  setTimeout(runAnimation, 1200);
+
+  // ── Copy email ──
+  async function copyEmail(btn) {
+    const email = 'pillajettijayanth@gmail.com';
+    try {
+      await navigator.clipboard.writeText(email);
+      const span = document.getElementById('email-text');
+      const orig = span.textContent;
+      span.textContent = '✓ Copied to clipboard';
+      setTimeout(() => span.textContent = orig, 2000);
+    } catch(e) {}
+  }
+</script>
+
 </body>
 </html>
