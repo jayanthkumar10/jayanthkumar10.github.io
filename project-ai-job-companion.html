@@ -27,21 +27,27 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg:          #06050a;
-      --bg-mesh:     radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.04) 0px, transparent 50%),
-                     radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.03) 0px, transparent 50%);
+      --bg:          #050505;
+      --bg-mesh:     radial-gradient(at 0% 0%, rgba(129, 140, 248, 0.05) 0px, transparent 50%),
+                     radial-gradient(at 100% 100%, rgba(192, 132, 252, 0.04) 0px, transparent 50%);
       --surface:     rgba(15, 12, 25, 0.45);
       --surface-hov: rgba(22, 18, 36, 0.65);
-      --border:      rgba(255, 255, 255, 0.03);
-      --border-h:    rgba(255, 255, 255, 0.08);
-      --text:        #f8fafc;
-      --text2:       #94a3b8;
-      --text3:       #576b85;
-      --accent:      #0ea5e9;
-      --green:       #10b981;
+      --border:      rgba(255, 255, 255, 0.04);
+      --border-h:    rgba(255, 255, 255, 0.1);
+      --text:        #ffffff;
+      --text2:       #a1a1aa;
+      --text3:       #71717a;
+      --accent:      #818cf8;
       --sans:        'Inter', system-ui, sans-serif;
       --mono:        'JetBrains Mono', monospace;
-      --glass-bg:    rgba(6, 5, 10, 0.75);
+      --glass-bg:    rgba(5, 5, 5, 0.75);
+      --grad-primary: linear-gradient(to right, #818cf8, #c084fc);
+    }
+    
+    @keyframes textShine {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     html { background: var(--bg); color: var(--text2); font-family: var(--sans); font-size: 16px; scroll-behavior: smooth; }
     body { min-height: 100vh; overflow-x: hidden; background-image: var(--bg-mesh); background-attachment: fixed; }
@@ -59,11 +65,15 @@
 
     /* GRADIENTS */
     .grad-text {
-      background: linear-gradient(135deg, var(--text) 30%, var(--text3) 100%);
+      background: linear-gradient(135deg, var(--text) 20%, var(--text3) 80%);
+      background-size: 200% auto;
+      animation: textShine 4s linear infinite;
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .accent-grad-text {
-      background: linear-gradient(135deg, var(--text) 30%, var(--accent) 100%);
+      background: linear-gradient(135deg, var(--text) 20%, var(--accent) 80%);
+      background-size: 200% auto;
+      animation: textShine 4s linear infinite;
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .tech-highlight { color: var(--accent); font-weight: 500; }
@@ -93,14 +103,14 @@
       letter-spacing: 0.01em; position: relative; overflow: hidden;
     }
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent) 0%, #0284c7 100%);
-      color: #040408; font-weight: 600;
-      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.2);
+      background: #ffffff;
+      color: #000000; font-weight: 600;
+      box-shadow: 0 4px 14px 0 rgba(255, 255, 255, 0.1);
     }
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(56, 189, 248, 0.35);
-      color: #fff;
+      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
+      background: #f4f4f5;
     }
     .btn-outline {
       background: rgba(255, 255, 255, 0.01); border: 1px solid var(--border-h); color: var(--text); backdrop-filter: blur(10px);
