@@ -137,18 +137,12 @@
       border-radius: 20px; overflow: hidden; border: 1px solid var(--border);
       background: var(--surface); box-shadow: 0 30px 60px rgba(0,0,0,0.4);
       display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease;
+      transition: border-color 0.3s ease;
     }
-    .video-container:hover { transform: translateY(-4px); border-color: var(--border-h); }
-    .video-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: opacity 0.3s ease; }
-    .video-container:hover .video-poster { opacity: 0.8; }
-    .play-btn {
-      position: relative; z-index: 2; width: 72px; height: 72px; border-radius: 50%;
-      background: rgba(8, 7, 13, 0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15);
-      display: flex; align-items: center; justify-content: center; color: var(--text);
-      transition: all 0.3s ease;
+    .video-container:hover { border-color: var(--border-h); }
+    .video-element {
+      width: 100%; height: 100%; object-fit: cover; background: #000;
     }
-    .video-container:hover .play-btn { background: var(--text); color: var(--bg); transform: scale(1.05); }
 
     /* SECTIONS */
     .section { margin-bottom: 100px; }
@@ -229,11 +223,11 @@
     </header>
 
     <!-- VIDEO DEMO -->
-    <div class="video-container" onclick="alert('Demo video playback would initialize here.')">
-      <img src="./assets/pulseops_ui.png" alt="PulseOps Demo" class="video-poster">
-      <div class="play-btn">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-      </div>
+    <div class="video-container">
+      <video controls poster="./images/pulseops_ai.png" class="video-element">
+        <source src="./Videos/project-pulseops-ai.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
     </div>
   </div>
 
